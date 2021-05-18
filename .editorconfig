@@ -1,0 +1,61 @@
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
+root = true
+
+# C# files
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = true
+
+# Code style
+csharp_for_built_in_types = use_explicit_type
+csharp_for_simple_types = use_explicit_type
+csharp_for_other_types = use_explicit_type
+csharp_instance_members_qualify_members = property
+
+# Spaces
+csharp_extra_spaces = remove_all
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_keep_user_linebreaks = false
+csharp_special_else_if_treatment = true
+csharp_insert_final_newline = true
+csharp_keep_existing_arrangement = false
+csharp_place_attribute_on_same_line = false
+csharp_place_accessor_attribute_on_same_line = if_owner_is_single_line
+
+csharp_continuous_indent_multiplier = 1
+csharp_indent_nested_usings_stmt = true
+csharp_indent_method_decl_pars = inside
+csharp_indent_invocation_pars = inside
+csharp_indent_pars = inside
+
+csharp_keep_blank_lines_in_declarations = 1
+csharp_blank_lines_after_start_comment = 0
+csharp_blank_lines_between_using_groups = 0
+csharp_blank_lines_after_using_list = 1
+csharp_blank_lines_around_namespace = 1
+csharp_blank_lines_inside_namespace = 1
+csharp_blank_lines_around_type = 1
+csharp_blank_lines_around_single_line_type = 1
+csharp_blank_lines_inside_type = 0
+csharp_blank_lines_around_field = 1
+csharp_blank_lines_around_single_line_field = 1
+csharp_blank_lines_around_property = 1
+csharp_blank_lines_around_single_line_property = 1
+csharp_blank_lines_around_auto_property = 1
+csharp_blank_lines_around_single_line_auto_property = 1
+csharp_blank_lines_around_accessor = 0
+csharp_blank_lines_around_single_line_accessor = 0
+csharp_blank_lines_around_invocable = 1
+csharp_keep_blank_lines_in_code = 1
+csharp_remove_blank_lines_near_braces_in_code = true
+csharp_blank_lines_around_local_method = 1
+csharp_blank_lines_around_single_line_local_method = 1
