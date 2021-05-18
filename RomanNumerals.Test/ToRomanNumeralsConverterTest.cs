@@ -19,5 +19,14 @@ namespace RomanNumerals.Test
         {
             _converter.Convert(0).Should().Be("");
         }
+
+        [Theory]
+        [InlineData(1, "I")]
+        [InlineData(5, "V")]
+        [InlineData(10, "X")]
+        public void Should_convert_symbols(int arabic, string roman)
+        {
+            _converter.Convert(arabic).Should().Be(roman);
+        }
     }
 }
