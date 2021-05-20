@@ -3,7 +3,7 @@
 namespace Bowling
 {
 
-    public class Class1
+    public class Bowling
     {
     }
 
