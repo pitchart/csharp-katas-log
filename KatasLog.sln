@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumeral", "RomanNumera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bowling", "Bowling\Bowling.csproj", "{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bowling.Test", "Bowling.Test\Bowling.Test.csproj", "{DEB35960-84CB-4485-A9A3-D30147578CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEB35960-84CB-4485-A9A3-D30147578CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB35960-84CB-4485-A9A3-D30147578CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB35960-84CB-4485-A9A3-D30147578CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB35960-84CB-4485-A9A3-D30147578CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
