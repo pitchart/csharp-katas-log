@@ -1,4 +1,5 @@
-# Bowling game Kata
+# Bowling Game Kata
+SOLID Principles | TDD | Experienced | Outside-In | Software-Design
 
 ## Règles du bowling
 * Le jeu se déroule en 10 tours.
@@ -22,8 +23,3 @@ Ecrire une classe Game qui a deux méthodes :
 ## Informations supplémentaires
 * On considère que la méthode score ne sera appelée qu'à la fin de la partie
 * On considère que le nombre de lancers effectués avant d'appeler la méthode score est toujous valide.
-
-
-# Vidéo
-
-[Retrouver en vidéo sur youtube la réalisation de ce kata](https://youtu.be/P6XNwscr0qI)
