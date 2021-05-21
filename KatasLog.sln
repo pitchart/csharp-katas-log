@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumeral", "RomanNumeral\RomanNumeral.csproj", "{762E118B-6723-4A65-BCCA-2D343F3D74D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumeral", "RomanNumeralKata\RomanNumeral\RomanNumeral.csproj", "{762E118B-6723-4A65-BCCA-2D343F3D74D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumeralKata\RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bowling", "BowlingKata\Bowling\Bowling.csproj", "{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}"
 EndProject
