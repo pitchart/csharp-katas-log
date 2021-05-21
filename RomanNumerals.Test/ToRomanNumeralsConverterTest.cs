@@ -42,5 +42,24 @@ namespace RomanNumerals.Test
         {
             _converter.Convert(arabic).Should().Be(roman);
         }
+
+        [Theory]
+        [InlineData(1666, "MDCLXVI")]
+        [InlineData(6, "VI")]
+        public void Should_convert_added_symbol(int arabic, string roman)
+        {
+            _converter.Convert(arabic).Should().Be(roman);
+        }
+
+        [Theory]
+        [InlineData(4, "IV")]
+        [InlineData(9, "IX")]
+        [InlineData(400, "CD")]
+        [InlineData(990, "CMXC")]
+        [InlineData(40, "XL")]
+        public void Should_convert_substracted_symbol(int arabic, string roman)
+        {
+            _converter.Convert(arabic).Should().Be(roman);
+        }
     }
 }
