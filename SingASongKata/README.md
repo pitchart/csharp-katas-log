@@ -8,3 +8,10 @@ No documentation or tests were provided by the previous developer.
 
 Refactor the code to allow for the customer's needs.
 _Remember: refactoring can only be done in the presence of tests that are passing, and after refactoring the tests still pass!_
+
+## How to sing
+
+```bash
+cd Song
+dotnet run
+```
