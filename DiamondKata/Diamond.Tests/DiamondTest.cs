@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 
@@ -39,7 +40,16 @@ namespace Diamond.Tests
             var diamond = new Diamond();
             var print = diamond.Print('B');
 
-            Assert.Equal("ABB", print);
+            Assert.Equal($"A{Environment.NewLine}B B{Environment.NewLine}", print);
+        }
+
+        [Fact]
+        void ShouldBeDiamond_WhenInputIsC()
+        {
+            var diamond = new Diamond();
+            var print = diamond.Print('C');
+
+            Assert.Equal($"A{Environment.NewLine}B B{Environment.NewLine}C   C{Environment.NewLine}", print);
         }
 
     }
