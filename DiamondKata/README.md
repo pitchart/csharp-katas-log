@@ -20,14 +20,15 @@ C   C         C   C
                 A
 ```
 
-## The classical way
-
-> A -> B -> C, easy as do ré mi !
-
 ## The test recycling way
 
 > Decompose the diamond problem into smaller constituent parts
 > E.g. for B: "AB" -> "ABB" -> "A\nBB\n" ...
+
+## The TDDist way
+
+> A -> B -> C, easy as do ré mi ?
+
 
 ## The functional way
 
