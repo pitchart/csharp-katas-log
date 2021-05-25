@@ -11,13 +11,13 @@ Given a letter, print a diamond starting with ‘A’ with the supplied letter a
 For example: print-diamond ‘C’ prints
 
 ```
-  A             A
- B B           B B
-C   C         C   C
- B B         D     D
-  A           C   C
-               B B
-                A
+A    A      A         A
+    B B    B B       B B
+     A    C   C     C   C
+           B B     D     D
+            A       C   C
+                     B B
+                      A
 ```
 
 ## The test recycling way
