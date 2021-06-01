@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Diamond
 {
@@ -9,33 +11,45 @@ namespace Diamond
             if (char.IsLetter(letter))
             {
                 var current = 'A';
-                var result = "";
+                var result = new List<string>();
 
                 letter = char.ToUpper(letter);
-                var range = 0;
+                var innerSpace = 0;
+                var outerSpace = 0;
 
                 while (current.CompareTo(letter) <= 0)
                 {
-                    range = current.CompareTo('A') - 1;
-                    
+                    var line = "";
+                    innerSpace = current.CompareTo('A') - 1;
+                    outerSpace = Math.Abs(current.CompareTo(letter));
+
+                    line = SpacesString(outerSpace);
+                    line += current.ToString();
+
                     if (current.CompareTo('A') != 0)
                     {
-                        result += current.ToString();
-                        result += " ";
-                        result = result.PadRight(2 * range, 'Z');
+                        line += SpacesString((2 * innerSpace) + 1);
+                        line += current.ToString();
                     }
-                    result += current.ToString();
-                    result += Environment.NewLine;
+
+                    line += SpacesString(outerSpace);
+
+                    result.Add(line);
                     current++;
                 }
 
-                return result;
+                result = result.Concat(result.ToArray().Reverse().Skip(1)).ToList();
+
+                return String.Join(Environment.NewLine, result);
             }
 
             return string.Empty;
         }
+
+        private string SpacesString(int number)
+        {
+            return string.Empty.PadLeft(number, ' ');
+        }
+
     }
-
-
-
 }

@@ -40,7 +40,10 @@ namespace Diamond.Tests
             var diamond = new Diamond();
             var print = diamond.Print('B');
 
-            Assert.Equal($"A{Environment.NewLine}B B{Environment.NewLine}", print);
+            Assert.Equal(            $" A " +
+                $"{Environment.NewLine}B B" +
+                $"{Environment.NewLine} A "
+                , print);
         }
 
         [Fact]
@@ -49,7 +52,28 @@ namespace Diamond.Tests
             var diamond = new Diamond();
             var print = diamond.Print('C');
 
-            Assert.Equal($"A{Environment.NewLine}B B{Environment.NewLine}C   C{Environment.NewLine}", print);
+            Assert.Equal(            $"  A  " +
+                $"{Environment.NewLine} B B " +
+                $"{Environment.NewLine}C   C" +
+                $"{Environment.NewLine} B B " +
+                $"{Environment.NewLine}  A  "
+                , print);
+        }
+
+        [Fact]
+        void ShouldBeDiamond_WhenInputIsD()
+        {
+            var diamond = new Diamond();
+            var print = diamond.Print('D');
+
+            Assert.Equal(            $"   A   " +
+                $"{Environment.NewLine}  B B  " +
+                $"{Environment.NewLine} C   C " +
+                $"{Environment.NewLine}D     D" +
+                $"{Environment.NewLine} C   C " +
+                $"{Environment.NewLine}  B B  " +
+                $"{Environment.NewLine}   A   "
+                , print);
         }
 
     }
