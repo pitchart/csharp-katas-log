@@ -5,12 +5,12 @@ using Xunit;
 namespace Diamond.Tests
 {
 
-    public class DiamondTest
+    public class DiamondRecycledUnitTest
     {
         [Fact]
         public void ShouldBeEmpty_WhenInputISNotLetter()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('*');
 
             Assert.Equal(string.Empty, print);
@@ -19,7 +19,7 @@ namespace Diamond.Tests
         [Fact]
         void ShouldBeLetterA_WhenInputIsA()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('A');
 
             Assert.Equal("A", print);
@@ -28,7 +28,7 @@ namespace Diamond.Tests
         [Fact]
         void ShouldprintUpperCaseDiamond_WhenInputIsLowerCase()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('a');
 
             Assert.Equal("A", print);
@@ -37,7 +37,7 @@ namespace Diamond.Tests
         [Fact]
         void ShouldBeLetterA_WhenInputIsB()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('B');
 
             Assert.Equal(            $" A " +
@@ -49,7 +49,7 @@ namespace Diamond.Tests
         [Fact]
         void ShouldBeDiamond_WhenInputIsC()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('C');
 
             Assert.Equal(            $"  A  " +
@@ -63,7 +63,7 @@ namespace Diamond.Tests
         [Fact]
         void ShouldBeDiamond_WhenInputIsD()
         {
-            var diamond = new Diamond();
+            var diamond = new DiamondRecycledVersion();
             var print = diamond.Print('D');
 
             Assert.Equal(            $"   A   " +

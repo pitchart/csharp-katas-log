@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Diamond
 {
-    public class Diamond
+    public class DiamondRecycledVersion
     {
         public string Print(char letter)
         {
