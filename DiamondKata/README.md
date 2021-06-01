@@ -18,7 +18,7 @@ A    A      A         A
             A       C   C
                      B B
                       A
-```
+
 
 ## The test recycling way
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace Diamond
 {
 
@@ -7,7 +5,12 @@ namespace Diamond
     {
         public string Print(char letter)
         {
-            throw new NotImplementedException();
+            if (char.ToUpper(letter) == 'A')
+            {
+                return "A";
+            }
+
+            return string.Empty;
         }
     }
 
