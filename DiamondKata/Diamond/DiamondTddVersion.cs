@@ -1,3 +1,5 @@
+using System;
+
 namespace Diamond
 {
 
@@ -5,12 +7,19 @@ namespace Diamond
     {
         public string Print(char letter)
         {
-            if (char.ToUpper(letter) == 'A')
+            if(!char.IsLetter(letter))
+                return string.Empty;
+            
+            letter = char.ToUpper(letter);
+            var compare = letter.CompareTo('A');
+            var diamond = new string[(compare * 2) + 1];
+
+            for (int i = 0; i < (compare*2)+1; i++)
             {
-                return "A";
+                diamond[i] = "A";
             }
 
-            return string.Empty;
+            return string.Join(Environment.NewLine, diamond);
         }
     }
 

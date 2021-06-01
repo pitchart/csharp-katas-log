@@ -33,6 +33,9 @@ namespace Diamond.Tests
 
         [Theory]
         [InlineData('A', 1)]
+        [InlineData('B', 3)]
+        [InlineData('C', 5)]
+        [InlineData('D', 7)]
         void ShouldHave2TimesLetterPositionMinus1AsLineNumber(char letter, int lineNumber)
         {
             var print = _diamond.Print(letter);
