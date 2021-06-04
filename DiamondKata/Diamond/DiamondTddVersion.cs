@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Diamond
 {
@@ -12,12 +13,16 @@ namespace Diamond
             
             letter = char.ToUpper(letter);
             var compare = letter.CompareTo('A');
-            var diamond = new string[(compare * 2) + 1];
+            var diamond = new string[(compare) + 1];
 
-            for (int i = 0; i < (compare*2)+1; i++)
+            var current = 'A';
+            for (int i = 0; i < (compare)+1; i++)
             {
-                diamond[i] = "A";
+                diamond[i] = current.ToString();
+                current++;
             }
+
+            diamond = diamond.Concat(diamond.Reverse().Skip(1)).ToArray();
 
             return string.Join(Environment.NewLine, diamond);
         }

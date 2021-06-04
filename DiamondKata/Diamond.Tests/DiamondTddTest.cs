@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Diamond.Tests
@@ -43,7 +44,37 @@ namespace Diamond.Tests
 
             Assert.Equal(lineNumber, lines.Length);
         }
-            
-    }
 
+        [Theory]
+        [InlineData('A')]
+        [InlineData('B')]
+        [InlineData('C')]
+        void ShouldHaveIncreasingLettersUntilInputLetter(char letter)
+        {
+            var print = _diamond.Print(letter);
+
+            var lines = print.Split(Environment.NewLine).Take(letter - 'A' + 1).ToArray();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Assert.Contains((char)('A' + i), lines[i].ToCharArray());
+            }
+        }
+
+        [Theory]
+        [InlineData('A')]
+        [InlineData('B')]
+        [InlineData('C')]
+        void ShouldHaveDecreasingLettersFromInputLetter(char letter)
+        {
+            var print = _diamond.Print(letter);
+
+            var lines = print.Split(Environment.NewLine).Skip(letter - 'A').ToArray();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Assert.Contains((char)(letter - i), lines[i].ToCharArray());
+            }
+        }
+    }
 }
