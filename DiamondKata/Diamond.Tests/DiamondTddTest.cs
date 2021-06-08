@@ -100,13 +100,43 @@ namespace Diamond.Tests
 
             var spaceCount = 1;
 
-            Assert.All(lines, line => { 
+            Assert.All(lines, line =>
+            {
                 Assert.Equal(spaceCount, line.Trim().ToCharArray().Count(char.IsWhiteSpace));
 
                 if (spaceCount < maxSpaces)
                     spaceCount += 2;
                 else
                     spaceCount -= 2;
+            });
+        }
+
+        [Theory]
+        [InlineData('A', 0)]
+        [InlineData('B', 1)]
+        [InlineData('C', 2)]
+        void ShouldHaveSpaceOutsideletter(char letter, int maxSpaces)
+        {
+            var print = _diamond.Print(letter);
+
+            var lines = print.Split(Environment.NewLine).ToArray();
+
+            bool increase = false;
+
+            Assert.All(lines, line =>
+            {
+                Assert.Equal(maxSpaces, line.TakeWhile(c => !char.IsLetter(c)).Count());
+                Assert.Equal(maxSpaces, line.ToCharArray().Reverse().TakeWhile(c => !char.IsLetter(c)).Count());
+
+                if (maxSpaces == 0)
+                {
+                    increase = true;
+                }
+
+                if (increase)
+                    maxSpaces += 1;
+                else
+                    maxSpaces -= 1;
             });
         }
     }
