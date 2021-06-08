@@ -76,5 +76,38 @@ namespace Diamond.Tests
                 Assert.Contains((char)(letter - i), lines[i].ToCharArray());
             }
         }
+
+        [Theory]
+        [InlineData('B')]
+        [InlineData('C')]
+        void ShouldHaveDoubleLetterExceptFirstAndLastLine(char letter)
+        {
+            var print = _diamond.Print(letter);
+
+            var lines = print.Split(Environment.NewLine).Skip(1).SkipLast(1).ToArray();
+
+            Assert.All(lines, line => { Assert.Equal(2, line.Replace(" ", "").ToCharArray().Length); });
+        }
+
+        [Theory]
+        [InlineData('B', 1)]
+        [InlineData('C', 3)]
+        void ShouldHaveSpaceInnerDoubleLetter(char letter, int maxSpaces)
+        {
+            var print = _diamond.Print(letter);
+
+            var lines = print.Split(Environment.NewLine).Skip(1).SkipLast(1).ToArray();
+
+            var spaceCount = 1;
+
+            Assert.All(lines, line => { 
+                Assert.Equal(spaceCount, line.Trim().ToCharArray().Count(char.IsWhiteSpace));
+
+                if (spaceCount < maxSpaces)
+                    spaceCount += 2;
+                else
+                    spaceCount -= 2;
+            });
+        }
     }
 }

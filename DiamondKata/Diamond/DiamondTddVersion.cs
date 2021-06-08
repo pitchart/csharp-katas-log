@@ -8,17 +8,23 @@ namespace Diamond
     {
         public string Print(char letter)
         {
-            if(!char.IsLetter(letter))
+            if (!char.IsLetter(letter))
                 return string.Empty;
-            
+
             letter = char.ToUpper(letter);
             var compare = letter.CompareTo('A');
             var diamond = new string[(compare) + 1];
 
             var current = 'A';
-            for (int i = 0; i < (compare)+1; i++)
+            for (int i = 0; i < (compare) + 1; i++)
             {
                 diamond[i] = current.ToString();
+
+                if (current != 'A') {
+                    diamond[i] += string.Empty.PadRight((2 * i) - 1, ' ');
+                    diamond[i] += current.ToString(); 
+                }
+
                 current++;
             }
 
