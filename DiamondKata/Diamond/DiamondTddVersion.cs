@@ -18,12 +18,17 @@ namespace Diamond
             var current = 'A';
             for (int i = 0; i < (compare) + 1; i++)
             {
-                diamond[i] = current.ToString();
+                diamond[i] = string.Empty.PadRight(compare - i, ' ');
 
-                if (current != 'A') {
+                diamond[i] += current.ToString();
+
+                if (current != 'A')
+                {
                     diamond[i] += string.Empty.PadRight((2 * i) - 1, ' ');
-                    diamond[i] += current.ToString(); 
+                    diamond[i] += current.ToString();
                 }
+
+                diamond[i] += string.Empty.PadRight(compare - i, ' ');
 
                 current++;
             }
