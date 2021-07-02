@@ -26,5 +26,19 @@ namespace Diamond.Tests
 
             d.Generate('A').Should().Be("A");
         }
+
+        [Fact]
+        public void B_ShouldPrintTheGoodResult()
+        {
+            // ARRANGE
+            var diamond = new Diamond();
+            
+            // ACT
+            string result = diamond.Generate('B');
+
+            // ASSERT
+            result.Should().Be("AB");
+
+        }
     }
 }

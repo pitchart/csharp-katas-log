@@ -7,9 +7,14 @@ namespace Diamond
     {
         public string Generate(char letter)
         {
-            if (letter.Equals('A')) return "A";
-
-            throw new ArgumentException(nameof(letter));
+            if(letter == '\0')
+                throw new ArgumentException(nameof(letter));
+            string result = "";
+            for (char c = 'A'; c <= letter; c++)
+            {
+                result += c;
+            }
+            return result;
         }
     }
 
