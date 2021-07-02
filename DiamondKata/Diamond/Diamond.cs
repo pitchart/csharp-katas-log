@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Linq;
 
 namespace Diamond
 {
-
     public class Diamond
     {
         public string Generate(char letter)
@@ -14,6 +14,10 @@ namespace Diamond
             {
                 result += c;
             }
+
+            string reverse = string.Concat(result.Replace(letter.ToString(), string.Empty).ToCharArray().Reverse());
+            result = result + reverse;
+
             return result;
         }
     }

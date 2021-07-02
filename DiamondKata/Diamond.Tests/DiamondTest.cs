@@ -37,7 +37,7 @@ namespace Diamond.Tests
             string result = diamond.Generate('B');
 
             // ASSERT
-            result.Should().Be("AB");
+            result.Should().Be("ABA");
 
         }
     }
