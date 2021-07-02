@@ -1,5 +1,7 @@
 using System;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Diamond.Tests
@@ -32,13 +34,12 @@ namespace Diamond.Tests
         {
             // ARRANGE
             var diamond = new Diamond();
-            
+
             // ACT
             string result = diamond.Generate('B');
 
-            // ASSERT
-            result.Should().Be("ABA");
-
+            // ASSERT ==> " A \nB B\n A "
+            result.Should().Be("A\nB\nA");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Diamond
@@ -7,18 +8,26 @@ namespace Diamond
     {
         public string Generate(char letter)
         {
-            if(letter == '\0')
-                throw new ArgumentException(nameof(letter));
-            string result = "";
+            ValidateLetter(letter);
+
+            List<string> result = new List<string>();
             for (char c = 'A'; c <= letter; c++)
             {
-                result += c;
+                result.Add(c.ToString());
             }
 
-            string reverse = string.Concat(result.Replace(letter.ToString(), string.Empty).ToCharArray().Reverse());
-            result = result + reverse;
+            IEnumerable<string> reverse = result.Where(c => c != letter.ToString()).Reverse();
+            result.AddRange(reverse);
 
-            return result;
+            return string.Join('\n', result);
+        }
+
+        private void ValidateLetter(char letter)
+        {
+            if (letter == '\0')
+            {
+                throw new ArgumentException(nameof(letter));
+            }
         }
     }
 
