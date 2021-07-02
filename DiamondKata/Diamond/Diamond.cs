@@ -14,10 +14,10 @@ namespace Diamond
             List<string> result = new List<string>();
             for (char currentLetter = 'A'; currentLetter <= letter; currentLetter++)
             {
-                if (currentLetter == 'A') 
+                if (currentLetter == 'A')
                     result.Add($"{currentLetter}");
                 else
-                    result.Add($"{currentLetter}{currentLetter}");
+                    result.Add($"{currentLetter} {currentLetter}");
             }
 
             IEnumerable<string> reverse = result.Where(c => !c.Contains(letter) ).Reverse();
