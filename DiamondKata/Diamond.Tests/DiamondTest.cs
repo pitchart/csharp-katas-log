@@ -13,10 +13,18 @@ namespace Diamond.Tests
             var action = new Action(() =>
             {
                 var d = new Diamond();
-                d.Generate(String.Empty);
+                d.Generate('\0');
             });
 
             action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void A_ShouldPrintA()
+        {
+            var d = new Diamond();
+
+            d.Generate('A').Should().Be("A");
         }
     }
 }

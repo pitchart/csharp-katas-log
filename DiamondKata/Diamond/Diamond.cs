@@ -5,8 +5,10 @@ namespace Diamond
 
     public class Diamond
     {
-        public void Generate(string letter)
+        public string Generate(char letter)
         {
+            if (letter.Equals('A')) return "A";
+
             throw new ArgumentException(nameof(letter));
         }
     }
