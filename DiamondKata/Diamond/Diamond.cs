@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Diamond
 {
+
     public class Diamond
     {
         public string Generate(char letter)
@@ -11,12 +12,15 @@ namespace Diamond
             ValidateLetter(letter);
 
             List<string> result = new List<string>();
-            for (char c = 'A'; c <= letter; c++)
+            for (char currentLetter = 'A'; currentLetter <= letter; currentLetter++)
             {
-                result.Add(c.ToString());
+                if (currentLetter == 'A') 
+                    result.Add($"{currentLetter}");
+                else
+                    result.Add($"{currentLetter}{currentLetter}");
             }
 
-            IEnumerable<string> reverse = result.Where(c => c != letter.ToString()).Reverse();
+            IEnumerable<string> reverse = result.Where(c => !c.Contains(letter) ).Reverse();
             result.AddRange(reverse);
 
             return string.Join('\n', result);
