@@ -39,7 +39,7 @@ namespace Diamond.Tests
             string result = diamond.Generate('B');
 
             // ASSERT ==> " A \nB B\n A "
-            result.Should().Be("A\nB B\nA");
+            result.Should().Be(" A \nB B\n A ");
         }
     }
 }
