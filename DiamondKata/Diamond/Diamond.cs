@@ -28,7 +28,7 @@ namespace Diamond
 
         private void ValidateLetter(char letter)
         {
-            if (letter == '\0')
+            if (!char.IsUpper(letter))
             {
                 throw new ArgumentException(nameof(letter));
             }
