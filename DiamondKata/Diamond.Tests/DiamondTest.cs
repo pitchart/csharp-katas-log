@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Xunit;
 
 namespace Diamond.Tests
@@ -7,9 +8,15 @@ namespace Diamond.Tests
     public class DiamondTest
     {
         [Fact]
-        public void Test1()
+        public void AnEmptyInput_ShouldThrow()
         {
+            var action = new Action(() =>
+            {
+                var d = new Diamond();
+                d.Generate(String.Empty);
+            });
+
+            action.Should().Throw<ArgumentException>();
         }
     }
-
 }
