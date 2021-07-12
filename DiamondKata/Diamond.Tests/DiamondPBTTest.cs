@@ -1,5 +1,6 @@
 using FsCheck;
 using FsCheck.Xunit;
+using System;
 
 namespace Diamond.Tests
 {
@@ -18,6 +19,14 @@ namespace Diamond.Tests
         public void ShouldprintUpperCaseDiamond_WhenInputIsLowerCase(char lowerCaseLetter)
         {
             _diamond.Print(lowerCaseLetter).Equals(_diamond.Print(char.ToUpper(lowerCaseLetter))).ToProperty();
+        }
+
+        [Property(Arbitrary = new[] { typeof(UpperCaseLetterGenerator) })]
+        public void Should_have_height_equal_to_two_times_the_character_position_minus_one(char letter)
+        {
+            var position = letter.CompareTo('A') + 1;
+            var lineNumber = (position * 2) -1;
+            _diamond.Print(letter).Split(Environment.NewLine).Length.Equals(lineNumber).ToProperty();
         }
     }
 
