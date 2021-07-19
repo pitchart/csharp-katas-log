@@ -7,12 +7,12 @@ namespace Banking
     {
         public void Deposit(int amount, DateTime date)
         {
-            throw new NotImplementedException();
+            Balance += amount;
         }
 
         public void Withdraw(int amount, DateTime parseDate)
         {
-            throw new NotImplementedException();
+            Balance -= amount;
         }
 
         public object PrintStatement()
@@ -20,7 +20,7 @@ namespace Banking
             throw new NotImplementedException();
         }
 
-        public int Balance { get; }
+        public int Balance { get; private set; }
     }
 
 }
