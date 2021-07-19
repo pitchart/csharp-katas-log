@@ -7,7 +7,7 @@ namespace MarsRover
     {
         internal Point Position { get; private set; }
 
-        private readonly DirectionEnum _direction;
+        private DirectionEnum _direction;
 
         public Rover(int x, int y, char direction)
         {
@@ -21,16 +21,28 @@ namespace MarsRover
 
             foreach (var move in commands)
             {
-                MoveForward();
+                if (move.Equals('R'))
+                {
+                    if (_direction == DirectionEnum.E)
+                    {
+                        _direction = _direction + 1;
+                    }
+                    else
+                    {
+                        _direction = _direction + 1;
+                    }
+                }
+                else
+                {
+                    MoveForward();
+                }
             }
-
             return $"{Position.x}:{Position.y}:{_direction}";
         }
 
         private void MoveForward()
         {
             this.Position = this.Position.GenerateNextPosition(_direction);
-           
         }
     }
 }

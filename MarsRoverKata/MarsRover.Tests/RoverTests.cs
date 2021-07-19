@@ -21,11 +21,13 @@ namespace MarsRover.Tests
         }
 
 
-        [Fact]
-        public void ShouldTurnRight()
+        [Theory]
+        [InlineData('E', "2:2:S")]
+        [InlineData('S', "2:2:W")]
+        public void ShouldTurnRight(char direction, string expectedResult)
         {
             ///Arrange
-            var rover = new Rover(2, 2, 'E');
+            var rover = new Rover(2, 2, direction);
 
 
             ///Act
@@ -33,9 +35,8 @@ namespace MarsRover.Tests
 
 
             ///Assert
-            Assert.Equal("2:2:S", result);
+            Assert.Equal(expectedResult, result);
         }
-
     }
 
 }
