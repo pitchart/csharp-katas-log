@@ -47,6 +47,48 @@ namespace Banking.Tests.Unit
             //Assert
             Assert.Equal(-amount, account.Balance);
         }
+
+        [Fact]
+        public void Should_decrement_account_when_withdrawing_twice()
+        {
+            //Arrange
+            Account account = new Account();
+
+            //Act
+            account.Withdraw(5000, DateTime.Today);
+            account.Withdraw(6000, DateTime.Today);
+
+            //Assert
+            Assert.Equal(-11000, account.Balance);
+        }
+
+        [Fact]
+        public void Should_sum_transactions_when_withdrawing_and_deposing()
+        {
+            //Arrange
+            Account account = new Account();
+
+            //Act
+            account.Deposit(6000, DateTime.Today);
+            account.Withdraw(5000, DateTime.Today);
+
+            //Assert
+            Assert.Equal(1000, account.Balance);
+        }
+
+        [Fact]
+        public void Should_print_header_when_no_transaction()
+        {
+            //Arrange
+            Account account = new Account();
+
+            //Act
+            string printStatement = account.PrintStatement();
+
+            //Assert
+            Assert.Equal("date       ||   credit ||    debit ||  balance", printStatement);
+        }
+
     }
 
 }

@@ -14,7 +14,7 @@ namespace Banking.Tests.Acceptance.Steps
 
         private Account _account = new Account();
 
-        private object _printStatementResult;
+        private string _printStatementResult;
 
         public BankingAccountOperationsStepDefinitions(ScenarioContext scenarioContext)
         {

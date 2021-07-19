@@ -15,7 +15,7 @@ namespace Banking
             Balance -= amount;
         }
 
-        public object PrintStatement()
+        public string PrintStatement()
         {
             throw new NotImplementedException();
         }
