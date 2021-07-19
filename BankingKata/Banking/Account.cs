@@ -19,6 +19,8 @@ namespace Banking
         {
             throw new NotImplementedException();
         }
+
+        public int Balance { get; }
     }
 
 }
