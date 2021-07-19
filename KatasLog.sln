@@ -34,6 +34,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance", "Manhat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance.Tests", "ManhattanDistanceKata\ManhattanDistance.Tests\ManhattanDistance.Tests.csproj", "{21456D50-3A3F-4DA9-8809-24903D95FB18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags", "LagsKata\Lags\Lags.csproj", "{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags.Tests", "LagsKata\Lags.Tests\Lags.Tests.csproj", "{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,5 +112,13 @@ Global
 		{21456D50-3A3F-4DA9-8809-24903D95FB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21456D50-3A3F-4DA9-8809-24903D95FB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21456D50-3A3F-4DA9-8809-24903D95FB18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

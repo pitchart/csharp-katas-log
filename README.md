@@ -36,7 +36,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 
 ### TDD on algorithms
 - [Diamond](DiamondKata/README.md)
-- Kata Lags
+- [Kata Lags](LagsKata/README.md)
 - Anagrams
 - [Cyclomatic Complexity One constraint](docs/contraints/CyclomaticComplexityOne.md)
 - [Object Calisthenics constraint](docs/contraints/ObjectCalisthenics.md)
