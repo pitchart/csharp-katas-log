@@ -29,21 +29,8 @@ namespace MarsRover
 
         private void MoveForward()
         {
-            switch (_direction)
-            {
-                case DirectionEnum.E:
-                    this.Position = new Point(this.Position.x+1, this.Position.y);
-                    break;
-                case DirectionEnum.W:
-                    this.Position = new Point(this.Position.x-1, this.Position.y);
-                    break;
-                case DirectionEnum.N:
-                    this.Position = new Point(this.Position.x, this.Position.y+1);
-                    break;
-                case DirectionEnum.S:
-                    this.Position = new Point(this.Position.x, this.Position.y-1);
-                    break;
-            }
+            this.Position = this.Position.GenerateNextPosition(_direction);
+           
         }
     }
 }

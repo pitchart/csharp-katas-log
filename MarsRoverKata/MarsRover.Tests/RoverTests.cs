@@ -19,6 +19,23 @@ namespace MarsRover.Tests
 
             Assert.Equal(expectedResult, result);
         }
+
+
+        [Fact]
+        public void ShouldTurnRight()
+        {
+            ///Arrange
+            var rover = new Rover(2, 2, 'E');
+
+
+            ///Act
+            var result = rover.Move("R");
+
+
+            ///Assert
+            Assert.Equal("2:2:S", result);
+        }
+
     }
 
 }
