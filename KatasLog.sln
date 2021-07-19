@@ -30,9 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diamond", "DiamondKata\Diam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diamond.Tests", "DiamondKata\Diamond.Tests\Diamond.Tests.csproj", "{BC59EB08-EFDC-453D-BF76-4A042E80F390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance", "ManhattanDistance\ManhattanDistance\ManhattanDistance.csproj", "{C3CBFB76-DC44-43A9-A0E8-11C9FD7AA73B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance", "ManhattanDistanceKata\ManhattanDistance\ManhattanDistance.csproj", "{C3CBFB76-DC44-43A9-A0E8-11C9FD7AA73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance.Tests", "ManhattanDistance\ManhattanDistance.Tests\ManhattanDistance.Tests.csproj", "{21456D50-3A3F-4DA9-8809-24903D95FB18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance.Tests", "ManhattanDistanceKata\ManhattanDistance.Tests\ManhattanDistance.Tests.csproj", "{21456D50-3A3F-4DA9-8809-24903D95FB18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

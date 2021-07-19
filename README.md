@@ -9,7 +9,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 ### Basic TDD
 - [Roman numerals](RomanNumeralKata/RomanNumeral/README.md)
 - [Bowling](BowlingKata/README.md)
-- [Manhattan distance](ManhattanDistance/README.md)
+- [Manhattan distance](ManhattanDistanceKata/README.md)
 
 ### Designing with TDD
 - [Mars Rover](MarsRoverKata/README.md)
