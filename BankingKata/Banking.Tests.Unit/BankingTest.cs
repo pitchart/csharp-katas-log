@@ -89,6 +89,22 @@ namespace Banking.Tests.Unit
             Assert.Equal("date       ||   credit ||    debit ||  balance", printStatement);
         }
 
+        [Fact]
+        public void Should_print_statement_when_withdrawing()
+        {
+            //Arrange
+            Account account = new Account();
+
+            //Act
+            account.Withdraw(5000, new DateTime(2012, 1, 13));
+
+            string printStatement = account.PrintStatement();
+
+            //Assert
+            var expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine + "13-01-2012 ||  5000.00 ||          || -5000.00";
+            Assert.Equal(expected, printStatement);
+        }
+
     }
 
 }
