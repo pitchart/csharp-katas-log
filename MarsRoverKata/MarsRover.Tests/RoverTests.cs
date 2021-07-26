@@ -25,6 +25,7 @@ namespace MarsRover.Tests
         [InlineData('E', "2:2:S")]
         [InlineData('S', "2:2:W")]
         [InlineData('W', "2:2:N")]
+        [InlineData('N', "2:2:E")]
         public void ShouldTurnRight(char direction, string expectedResult)
         {
             ///Arrange
@@ -38,6 +39,39 @@ namespace MarsRover.Tests
             ///Assert
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData('N', "2:2:W")]
+        [InlineData('E', "2:2:N")]
+        [InlineData('S', "2:2:E")]
+        [InlineData('W', "2:2:S")]
+        public void ShouldTurnLeft(char direction, string expectedResult)
+        {
+            ///Arrange
+            var rover = new Rover(2, 2, direction);
+
+
+            ///Act
+            var result = rover.Move("L");
+
+
+            ///Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void ShouldOnlyAcceptValidCommand()
+        {
+            ///Arrange
+            var rover = new Rover(2, 2, 'N');
+
+            ///Act
+            var result = rover.Move("A");
+
+            ///Assert
+            Assert.Equal("E:2:2:N", result);
+        }
+
     }
 
 }
