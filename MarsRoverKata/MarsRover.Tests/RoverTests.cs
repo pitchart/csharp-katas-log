@@ -24,6 +24,7 @@ namespace MarsRover.Tests
         [Theory]
         [InlineData('E', "2:2:S")]
         [InlineData('S', "2:2:W")]
+        [InlineData('W', "2:2:N")]
         public void ShouldTurnRight(char direction, string expectedResult)
         {
             ///Arrange

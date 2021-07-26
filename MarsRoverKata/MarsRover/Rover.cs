@@ -23,9 +23,9 @@ namespace MarsRover
             {
                 if (move.Equals('R'))
                 {
-                    if (_direction == DirectionEnum.E)
+                    if (_direction == DirectionEnum.W)
                     {
-                        _direction = _direction + 1;
+                        _direction = DirectionEnum.N;
                     }
                     else
                     {
