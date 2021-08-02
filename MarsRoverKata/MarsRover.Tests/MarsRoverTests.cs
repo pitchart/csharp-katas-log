@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace MarsRover.Tests
 {
@@ -16,6 +13,17 @@ namespace MarsRover.Tests
             var result = rover.Move(command);
 
             Assert.Equal("3:3:S", result);
+        }
+
+        [Fact]
+        public void RoverShouldWrappedAtEdgies()
+        {
+            var command = "FLFLFLFLF";
+            var rover = new Rover(0, 0, 'W');
+
+            var result = rover.Move(command);
+
+            Assert.Equal("4:0:W", result);
         }
     }
 }

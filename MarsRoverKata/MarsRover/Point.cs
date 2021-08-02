@@ -2,8 +2,11 @@
 {
     internal class Point
     {
+        private const int PlanBorder = 5;
         public readonly int x;
         public readonly int y;
+
+        
 
         public Point(int x, int y)
         {
@@ -17,7 +20,7 @@
             {
                 DirectionEnum.E => new Point(x + 1, y),
                 DirectionEnum.W => new Point(x - 1, y),
-                DirectionEnum.N => new Point(x, y + 1),
+                DirectionEnum.N => new Point(x, (y + 1) % PlanBorder),
                 DirectionEnum.S => new Point(x, y - 1),
                 _ => new Point(x, y),
             };

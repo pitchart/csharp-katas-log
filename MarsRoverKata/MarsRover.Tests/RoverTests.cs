@@ -72,6 +72,16 @@ namespace MarsRover.Tests
             Assert.Equal("E:2:2:N", result);
         }
 
+        [Theory]
+        [InlineData("F", 'N', "4:0:N")]
+        public void ShouldMoveForwardToEdgies(string command, char direction, string expectedResult)
+        {
+            var rover = new Rover(4, 4, direction);
+
+            var result = rover.Move(command);
+
+            Assert.Equal(expectedResult, result);
+        }
     }
 
     public class RoverBuilder
