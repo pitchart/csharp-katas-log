@@ -32,7 +32,7 @@ namespace Banking
                 }
                 else
                 {
-                    lines.Add($"{transaction.Date:dd-MM-yyyy} ||  {(transaction.Value).ToString("0.00").Replace(',', '.')} ||          ||  {Balance.ToString("0.00").Replace(',', '.')}");
+                    lines.Add($"{transaction.Date:dd-MM-yyyy} || {(transaction.Value).ToString("0.00").Replace(',', '.').PadLeft(8)} ||          || {Balance.ToString("0.00").Replace(',', '.').PadLeft(8)}");
                 }
             }
 
