@@ -18,10 +18,10 @@
         {
             return direction switch
             {
-                DirectionEnum.E => new Point(x + 1, y),
+                DirectionEnum.E => new Point((x + 1) % PlanBorder, y),
                 DirectionEnum.W => new Point(x - 1, y),
                 DirectionEnum.N => new Point(x, (y + 1) % PlanBorder),
-                DirectionEnum.S => new Point(x, y - 1),
+                DirectionEnum.S => new Point(x, ((y - 1) + PlanBorder) % PlanBorder),
                 _ => new Point(x, y),
             };
         }

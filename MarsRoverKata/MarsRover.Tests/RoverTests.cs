@@ -73,45 +73,16 @@ namespace MarsRover.Tests
         }
 
         [Theory]
-        [InlineData("F", 'N', "4:0:N")]
-        public void ShouldMoveForwardToEdgies(string command, char direction, string expectedResult)
+        [InlineData(4, 4, 'N', "4:0:N")]
+        [InlineData(4, 4, 'E', "0:4:E")]
+        [InlineData(0, 0, 'S', "0:4:S")]
+        public void ShouldMoveForwardToEdgies(int x, int y, char direction, string expectedResult)
         {
-            var rover = new Rover(4, 4, direction);
+            var rover = new Rover(x, y, direction);
 
-            var result = rover.Move(command);
+            var result = rover.Move("F");
 
             Assert.Equal(expectedResult, result);
         }
     }
-
-    public class RoverBuilder
-    {
-        private int x = 2;
-        private int y = 2;
-        private char direction = 'N';
-
-        public Rover Build()
-        {
-            return new Rover(x, y, direction);
-        }
-
-        public RoverBuilder LandingAt(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-            return this;
-        }
-
-        public RoverBuilder Facing(char direction)
-        {
-            this.direction = direction;
-            return this;
-        }
-
-        public static RoverBuilder Create()
-        {
-            return new RoverBuilder();
-        }
-    }
-
 }
