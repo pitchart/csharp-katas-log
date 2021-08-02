@@ -10,6 +10,7 @@ namespace Banking
 
         public void Deposit(int amount, DateTime date)
         {
+            Transactions.Add(new Transaction(date, amount));
             Balance += amount;
         }
 
@@ -25,7 +26,13 @@ namespace Banking
             Transaction transaction = Transactions.FirstOrDefault();
             if(transaction != null)
             {
-                lines.Add($"{transaction.parseDate.ToString("dd-MM-yyyy")} ||  {(-transaction.v).ToString("0.00").Replace(',','.')} ||          || {Balance.ToString("0.00").Replace(',', '.')}");
+                if (float.IsNegative(transaction.v))
+                {
+                    lines.Add($"{transaction.parseDate.ToString("dd-MM-yyyy")} ||          ||  {(-transaction.v).ToString("0.00").Replace(',', '.')} || {Balance.ToString("0.00").Replace(',', '.')}");
+                }else
+                {
+                    lines.Add($"{transaction.parseDate.ToString("dd-MM-yyyy")} ||  {(transaction.v).ToString("0.00").Replace(',', '.')} ||          ||  {Balance.ToString("0.00").Replace(',', '.')}");
+                }
             }
             return string.Join(Environment.NewLine, lines);
         }
