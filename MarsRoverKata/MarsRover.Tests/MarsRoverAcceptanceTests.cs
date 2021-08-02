@@ -2,13 +2,13 @@
 
 namespace MarsRover.Tests
 {
-    public class MarsRoverTests
+    public class MarsRoverAcceptanceTests
     {
         [Fact]
         public void RoverShouldMoveEverywhereOnMars()
         {
             var command = "FFLFRRFFRF";
-            var rover = new Rover(2,2,'N');
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing('N').Build();
 
             var result = rover.Move(command);
 
@@ -19,7 +19,7 @@ namespace MarsRover.Tests
         public void RoverShouldWrappedAtEdgies()
         {
             var command = "FLFLFLFLF";
-            var rover = new Rover(0, 0, 'W');
+            var rover = RoverBuilder.Create().LandingAt(0, 0).Facing('W').Build();
 
             var result = rover.Move(command);
 

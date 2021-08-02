@@ -13,7 +13,7 @@ namespace MarsRover.Tests
         [InlineData("FF", 'W', "0:2:W")]
         public void ShouldMoveForward(string command, char direction, string expectedResult)
         {
-            var rover = new Rover(2, 2, direction);
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing(direction).Build();
 
             var result = rover.Move(command);
 
@@ -29,7 +29,7 @@ namespace MarsRover.Tests
         public void ShouldTurnRight(char direction, string expectedResult)
         {
             ///Arrange
-            var rover = new Rover(2, 2, direction);
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing(direction).Build();
 
 
             ///Act
@@ -48,7 +48,7 @@ namespace MarsRover.Tests
         public void ShouldTurnLeft(char direction, string expectedResult)
         {
             ///Arrange
-            var rover = new Rover(2, 2, direction);
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing(direction).Build();
 
 
             ///Act
@@ -63,7 +63,7 @@ namespace MarsRover.Tests
         public void ShouldOnlyAcceptValidCommand()
         {
             ///Arrange
-            var rover = new Rover(2, 2, 'N');
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing('N').Build();
 
             ///Act
             var result = rover.Move("A");
@@ -76,9 +76,10 @@ namespace MarsRover.Tests
         [InlineData(4, 4, 'N', "4:0:N")]
         [InlineData(4, 4, 'E', "0:4:E")]
         [InlineData(0, 0, 'S', "0:4:S")]
+        [InlineData(0, 0, 'W', "4:0:W")]
         public void ShouldMoveForwardToEdgies(int x, int y, char direction, string expectedResult)
         {
-            var rover = new Rover(x, y, direction);
+            var rover = RoverBuilder.Create().LandingAt(x, y).Facing(direction).Build();
 
             var result = rover.Move("F");
 
