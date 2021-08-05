@@ -9,6 +9,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 ### Basic TDD
 - [Roman numerals](RomanNumeralKata/RomanNumeral/README.md)
 - [Bowling](BowlingKata/README.md)
+- [Manhattan distance](ManhattanDistanceKata/README.md)
 
 ### Designing with TDD
 - [Mars Rover](MarsRoverKata/README.md)
@@ -31,11 +32,11 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 - LCD
 - [Banking with Specflow](BankingKata/README.md)
 - [Mars Rover](MarsRoverKata/README.md)
-- Diamond
+- [Diamond](DiamondKata/README.md)
 
 ### TDD on algorithms
-- Diamond
-- Kata Lags
+- [Diamond](DiamondKata/README.md)
+- [Kata Lags](LagsKata/README.md)
 - Anagrams
 - [Cyclomatic Complexity One constraint](docs/contraints/CyclomaticComplexityOne.md)
 - [Object Calisthenics constraint](docs/contraints/ObjectCalisthenics.md)
