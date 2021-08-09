@@ -85,5 +85,11 @@ namespace MarsRover.Tests
 
             Assert.Equal(expectedResult, result);
         }
+
+        [Fact]
+        public void CanMoveToNextPosition()
+        {
+            //var rover = RoverBuilder.Create().LandingAt(0,0).Facing()
+        }
     }
 }

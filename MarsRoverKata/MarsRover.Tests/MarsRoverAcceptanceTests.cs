@@ -25,5 +25,18 @@ namespace MarsRover.Tests
 
             Assert.Equal("4:0:W", result);
         }
+
+        [Fact]
+        public void RoverShouldStopWhenObstacleDetected()
+        {
+            var command = "FFF";
+            var obstacle = new Obstacle(3, 0);
+            var mars = new Map(obstacle);
+            var rover = RoverBuilder.Create().LandingAt(0, 0).Facing('E').NavigatingOn(mars).Build();
+
+            var result = rover.Move(command);
+
+            Assert.Equal("2:0:E", result);
+        }
     }
 }

@@ -28,6 +28,11 @@
         {
             return new RoverBuilder();
         }
+
+        public RoverBuilder NavigatingOn(Map mars)
+        {
+            return this;
+        }
     }
 
 }
