@@ -5,10 +5,11 @@
         private int x = 2;
         private int y = 2;
         private char direction = 'N';
+        private Map map = new Map();
 
         public Rover Build()
         {
-            return new Rover(x, y, direction);
+            return new Rover(x, y, direction, map);
         }
 
         public RoverBuilder LandingAt(int x, int y)
@@ -29,8 +30,9 @@
             return new RoverBuilder();
         }
 
-        public RoverBuilder NavigatingOn(Map mars)
+        public RoverBuilder NavigatingOn(Map planet)
         {
+            map = planet;
             return this;
         }
     }

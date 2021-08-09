@@ -87,9 +87,18 @@ namespace MarsRover.Tests
         }
 
         [Fact]
-        public void CanMoveToNextPosition()
+        public void ShouldStopWhenEncounterAnObstacle()
         {
-            //var rover = RoverBuilder.Create().LandingAt(0,0).Facing()
+            var command = "FFF";
+            var obstacle = new Obstacle(3, 0);
+            var mars = new Map(obstacle);
+            var rover = RoverBuilder.Create().LandingAt(0, 0).Facing('E').NavigatingOn(mars).Build();
+
+            var result = rover.Move(command);
+
+            Assert.EndsWith("2:0:E", result);
         }
+
+
     }
 }

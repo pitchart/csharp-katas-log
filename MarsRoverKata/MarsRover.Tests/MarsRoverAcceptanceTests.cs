@@ -36,7 +36,7 @@ namespace MarsRover.Tests
 
             var result = rover.Move(command);
 
-            Assert.Equal("2:0:E", result);
+            Assert.Equal("O:2:0:E", result);
         }
     }
 }

@@ -9,10 +9,13 @@ namespace MarsRover
 
         private DirectionEnum _direction;
 
-        public Rover(int x, int y, char direction)
+        private Map _map;
+
+        public Rover(int x, int y, char direction, Map map)
         {
             this.Position = new Point(x, y);
             Enum.TryParse(direction.ToString(), out _direction);
+            _map = map;
         }
 
         public string Move(string command)
@@ -67,7 +70,9 @@ namespace MarsRover
 
         private void MoveForward()
         {
-            this.Position = this.Position.GenerateNextPosition(_direction);
+            var newPosition = this.Position.GenerateNextPosition(_direction);
+            if (!_map.HasObstacleAt(newPosition))
+                this.Position = newPosition;
         }
     }
 }

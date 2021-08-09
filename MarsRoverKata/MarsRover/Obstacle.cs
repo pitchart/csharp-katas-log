@@ -1,9 +1,9 @@
-﻿namespace MarsRover.Tests
+﻿namespace MarsRover
 {
     public class Obstacle
     {
-        private int _x;
-        private int _y;
+        public int _x { get; }
+        public int _y { get; }
 
         public Obstacle(int x, int y)
         {
