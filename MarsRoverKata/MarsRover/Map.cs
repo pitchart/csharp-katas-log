@@ -17,7 +17,7 @@ namespace MarsRover
 
         internal bool HasObstacleAt(Point newPosition)
         {
-            return obstacle._x == newPosition.x && obstacle._y == newPosition.y;
+            return obstacle.Position.Equals(newPosition);
         }
     }
 }
