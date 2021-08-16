@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MarsRover
+﻿namespace MarsRover
 {
     public class Map
     {
@@ -17,6 +15,9 @@ namespace MarsRover
 
         internal bool HasObstacleAt(Point newPosition)
         {
+            if (obstacle is null)
+                return false;
+
             return obstacle.Position.Equals(newPosition);
         }
     }

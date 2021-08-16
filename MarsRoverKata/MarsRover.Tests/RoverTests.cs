@@ -13,7 +13,8 @@ namespace MarsRover.Tests
         [InlineData("FF", 'W', "0:2:W")]
         public void ShouldMoveForward(string command, char direction, string expectedResult)
         {
-            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing(direction).Build();
+            var map = MapBuilder.Create().Build();
+            var rover = RoverBuilder.Create().LandingAt(2, 2).Facing(direction).NavigatingOn(map).Build();
 
             var result = rover.Move(command);
 

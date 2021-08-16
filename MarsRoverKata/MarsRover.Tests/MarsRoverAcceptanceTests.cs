@@ -31,7 +31,7 @@ namespace MarsRover.Tests
         {
             var command = "FFF";
             var obstacle = new Obstacle(3, 0);
-            var mars = new Map(obstacle);
+            var mars = MapBuilder.Create().WithObstacle(obstacle).Build();
             var rover = RoverBuilder.Create().LandingAt(0, 0).Facing('E').NavigatingOn(mars).Build();
 
             var result = rover.Move(command);
