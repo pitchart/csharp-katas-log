@@ -6,7 +6,9 @@ namespace Banking
 {
     public class Account
     {
-        private const string StatementHeader = "date       ||   credit ||    debit ||  balance";
+        public int Balance { get; private set; }
+        private Statement _statement;
+        private List<ITransaction> Transactions { get; } = new List<ITransaction>();
 
         public void Deposit(int amount, DateTime date)
         {
@@ -22,25 +24,9 @@ namespace Banking
 
         public string PrintStatement()
         {
-            List<string> lines = new List<string> {StatementHeader};
-            ITransaction transaction = Transactions.FirstOrDefault();
-            if (transaction != null)
-            {
-                if (transaction is Withdrawal)
-                {
-                    lines.Add($"{transaction.Date:dd-MM-yyyy} ||          ||  {(-transaction.Value).ToString("0.00").Replace(',', '.')} || {Balance.ToString("0.00").Replace(',', '.')}");
-                }
-                else
-                {
-                    lines.Add($"{transaction.Date:dd-MM-yyyy} || {(transaction.Value).ToString("0.00").Replace(',', '.').PadLeft(8)} ||          || {Balance.ToString("0.00").Replace(',', '.').PadLeft(8)}");
-                }
-            }
-
-            return string.Join(Environment.NewLine, lines);
+            _statement = new Statement(Transactions.FirstOrDefault());
+            return string.Join(Environment.NewLine, _statement.PrepareStatement(Balance));
         }
-
-        public int Balance { get; private set; }
-        private List<ITransaction> Transactions { get; } = new List<ITransaction>();
     }
 
 }

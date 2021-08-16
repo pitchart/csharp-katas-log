@@ -3,7 +3,7 @@
 namespace Banking
 {
 
-    internal interface ITransaction
+    public interface ITransaction
     {
         DateTime Date { get; }
 
