@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MarsRover
 {
@@ -7,15 +9,22 @@ namespace MarsRover
     {
         internal Point Position { get; private set; }
 
+        private bool EncounterObstacle { get; set; }
+
         private DirectionEnum _direction;
 
         private Map _map;
+
+        private const string NotifyObstaclePrefix = "O:";
+        private const string ErrorPrefix = "E:";
+
 
         public Rover(int x, int y, char direction, Map map)
         {
             this.Position = new Point(x, y);
             Enum.TryParse(direction.ToString(), out _direction);
             _map = map;
+            EncounterObstacle = false;
         }
 
         public string Move(string command)
@@ -38,10 +47,16 @@ namespace MarsRover
                 }
                 else
                 {
-                    return $"E:{Position.x}:{Position.y}:{_direction}";
+                    return CreateOutputMessage(ErrorPrefix);
                 }
             }
-            return $"{Position.x}:{Position.y}:{_direction}";
+
+            return EncounterObstacle ? CreateOutputMessage(NotifyObstaclePrefix): CreateOutputMessage(string.Empty);
+        }
+
+        private string CreateOutputMessage(string prefix)
+        {
+            return string.Concat(prefix, $"{Position.x}:{Position.y}:{_direction}");
         }
 
         private void MoveLeft()
@@ -73,6 +88,8 @@ namespace MarsRover
             var newPosition = this.Position.GenerateNextPosition(_direction);
             if (!_map.HasObstacleAt(newPosition))
                 this.Position = newPosition;
+            else
+                EncounterObstacle = true;
         }
     }
 }
