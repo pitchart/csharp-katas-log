@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using TechTalk.SpecFlow;
 using Xunit;
 
@@ -10,15 +11,12 @@ namespace Banking.Tests.Acceptance.Steps
     {
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
-        private readonly ScenarioContext _scenarioContext;
-
-        private Account _account = new Account();
+        private readonly Account _account = new Account();
 
         private string _printStatementResult;
 
-        public BankingAccountOperationsStepDefinitions(ScenarioContext scenarioContext)
+        public BankingAccountOperationsStepDefinitions()
         {
-            _scenarioContext = scenarioContext;
         }
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
@@ -28,22 +26,18 @@ namespace Banking.Tests.Acceptance.Steps
             DateTime parseDate = ParseDate(date);
 
             _account.Deposit(amount, parseDate);
-
-            ScenarioContext.StepIsPending();
         }
 
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
             _printStatementResult = _account.PrintStatement();
-            ScenarioContext.StepIsPending();
         }
 
         [Then(@"she would see")]
         public void ThenSheWouldSee(string multilineText)
         {
             Assert.Equal(multilineText, _printStatementResult);
-            ScenarioContext.StepIsPending();
         }
 
         [Given(@"a withdrawal of (.*) on (.*)")]
@@ -51,12 +45,11 @@ namespace Banking.Tests.Acceptance.Steps
         {
             DateTime parseDate = ParseDate(date);
             _account.Withdraw(amount, parseDate);
-            ScenarioContext.StepIsPending();
         }
 
         private static DateTime ParseDate(string date)
         {
-            DateTime.TryParse(date, out DateTime parseDate);
+            DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime parseDate);
             return parseDate;
         }
     }

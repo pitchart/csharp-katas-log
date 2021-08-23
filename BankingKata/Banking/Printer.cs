@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Banking
 {
@@ -7,14 +8,11 @@ namespace Banking
     {
         private const string StatementHeader = "date       ||   credit ||    debit ||  balance";
 
-        internal string Print(Statement statement, int balance)
+        internal string Print(Statement statement)
         {
             List<string> table = new List<string> { StatementHeader };
-            string line = statement.PrepareStatement(balance);
-            if (!string.IsNullOrEmpty(line))
-            {
-                table.Add(line);
-            }
+            IList<string> lines = statement.PrepareStatement();
+            table.AddRange(lines.Reverse());
             return string.Join(Environment.NewLine, table);
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Banking
 {
@@ -24,9 +23,9 @@ namespace Banking
 
         public string PrintStatement()
         {
-            _statement = new Statement(Transactions.FirstOrDefault());
+            _statement = new Statement(Transactions);
             Printer printer = new Printer();
-            return printer.Print(_statement, Balance);            
+            return printer.Print(_statement);            
         }
     }
 }

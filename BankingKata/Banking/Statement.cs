@@ -1,32 +1,41 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Banking
 {
     public class Statement
     {
-        private readonly ITransaction _transaction;
+        private readonly List<ITransaction> _transactions;
 
-        public Statement(ITransaction transaction)
+        public Statement(List<ITransaction> transactions)
         {
-            _transaction = transaction;
+            _transactions = transactions;
         }
 
-        public string PrepareStatement(int balance)
+        public IList<string> PrepareStatement()
         {
-            if (_transaction == null)
+            List<string> lines = new List<string>();
+            float balance = 0;
+            if (_transactions == null || !_transactions.Any())
             {
-                return null;
+                return lines;
+            }
+            
+            foreach (ITransaction transaction in _transactions)
+            {
+                balance += transaction.Value;
+                if (transaction is Withdrawal)
+                {
+                    lines.Add($"{transaction.Date:dd-MM-yyyy} ||          || {FormatValue(-transaction.Value)} || {FormatValue(balance)}");
+                }
+                else
+                {
+                    lines.Add($"{transaction.Date:dd-MM-yyyy} || {FormatValue(transaction.Value)} ||          || {FormatValue(balance)}");
+                }
             }
 
-            if (_transaction is Withdrawal)
-            {
-                return $"{_transaction.Date:dd-MM-yyyy} ||          || {FormatValue(-_transaction.Value)} || {FormatValue(balance)}";
-            }
-            else
-            {
-                return $"{_transaction.Date:dd-MM-yyyy} || {FormatValue(_transaction.Value)} ||          || {FormatValue(balance)}";
-            }
+            return lines;
         }
 
         private static string FormatValue(float value) => value.ToString("0.00", CultureInfo.InvariantCulture).PadLeft(8);

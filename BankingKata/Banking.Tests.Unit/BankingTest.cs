@@ -12,12 +12,12 @@ namespace Banking.Tests.Unit
             //Arrange
             Account account = new Account();
             int amount = 5000;
-            
+
             //Act
             account.Deposit(amount, DateTime.Today);
-            
+
             //Assert
-            Assert.Equal(amount,account.Balance);
+            Assert.Equal(amount, account.Balance);
         }
 
         [Fact]
@@ -134,6 +134,25 @@ namespace Banking.Tests.Unit
 
             //Assert
             string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine + "13-01-2012 ||   500.00 ||          ||   500.00";
+            Assert.Equal(expected, printStatement);
+        }
+
+        [Fact]
+        public void Should_print_statement_when_multi_transactions()
+        {
+            //Arrange
+            Account account = new Account();
+
+            //Act
+            account.Deposit(500, new DateTime(2012, 1, 13));
+            account.Withdraw(300, new DateTime(2012, 1, 14));
+
+            string printStatement = account.PrintStatement();
+
+            //Assert
+            string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
+                              "14-01-2012 ||          ||   300.00 ||   200.00" + Environment.NewLine +
+                              "13-01-2012 ||   500.00 ||          ||   500.00";
             Assert.Equal(expected, printStatement);
         }
     }
