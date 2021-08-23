@@ -25,8 +25,8 @@ namespace Banking
         public string PrintStatement()
         {
             _statement = new Statement(Transactions.FirstOrDefault());
-            return string.Join(Environment.NewLine, _statement.PrepareStatement(Balance));
+            Printer printer = new Printer();
+            return printer.Print(_statement, Balance);            
         }
     }
-
 }
