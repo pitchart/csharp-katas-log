@@ -11,7 +11,9 @@ namespace Banking.Tests.Acceptance.Steps
     {
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
-        private readonly Account _account = new Account();
+        private Account _account = new Account();
+
+        private Account _accountB = new Account();
 
         private string _printStatementResult;
 
@@ -46,6 +48,32 @@ namespace Banking.Tests.Acceptance.Steps
             DateTime parseDate = ParseDate(date);
             _account.Withdraw(amount, parseDate);
         }
+
+        [Given(@"clientA has a balance of (.*)")]
+        public void GivenClientAHasABalanceOf(int balance)
+        {
+            _account = new Account(balance);
+        }
+
+        [Given(@"clientB has a balance of (.*)")]
+        public void GivenClientBHasABalanceOf(int balance)
+        {
+            _accountB = new Account(balance);
+        }
+
+        [When(@"clientA transfer (.*) to clientB")]
+        public void WhenClientATransferToClientB(int transferAmount)
+        {
+            _account.Transfer(transferAmount, _accountB);
+        }
+
+        [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
+        public void ThenClientABalanceShouldBeAndClientBBalanceShouldBe(int balanceA, int balanceB)
+        {
+            Assert.Equal(balanceA, _account.Balance);
+            Assert.Equal(balanceB, _accountB.Balance);
+        }
+
 
         private static DateTime ParseDate(string date)
         {

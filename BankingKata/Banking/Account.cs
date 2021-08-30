@@ -7,6 +7,16 @@ namespace Banking
     {
         public int Balance { get; private set; }
         private Statement _statement;
+
+        public Account()
+        {
+        }
+
+        public Account(int balance)
+        {
+            Balance = balance;
+        }
+
         private List<ITransaction> Transactions { get; } = new List<ITransaction>();
 
         public void Deposit(int amount, DateTime date)
@@ -25,7 +35,12 @@ namespace Banking
         {
             _statement = new Statement(Transactions);
             Printer printer = new Printer();
-            return printer.Print(_statement);            
+            return printer.Print(_statement);
+        }
+
+        public void Transfer(int transferAmount, Account accountB)
+        {
+            throw new NotImplementedException();
         }
     }
 }
