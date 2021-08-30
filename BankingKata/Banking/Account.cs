@@ -40,7 +40,8 @@ namespace Banking
 
         public void Transfer(int transferAmount, Account accountB)
         {
-            throw new NotImplementedException();
+            Withdraw(transferAmount, DateTime.Now);
+            accountB.Deposit(transferAmount, DateTime.Now);
         }
     }
 }

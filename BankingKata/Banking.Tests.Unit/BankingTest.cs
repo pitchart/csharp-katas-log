@@ -155,6 +155,24 @@ namespace Banking.Tests.Unit
                               "13-01-2012 ||   500.00 ||          ||   500.00";
             Assert.Equal(expected, printStatement);
         }
-    }
 
+        [Fact]
+        public void Should_decrease_clientA_balance_when_makes_transfer_to_clientB()
+        {
+            //Arrange
+            const int initialBalanceA = 1000;
+            const int initialBalanceB = 100;
+            const int amountToTransfer = 500;
+            Account accountA = new Account(initialBalanceA);
+            Account accountB = new Account(initialBalanceB);
+
+            //Act
+            accountA.Transfer(amountToTransfer, accountB);
+
+            //Assert
+
+            Assert.Equal(initialBalanceA - amountToTransfer, accountA.Balance);
+            Assert.Equal(initialBalanceB + amountToTransfer, accountB.Balance);
+        }
+    }
 }
