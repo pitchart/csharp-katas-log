@@ -6,7 +6,7 @@ namespace Tennis.Tests
 
     public abstract class TennisTestCases
     {
-        private readonly ITennisGame _game;
+        public readonly ITennisGame _game;
 
         protected TennisTestCases(ITennisGame game)
         {
