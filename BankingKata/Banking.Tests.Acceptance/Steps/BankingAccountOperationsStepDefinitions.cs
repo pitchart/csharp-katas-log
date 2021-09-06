@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Banking.Domain;
 using TechTalk.SpecFlow;
 using Xunit;
 

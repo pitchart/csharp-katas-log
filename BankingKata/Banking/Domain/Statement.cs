@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace Banking
+namespace Banking.Domain
 {
     public class Statement
     {

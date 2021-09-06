@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Banking
+namespace Banking.Domain
 {
 
     public interface ITransaction

@@ -1,4 +1,5 @@
 using System;
+using Banking.Domain;
 using Xunit;
 
 namespace Banking.Tests.Unit
@@ -74,86 +75,6 @@ namespace Banking.Tests.Unit
 
             //Assert
             Assert.Equal(1000, account.Balance);
-        }
-
-        [Fact]
-        public void Should_print_header_when_no_transaction()
-        {
-            //Arrange
-            Account account = new Account();
-
-            //Act
-            string printStatement = account.PrintStatement();
-
-            //Assert
-            Assert.Equal("date       ||   credit ||    debit ||  balance", printStatement);
-        }
-
-        [Fact]
-        public void Should_print_statement_when_withdrawing()
-        {
-            //Arrange
-            Account account = new Account();
-
-            //Act
-            account.Withdraw(5000, new DateTime(2012, 1, 13));
-
-            string printStatement = account.PrintStatement();
-
-            //Assert
-            var expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine + "13-01-2012 ||          ||  5000.00 || -5000.00";
-            Assert.Equal(expected, printStatement);
-        }
-
-        [Fact]
-        public void Should_print_statement_when_deposit()
-        {
-            //Arrange
-            Account account = new Account();
-
-            //Act
-            account.Deposit(5000, new DateTime(2012, 1, 13));
-
-            string printStatement = account.PrintStatement();
-
-            //Assert
-            var expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine + "13-01-2012 ||  5000.00 ||          ||  5000.00";
-            Assert.Equal(expected, printStatement);
-        }
-
-        [Fact]
-        public void Should_print_statement_when_deposit_is_500()
-        {
-            //Arrange
-            Account account = new Account();
-
-            //Act
-            account.Deposit(500, new DateTime(2012, 1, 13));
-
-            string printStatement = account.PrintStatement();
-
-            //Assert
-            string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine + "13-01-2012 ||   500.00 ||          ||   500.00";
-            Assert.Equal(expected, printStatement);
-        }
-
-        [Fact]
-        public void Should_print_statement_when_multi_transactions()
-        {
-            //Arrange
-            Account account = new Account();
-
-            //Act
-            account.Deposit(500, new DateTime(2012, 1, 13));
-            account.Withdraw(300, new DateTime(2012, 1, 14));
-
-            string printStatement = account.PrintStatement();
-
-            //Assert
-            string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
-                              "14-01-2012 ||          ||   300.00 ||   200.00" + Environment.NewLine +
-                              "13-01-2012 ||   500.00 ||          ||   500.00";
-            Assert.Equal(expected, printStatement);
         }
 
         [Fact]

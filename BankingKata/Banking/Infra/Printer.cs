@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Banking.Domain;
 
-namespace Banking
+namespace Banking.Infra
 {
-    class Printer
+    public class Printer
     {
         private const string StatementHeader = "date       ||   credit ||    debit ||  balance";
 
-        internal string Print(Statement statement)
+        public string Print(Statement statement)
         {
             List<string> table = new List<string> { StatementHeader };
             IList<string> lines = statement.PrepareStatement();
