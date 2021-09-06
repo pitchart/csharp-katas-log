@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Banking.Domain;
+using Banking.Infra;
 using TechTalk.SpecFlow;
 using Xunit;
 
@@ -13,14 +14,10 @@ namespace Banking.Tests.Acceptance.Steps
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
         private Account _account = new Account();
-
         private Account _accountB = new Account();
+        private readonly Printer _printer = new Printer();
 
         private string _printStatementResult;
-
-        public BankingAccountOperationsStepDefinitions()
-        {
-        }
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
@@ -34,7 +31,7 @@ namespace Banking.Tests.Acceptance.Steps
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
-            _printStatementResult = _account.PrintStatement();
+            _printStatementResult = _printer.Print(_account.Statement());
         }
 
         [Then(@"she would see")]

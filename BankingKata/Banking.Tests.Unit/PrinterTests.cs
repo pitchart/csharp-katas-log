@@ -34,11 +34,12 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             Account account = new Account();
+            account.Withdraw(5000, new DateTime(2012, 1, 13));
+            Statement statement = account.Statement();
 
             //Act
-            account.Withdraw(5000, new DateTime(2012, 1, 13));
 
-            string printStatement = account.PrintStatement();
+            string printStatement = _printer.Print(statement);
 
             //Assert
             var expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
@@ -51,11 +52,11 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             Account account = new Account();
+            account.Deposit(5000, new DateTime(2012, 1, 13));
+            Statement statement = account.Statement();
 
             //Act
-            account.Deposit(5000, new DateTime(2012, 1, 13));
-
-            string printStatement = account.PrintStatement();
+            string printStatement = _printer.Print(statement);
 
             //Assert
             var expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
@@ -68,11 +69,11 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             Account account = new Account();
+            account.Deposit(500, new DateTime(2012, 1, 13));
+            Statement statement = account.Statement();
 
             //Act
-            account.Deposit(500, new DateTime(2012, 1, 13));
-
-            string printStatement = account.PrintStatement();
+            string printStatement = _printer.Print(statement);
 
             //Assert
             string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
@@ -85,12 +86,12 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             Account account = new Account();
-
-            //Act
             account.Deposit(500, new DateTime(2012, 1, 13));
             account.Withdraw(300, new DateTime(2012, 1, 14));
+            Statement statement = account.Statement();
 
-            string printStatement = account.PrintStatement();
+            //Act
+            string printStatement = _printer.Print(statement);
 
             //Assert
             string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
