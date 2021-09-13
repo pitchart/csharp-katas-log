@@ -4,6 +4,16 @@ namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
+        private const string Love = "Love";
+
+        private const string Fifteen = "Fifteen";
+
+        private const string Thirty = "Thirty";
+
+        private const string Forty = "Forty";
+
+        private const string Deuce = "Deuce";
+
         private int _player1Score = 0;
         private int _player2Score = 0;
         private readonly string _player1Name;
@@ -47,33 +57,40 @@ namespace Tennis
         {
             return playerScore switch
             {
-                0 => "Love",
-                1 => "Fifteen",
-                2 => "Thirty",
-                3 => "Forty",
+                0 => Love,
+                1 => Fifteen,
+                2 => Thirty,
+                3 => Forty,
                 _ => throw new ArgumentOutOfRangeException(nameof(playerScore), playerScore, null)
             };
         }
 
         private string GetScoreForAdvantageOrWin()
         {
-            return (_player1Score - _player2Score) switch
+            return GetGap() switch
             {
-                1 => $"Advantage {_player1Name}",
-                -1 => $"Advantage {_player2Name}",
-                >= 2 => $"Win for {_player1Name}",
-                _ => $"Win for {_player2Name}"
+                1 => $"Advantage {GetLeadingPlayerName()}",
+                _ => $"Win for {GetLeadingPlayerName()}"
             };
+        }
+
+        private int GetGap()
+        {
+            return Math.Abs(_player1Score - _player2Score);
+        }
+
+        private string GetLeadingPlayerName()
+        {
+            if (_player1Score == _player2Score) throw new Exception();
+            return _player1Score - _player2Score < 0 ? _player2Name : _player1Name;
         }
 
         private string GetScoreForEquality()
         {
             return _player1Score switch
             {
-                0 => "Love-All",
-                1 => "Fifteen-All",
-                2 => "Thirty-All",
-                _ => "Deuce"
+                0 or 1 or 2 => GetPlayerScore(_player1Score) + "-All",
+                _ => Deuce
             };
         }
     }
