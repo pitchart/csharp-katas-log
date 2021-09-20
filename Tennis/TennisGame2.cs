@@ -1,5 +1,8 @@
+using Tennis.Points;
+
 namespace Tennis
 {
+
     public class TennisGame2 : ITennisGame
     {
         private int _p1Point;
@@ -7,11 +10,29 @@ namespace Tennis
         private string _player1Name;
         private string _player2Name;
 
+        private readonly LoveAll _loveAll;
+
+        private readonly Advantage _advantage;
+
+        private readonly Deuce _deuce;
+
+        private readonly ThirtyAll _thirtyAll;
+
+        private readonly FifteenAll _fifteenAll;
+
+        private readonly Win _win;
+
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
             _p1Point = 0;
             this._player2Name = player2Name;
+            _loveAll = new LoveAll();
+            _advantage = new Advantage();
+            _deuce = new Deuce();
+            _thirtyAll = new ThirtyAll();
+            _fifteenAll = new FifteenAll();
+            _win = new Win();
         }
 
         public string GetScore()
@@ -23,15 +44,14 @@ namespace Tennis
             if (_p1Point == _p2Point && _p1Point < 3)
             {
                 if (_p1Point == 0)
-                    score = "Love";
+                    score = _loveAll.GetScore();
                 if (_p1Point == 1)
-                    score = "Fifteen";
+                    score = _fifteenAll.GetScore();
                 if (_p1Point == 2)
-                    score = "Thirty";
-                score += "-All";
+                    score = _thirtyAll.GetScore();
             }
             if (_p1Point == _p2Point && _p1Point > 2)
-                score = "Deuce";
+                score = _deuce.GetScore();
 
             if (_p1Point > 0 && _p2Point == 0)
             {
@@ -85,21 +105,21 @@ namespace Tennis
 
             if (_p1Point > _p2Point && _p2Point >= 3)
             {
-                score = $"Advantage {_player1Name}";
+                score = _advantage.GetScore(_player1Name);
             }
 
             if (_p2Point > _p1Point && _p1Point >= 3)
             {
-                score = $"Advantage {_player2Name}";
+                score = _advantage.GetScore(_player2Name);
             }
 
             if (_p1Point >= 4 && _p2Point >= 0 && (_p1Point - _p2Point) >= 2)
             {
-                score = $"Win for {_player1Name}";
+                score = _win.GetScore(_player1Name);
             }
             if (_p2Point >= 4 && _p1Point >= 0 && (_p2Point - _p1Point) >= 2)
             {
-                score = $"Win for {_player2Name}";
+                score = _win.GetScore(_player2Name);
             }
             return score;
         }
