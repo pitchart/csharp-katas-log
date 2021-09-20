@@ -8,6 +8,8 @@ namespace Banking.Domain
         DateTime Date { get; }
 
         float Value { get; }
+
+        float Balance { get; }
     }
 
 }

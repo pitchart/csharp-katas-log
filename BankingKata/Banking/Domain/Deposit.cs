@@ -6,11 +6,13 @@ namespace Banking.Domain
     {
         public DateTime Date { get; }
         public float Value { get; }
+        public float Balance { get; }
 
-        public Deposit(DateTime date, int value)
+        public Deposit(DateTime date, float value, float currentBalance)
         {
             this.Date = date;
             this.Value = value;
+            this.Balance = currentBalance + value;
         }
     }
 }

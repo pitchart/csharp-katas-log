@@ -13,7 +13,6 @@ namespace Banking.Infra
         public IList<string> PrepareStatement(IEnumerable<ITransaction> transactions)
         {
             List<string> lines = new List<string>();
-            float balance = 0;
             if (transactions == null || !transactions.Any())
             {
                 return lines;
@@ -21,14 +20,13 @@ namespace Banking.Infra
 
             foreach (ITransaction transaction in transactions)
             {
-                balance += transaction.Value;
                 if (transaction is Withdrawal)
                 {
-                    lines.Add($"{transaction.Date:dd-MM-yyyy} ||          || {FormatValue(-transaction.Value)} || {FormatValue(balance)}");
+                    lines.Add($"{transaction.Date:dd-MM-yyyy} ||          || {FormatValue(transaction.Value)} || {FormatValue(transaction.Balance)}");
                 }
                 else
                 {
-                    lines.Add($"{transaction.Date:dd-MM-yyyy} || {FormatValue(transaction.Value)} ||          || {FormatValue(balance)}");
+                    lines.Add($"{transaction.Date:dd-MM-yyyy} || {FormatValue(transaction.Value)} ||          || {FormatValue(transaction.Balance)}");
                 }
             }
 
@@ -41,7 +39,7 @@ namespace Banking.Infra
         {
             List<string> table = new List<string> { StatementHeader };
             IList<string> lines = PrepareStatement(statement.Transactions);
-            table.AddRange(lines.Reverse());
+            table.AddRange(lines);
             return string.Join(Environment.NewLine, table);
         }
     }

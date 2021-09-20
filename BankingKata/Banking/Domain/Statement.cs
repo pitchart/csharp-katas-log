@@ -7,13 +7,13 @@ namespace Banking.Domain
 {
     public class Statement
     {
-        private readonly List<ITransaction> _transactions;
+        private readonly ImmutableList<ITransaction> _transactions;
 
         public Statement(List<ITransaction> transactions)
         {
-            _transactions = transactions;
+            _transactions = transactions.OrderByDescending(transaction => transaction.Date).ToImmutableList();
         }
 
-        public ImmutableList<ITransaction> Transactions { get => _transactions.ToImmutableList(); }
+        public ImmutableList<ITransaction> Transactions { get => _transactions; }
     }
 }

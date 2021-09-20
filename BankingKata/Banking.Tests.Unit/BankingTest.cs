@@ -95,5 +95,20 @@ namespace Banking.Tests.Unit
             Assert.Equal(initialBalanceA - amountToTransfer, accountA.Balance);
             Assert.Equal(initialBalanceB + amountToTransfer, accountB.Balance);
         }
+
+        [Fact]
+        public void Should_not_create_account_with_debt()
+        {
+            Assert.Throws<ArgumentException>(() => new Account(-100));
+        }
+
+        [Fact]
+        public void Should_not_withdraw_negative_amount()
+        {
+            Account account = new Account(100);
+
+            Assert.Throws<ArgumentException>(() => account.Withdraw(-10, DateTime.Now));
+        }
+
     }
 }
