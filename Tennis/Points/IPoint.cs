@@ -3,7 +3,7 @@
 
     public interface IPoint
     {
-        string GetScore(string name);
+        string GetScore(string name = "");
     }
 
 }

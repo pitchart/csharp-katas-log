@@ -25,7 +25,6 @@ namespace Tennis
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
-            _p1Point = 0;
             this._player2Name = player2Name;
             _loveAll = new LoveAll();
             _advantage = new Advantage();
@@ -37,21 +36,49 @@ namespace Tennis
 
         public string GetScore()
         {
+            IPoint currentScore = null;
+            
+            if (_p1Point == _p2Point && _p1Point < 3)
+            {
+                if (_p1Point == 0)
+                    currentScore = _loveAll;
+                if (_p1Point == 1)
+                    currentScore = _fifteenAll;
+                if (_p1Point == 2)
+                    currentScore = _thirtyAll;
+            }
+            if (_p1Point == _p2Point && _p1Point > 2)
+                currentScore = _deuce;
+
+            if (_p1Point > _p2Point && _p2Point >= 3)
+            {
+                currentScore = _advantage;
+            }
+
+            if (_p2Point > _p1Point && _p1Point >= 3)
+            {
+                currentScore = _advantage;
+            }
+
+            if (_p1Point >= 4 && _p2Point >= 0 && (_p1Point - _p2Point) >= 2)
+            {
+                currentScore = _win;
+            }
+            if (_p2Point >= 4 && _p1Point >= 0 && (_p2Point - _p1Point) >= 2)
+            {
+                currentScore = _win;
+            }
+
+            if (currentScore != null) return currentScore.GetScore(WhoLeads());
+
+            //Good
+            //-----------------------------
+            //Bad 
+
             string p1res = "";
             string p2res = "";
             var score = "";
 
-            if (_p1Point == _p2Point && _p1Point < 3)
-            {
-                if (_p1Point == 0)
-                    score = _loveAll.GetScore();
-                if (_p1Point == 1)
-                    score = _fifteenAll.GetScore();
-                if (_p1Point == 2)
-                    score = _thirtyAll.GetScore();
-            }
-            if (_p1Point == _p2Point && _p1Point > 2)
-                score = _deuce.GetScore();
 
             if (_p1Point > 0 && _p2Point == 0)
             {
@@ -103,25 +130,20 @@ namespace Tennis
                 score = p1res + "-" + p2res;
             }
 
-            if (_p1Point > _p2Point && _p2Point >= 3)
-            {
-                score = _advantage.GetScore(_player1Name);
-            }
-
-            if (_p2Point > _p1Point && _p1Point >= 3)
-            {
-                score = _advantage.GetScore(_player2Name);
-            }
-
-            if (_p1Point >= 4 && _p2Point >= 0 && (_p1Point - _p2Point) >= 2)
-            {
-                score = _win.GetScore(_player1Name);
-            }
-            if (_p2Point >= 4 && _p1Point >= 0 && (_p2Point - _p1Point) >= 2)
-            {
-                score = _win.GetScore(_player2Name);
-            }
             return score;
+        }
+
+        private string WhoLeads()
+        {
+            if (_p1Point > _p2Point)
+            {
+                return _player1Name;
+            }
+            if (_p1Point < _p2Point)
+            {
+                return _player2Name;
+            }
+            return "";
         }
 
         public void SetP1Score(int number)
