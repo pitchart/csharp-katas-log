@@ -4,17 +4,19 @@
     {
         public string Convert(int arabic)
         {
-            if (arabic == 1)
-            {
-                return "I";
-            }
+            string One = "I";
 
-            if (arabic == 2)
-            {
-                return "II";
-            }
+            string Romain = string.Empty;
 
-            return string.Empty;
+            while (arabic > 0)
+            {
+                Romain = string.Concat(Romain, One);
+                arabic--;
+
+            }
+            return Romain;
+
         }
+
     }
 }

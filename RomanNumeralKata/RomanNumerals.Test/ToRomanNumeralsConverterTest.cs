@@ -20,22 +20,13 @@ namespace RomanNumerals.Test
             _converter.Convert(0).Should().Be("");
         }
 
-        [Fact]
-        public void Should_be_I_for_one()
+        [Theory]
+        [InlineData(1,"I")]
+        [InlineData(2, "II")]
+        [InlineData(3, "III")]
+        public void Should_be_Able_ToConvert_Into_SuccesiveOnes(int arabic, string romain)
         {
-            _converter.Convert(1).Should().Be("I");
-        }
-
-        [Fact]
-        public void Should_be_II_for_two()
-        {
-            _converter.Convert(2).Should().Be("II");
-        }
-
-        [Fact]
-        public void Should_be_III_for_three()
-        {
-            _converter.Convert(3).Should().Be("III");
+            _converter.Convert(arabic).Should().Be(romain);
         }
 
     }
