@@ -1,12 +1,20 @@
-﻿using System;
-
-namespace RomanNumeral
+﻿namespace RomanNumeral
 {
     public class ToRomanNumeralsConverter
     {
         public string Convert(int arabic)
         {
-            throw new NotImplementedException();
+            if (arabic == 1)
+            {
+                return "I";
+            }
+
+            if (arabic == 2)
+            {
+                return "II";
+            }
+
+            return string.Empty;
         }
     }
 }

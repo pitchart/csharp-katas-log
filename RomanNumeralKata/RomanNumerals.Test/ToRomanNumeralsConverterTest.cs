@@ -19,5 +19,24 @@ namespace RomanNumerals.Test
         {
             _converter.Convert(0).Should().Be("");
         }
+
+        [Fact]
+        public void Should_be_I_for_one()
+        {
+            _converter.Convert(1).Should().Be("I");
+        }
+
+        [Fact]
+        public void Should_be_II_for_two()
+        {
+            _converter.Convert(2).Should().Be("II");
+        }
+
+        [Fact]
+        public void Should_be_III_for_three()
+        {
+            _converter.Convert(3).Should().Be("III");
+        }
+
     }
 }
