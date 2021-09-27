@@ -1,3 +1,4 @@
+using System;
 using Tennis.Points;
 
 namespace Tennis
@@ -40,6 +41,12 @@ namespace Tennis
 
         private readonly FortyThirty _fortyThirty = new FortyThirty();
 
+        private readonly FifteenThirty _fifteenThirty = new FifteenThirty();
+
+        private readonly FifteenForty _fifteenForty = new FifteenForty();
+
+        private readonly ThirtyForty _thirtyForty = new  ThirtyForty();
+
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
@@ -77,6 +84,10 @@ namespace Tennis
             if (_p1Point == 2 && _p2Point == 1) currentScore = _thirtyFifteen;
             if (_p1Point == 3 && _p2Point == 1) currentScore = _fortyFifteen;
             if (_p1Point == 3 && _p2Point == 2) currentScore = _fortyThirty;
+            
+            if (_p2Point == 2 && _p1Point == 1) currentScore = _fifteenThirty;
+            if (_p2Point == 3 && _p1Point == 1) currentScore = _fifteenForty;
+            if (_p2Point == 3 && _p1Point == 2) currentScore = _thirtyForty;
 
             if (_p1Point == _p2Point && _p1Point > 2)
                 currentScore = _deuce;
@@ -100,31 +111,7 @@ namespace Tennis
                 currentScore = _win;
             }
 
-            if (currentScore != null) return currentScore.GetScore(WhoLeads());
-
-
-            //Good
-            //-----------------------------
-            //Bad 
-
-            string p1res = "";
-            string p2res = "";
-            var score = "";
-
-            if (_p2Point > _p1Point && _p2Point < 4)
-            {
-                if (_p2Point == 2)
-                    p2res = "Thirty";
-                if (_p2Point == 3)
-                    p2res = "Forty";
-                if (_p1Point == 1)
-                    p1res = "Fifteen";
-                if (_p1Point == 2)
-                    p1res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
-
-            return score;
+            return currentScore?.GetScore(WhoLeads()) ?? string.Empty;
         }
 
         private string WhoLeads()
