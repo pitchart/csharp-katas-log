@@ -10,10 +10,7 @@ namespace Banking.Domain
         
         public Account(float initialDeposit = 0)
         {
-            if (initialDeposit < 0)
-            {
-                throw InvalidAmountException.AccountCreationWithNegativeAmount(); 
-            }
+            TransactionValidator.ValidateInitialDeposit(initialDeposit);
 
             if (initialDeposit != 0)
             {
@@ -42,10 +39,14 @@ namespace Banking.Domain
             accountB.Deposit(transferAmount, DateTime.Now);
         }
 
-        public Statement Statement()
+        public Statement Statement(IFilter filter = null)
         {
             return new Statement(this.Transactions);
         }
+    }
+
+    public interface IFilter
+    {
     }
 
 }

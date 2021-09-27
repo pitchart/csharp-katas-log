@@ -10,6 +10,8 @@ namespace Banking.Domain
 
         public Deposit(DateTime date, float value, float currentBalance)
         {
+            TransactionValidator.ValidateAmount(value, typeof(Deposit));
+
             this.Date = date;
             this.Value = value;
             this.Balance = currentBalance + value;

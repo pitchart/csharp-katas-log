@@ -112,5 +112,14 @@ namespace Banking.Tests.Unit
             Assert.Equal("Cannot withdraw with negative amount",exception.Message);
         }
 
+        [Fact]
+        public void Should_not_deposit_negative_amount()
+        {
+            Account account = new Account(100);
+
+            var exception = Assert.Throws<InvalidAmountException>(() => account.Deposit(-10, DateTime.Now));
+            Assert.Equal("Cannot deposit with negative amount", exception.Message);
+        }
+
     }
 }

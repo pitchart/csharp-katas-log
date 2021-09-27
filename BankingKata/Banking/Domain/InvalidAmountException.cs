@@ -18,5 +18,10 @@ namespace Banking.Domain
         {
             return new InvalidAmountException("Cannot withdraw with negative amount");
         }
+
+        public static Exception DepositWithNegativeAmount()
+        {
+            return new InvalidAmountException("Cannot deposit with negative amount");
+        }
     }
 }

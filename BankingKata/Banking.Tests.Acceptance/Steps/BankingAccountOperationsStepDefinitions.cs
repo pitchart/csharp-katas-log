@@ -65,6 +65,12 @@ namespace Banking.Tests.Acceptance.Steps
             _account.Transfer(transferAmount, _accountB);
         }
 
+        [When(@"she filters by deposit")]
+        public void WhenSheFiltersByDeposit()
+        {
+            _account.Statement();
+        }
+
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
         public void ThenClientABalanceShouldBeAndClientBBalanceShouldBe(int balanceA, int balanceB)
         {

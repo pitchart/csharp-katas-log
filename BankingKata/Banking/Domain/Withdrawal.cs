@@ -9,12 +9,10 @@ namespace Banking.Domain
         public float Value { get; }
         public float Balance { get; }
 
-    public Withdrawal(DateTime date, float value, float currentBalance)
+        public Withdrawal(DateTime date, float value, float currentBalance)
         {
-            if (value <= 0)
-            {
-                throw InvalidAmountException.WithdrawWithNegativeAmount();
-            }
+            TransactionValidator.ValidateAmount(value, typeof(Withdrawal));
+
             this.Date = date;
             this.Value = value;
             this.Balance = currentBalance - value;
