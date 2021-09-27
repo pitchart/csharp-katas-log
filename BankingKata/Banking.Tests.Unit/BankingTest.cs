@@ -99,7 +99,8 @@ namespace Banking.Tests.Unit
         [Fact]
         public void Should_not_create_account_with_debt()
         {
-            Assert.Throws<ArgumentException>(() => new Account(-100));
+            var exception = Assert.Throws<InvalidAmountException>(() => new Account(-100));
+            Assert.Equal("Cannot create an account with negative amount",exception.Message);
         }
 
         [Fact]
@@ -107,7 +108,8 @@ namespace Banking.Tests.Unit
         {
             Account account = new Account(100);
 
-            Assert.Throws<ArgumentException>(() => account.Withdraw(-10, DateTime.Now));
+            var exception = Assert.Throws<InvalidAmountException>(() => account.Withdraw(-10, DateTime.Now));
+            Assert.Equal("Cannot withdraw with negative amount",exception.Message);
         }
 
     }

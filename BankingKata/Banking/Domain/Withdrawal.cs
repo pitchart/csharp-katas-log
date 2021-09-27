@@ -11,6 +11,10 @@ namespace Banking.Domain
 
     public Withdrawal(DateTime date, float value, float currentBalance)
         {
+            if (value <= 0)
+            {
+                throw InvalidAmountException.WithdrawWithNegativeAmount();
+            }
             this.Date = date;
             this.Value = value;
             this.Balance = currentBalance - value;

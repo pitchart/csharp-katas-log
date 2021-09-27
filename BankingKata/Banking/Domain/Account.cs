@@ -12,7 +12,7 @@ namespace Banking.Domain
         {
             if (initialDeposit < 0)
             {
-                throw new ArgumentException("Cannot create an account with negative amount");
+                throw InvalidAmountException.AccountCreationWithNegativeAmount(); 
             }
 
             if (initialDeposit != 0)
@@ -31,6 +31,7 @@ namespace Banking.Domain
 
         public void Withdraw(float amount, DateTime date)
         {
+            
             var transaction = new Withdrawal(date, amount, Balance);
             this.Transactions.Add(transaction);
         }
@@ -46,4 +47,5 @@ namespace Banking.Domain
             return new Statement(this.Transactions);
         }
     }
+
 }
