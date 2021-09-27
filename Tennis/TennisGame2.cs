@@ -34,6 +34,12 @@ namespace Tennis
 
         private readonly LoveThirty _loveThirty = new LoveThirty();
 
+        private readonly ThirtyFifteen _thirtyFifteen = new ThirtyFifteen();
+
+        private readonly FortyFifteen _fortyFifteen = new FortyFifteen();
+
+        private readonly FortyThirty _fortyThirty = new FortyThirty();
+
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
@@ -68,6 +74,10 @@ namespace Tennis
                 if (_p2Point == 3) currentScore = _loveForty;
             }
 
+            if (_p1Point == 2 && _p2Point == 1) currentScore = _thirtyFifteen;
+            if (_p1Point == 3 && _p2Point == 1) currentScore = _fortyFifteen;
+            if (_p1Point == 3 && _p2Point == 2) currentScore = _fortyThirty;
+
             if (_p1Point == _p2Point && _p1Point > 2)
                 currentScore = _deuce;
 
@@ -92,6 +102,8 @@ namespace Tennis
 
             if (currentScore != null) return currentScore.GetScore(WhoLeads());
 
+
+
             //Good
             //-----------------------------
             //Bad 
@@ -100,20 +112,6 @@ namespace Tennis
             string p2res = "";
             var score = "";
 
-
-
-            if (_p1Point > _p2Point && _p1Point < 4)
-            {
-                if (_p1Point == 2)
-                    p1res = "Thirty";
-                if (_p1Point == 3)
-                    p1res = "Forty";
-                if (_p2Point == 1)
-                    p2res = "Fifteen";
-                if (_p2Point == 2)
-                    p2res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
             if (_p2Point > _p1Point && _p2Point < 4)
             {
                 if (_p2Point == 2)
@@ -143,22 +141,6 @@ namespace Tennis
             return "";
         }
 
-        public void SetP1Score(int number)
-        {
-            for (int i = 0; i < number; i++)
-            {
-                P1Score();
-            }
-        }
-
-        public void SetP2Score(int number)
-        {
-            for (var i = 0; i < number; i++)
-            {
-                P2Score();
-            }
-        }
-
         private void P1Score()
         {
             _p1Point++;
@@ -176,7 +158,6 @@ namespace Tennis
             else if (player == _player2Name)
                 P2Score();
         }
-
     }
 
 }
