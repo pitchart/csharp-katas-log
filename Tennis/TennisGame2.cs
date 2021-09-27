@@ -28,6 +28,12 @@ namespace Tennis
 
         private readonly FortyLove _fortyLove = new FortyLove();
 
+        private readonly LoveFifteen _loveFifteen = new LoveFifteen();
+
+        private readonly LoveForty _loveForty = new LoveForty();
+
+        private readonly LoveThirty _loveThirty = new LoveThirty();
+
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
@@ -37,7 +43,7 @@ namespace Tennis
         public string GetScore()
         {
             IPoint currentScore = null;
-            
+
             if (_p1Point == _p2Point && _p1Point < 3)
             {
                 if (_p1Point == 0)
@@ -47,14 +53,21 @@ namespace Tennis
                 if (_p1Point == 2)
                     currentScore = _thirtyAll;
             }
-            
+
             if (_p1Point > 0 && _p2Point == 0)
             {
                 if (_p1Point == 1) currentScore = _fifteenLove;
                 if (_p1Point == 2) currentScore = _thirtyLove;
                 if (_p1Point == 3) currentScore = _fortyLove;
             }
-            
+
+            if (_p2Point > 0 && _p1Point == 0)
+            {
+                if (_p2Point == 1) currentScore = _loveFifteen;
+                if (_p2Point == 2) currentScore = _loveThirty;
+                if (_p2Point == 3) currentScore = _loveForty;
+            }
+
             if (_p1Point == _p2Point && _p1Point > 2)
                 currentScore = _deuce;
 
@@ -87,18 +100,7 @@ namespace Tennis
             string p2res = "";
             var score = "";
 
-            if (_p2Point > 0 && _p1Point == 0)
-            {
-                if (_p2Point == 1)
-                    p2res = "Fifteen";
-                if (_p2Point == 2)
-                    p2res = "Thirty";
-                if (_p2Point == 3)
-                    p2res = "Forty";
 
-                p1res = "Love";
-                score = p1res + "-" + p2res;
-            }
 
             if (_p1Point > _p2Point && _p1Point < 4)
             {
