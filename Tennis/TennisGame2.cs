@@ -10,28 +10,28 @@ namespace Tennis
         private string _player1Name;
         private string _player2Name;
 
-        private readonly LoveAll _loveAll;
+        private readonly LoveAll _loveAll = new LoveAll();
 
-        private readonly Advantage _advantage;
+        private readonly Advantage _advantage = new Advantage();
 
-        private readonly Deuce _deuce;
+        private readonly Deuce _deuce = new Deuce();
 
-        private readonly ThirtyAll _thirtyAll;
+        private readonly ThirtyAll _thirtyAll = new ThirtyAll();
 
-        private readonly FifteenAll _fifteenAll;
+        private readonly FifteenAll _fifteenAll = new FifteenAll();
 
-        private readonly Win _win;
+        private readonly Win _win = new Win();
+
+        private readonly FifteenLove _fifteenLove = new FifteenLove();
+
+        private readonly ThirtyLove _thirtyLove = new ThirtyLove();
+
+        private readonly FortyLove _fortyLove = new FortyLove();
 
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
             this._player2Name = player2Name;
-            _loveAll = new LoveAll();
-            _advantage = new Advantage();
-            _deuce = new Deuce();
-            _thirtyAll = new ThirtyAll();
-            _fifteenAll = new FifteenAll();
-            _win = new Win();
         }
 
         public string GetScore()
@@ -47,6 +47,14 @@ namespace Tennis
                 if (_p1Point == 2)
                     currentScore = _thirtyAll;
             }
+            
+            if (_p1Point > 0 && _p2Point == 0)
+            {
+                if (_p1Point == 1) currentScore = _fifteenLove;
+                if (_p1Point == 2) currentScore = _thirtyLove;
+                if (_p1Point == 3) currentScore = _fortyLove;
+            }
+            
             if (_p1Point == _p2Point && _p1Point > 2)
                 currentScore = _deuce;
 
@@ -79,19 +87,6 @@ namespace Tennis
             string p2res = "";
             var score = "";
 
-
-            if (_p1Point > 0 && _p2Point == 0)
-            {
-                if (_p1Point == 1)
-                    p1res = "Fifteen";
-                if (_p1Point == 2)
-                    p1res = "Thirty";
-                if (_p1Point == 3)
-                    p1res = "Forty";
-
-                p2res = "Love";
-                score = p1res + "-" + p2res;
-            }
             if (_p2Point > 0 && _p1Point == 0)
             {
                 if (_p2Point == 1)
@@ -181,5 +176,6 @@ namespace Tennis
         }
 
     }
+
 }
 
