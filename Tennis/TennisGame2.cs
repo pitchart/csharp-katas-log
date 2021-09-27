@@ -103,7 +103,6 @@ namespace Tennis
             if (currentScore != null) return currentScore.GetScore(WhoLeads());
 
 
-
             //Good
             //-----------------------------
             //Bad 
