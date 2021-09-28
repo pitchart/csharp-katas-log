@@ -5,17 +5,23 @@
         public string Convert(int arabic)
         {
             string One = "I";
-
+            string Five = "V";
             string Romain = string.Empty;
 
             while (arabic > 0)
             {
-                Romain = string.Concat(Romain, One);
-                arabic--;
-
+                if (arabic >= 5)
+                {
+                    Romain = Five;
+                    arabic -= 5;
+                }
+                else
+                {
+                    Romain = string.Concat(Romain, One);
+                    arabic--;
+                }
             }
             return Romain;
-
         }
 
     }
