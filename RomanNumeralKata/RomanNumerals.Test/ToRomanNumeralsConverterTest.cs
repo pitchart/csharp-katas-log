@@ -48,5 +48,12 @@ namespace RomanNumerals.Test
             _converter.Convert(4).Should().Be("IV");
         }
 
+        [Fact]
+        public void Should_be_X_for_ten()
+        {
+            _converter.Convert(10).Should().Be("X");
+        }
+
+
     }
 }
