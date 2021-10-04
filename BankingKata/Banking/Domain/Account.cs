@@ -45,8 +45,4 @@ namespace Banking.Domain
         }
     }
 
-    public interface IFilter
-    {
-    }
-
 }

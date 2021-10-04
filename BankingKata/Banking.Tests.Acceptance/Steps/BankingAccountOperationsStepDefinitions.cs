@@ -68,7 +68,8 @@ namespace Banking.Tests.Acceptance.Steps
         [When(@"she filters by deposit")]
         public void WhenSheFiltersByDeposit()
         {
-            _account.Statement();
+            IFilter filter = new DepositFilter();
+            _account.Statement(filter);
         }
 
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
@@ -85,4 +86,5 @@ namespace Banking.Tests.Acceptance.Steps
             return parseDate;
         }
     }
+
 }

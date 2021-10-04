@@ -2,7 +2,8 @@
 
 namespace Banking.Domain
 {
-    internal class Deposit : ITransaction
+
+    public class Deposit : ITransaction
     {
         public DateTime Date { get; }
         public float Value { get; }

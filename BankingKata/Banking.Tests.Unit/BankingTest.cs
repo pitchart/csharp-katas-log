@@ -121,5 +121,20 @@ namespace Banking.Tests.Unit
             Assert.Equal("Cannot deposit with negative amount", exception.Message);
         }
 
+        [Fact]
+        public void Should_filter_withdrawal_transactions_when_deposit_filter_is_set()
+        {
+            //Arrange
+            Account account = new Account(100);
+            account.Withdraw(50, DateTime.Now);
+            IFilter filter = new DepositFilter();
+
+            //Act
+            Statement statement = account.Statement(filter);
+
+            //Assert
+            Assert.Single(statement.Transactions);
+            Assert.Collection(statement.Transactions, tr => Assert.True(tr is Deposit));
+        }
     }
 }
