@@ -1,11 +1,11 @@
 namespace Tennis.Points
 {
 
-    public class AdvantageP2:IPoint
+    public class AdvantageP2 : IPoint
     {
         public string GetScore(string name)
         {
-            return $"AdvantageP1 {name}";
+            return $"Advantage {name}";
         }
 
         public IPoint ScoreP1()
@@ -15,7 +15,7 @@ namespace Tennis.Points
 
         public IPoint ScoreP2()
         {
-            return new Win();
+            return new WinP2();
         }
     }
 

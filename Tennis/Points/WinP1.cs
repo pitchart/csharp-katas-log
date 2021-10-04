@@ -1,7 +1,7 @@
 ﻿namespace Tennis.Points
 {
 
-    public class Win : IPoint
+    public class WinP1 : IPoint
     {
         public string GetScore(string name)
         {

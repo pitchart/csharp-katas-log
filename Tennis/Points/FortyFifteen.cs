@@ -10,7 +10,7 @@ namespace Tennis.Points
 
         public IPoint ScoreP1()
         {
-            return new Win();
+            return new WinP1();
         }
 
         public IPoint ScoreP2()

@@ -6,5 +6,15 @@
         {
             return "Love-Thirty";
         }
+
+        public IPoint ScoreP1()
+        {
+            return new FifteenThirty();
+        }
+
+        public IPoint ScoreP2()
+        {
+            return new LoveForty();
+        }
     }
 }
