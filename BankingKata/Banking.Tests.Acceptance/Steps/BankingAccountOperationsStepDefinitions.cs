@@ -17,6 +17,8 @@ namespace Banking.Tests.Acceptance.Steps
         private Account _accountB = new Account();
         private readonly Printer _printer = new Printer();
 
+        private IFilter _filter = null ;
+
         private string _printStatementResult;
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
@@ -31,7 +33,7 @@ namespace Banking.Tests.Acceptance.Steps
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
-            _printStatementResult = _printer.Print(_account.Statement());
+            _printStatementResult = _printer.Print( _account.Statement(_filter));
         }
 
         [Then(@"she would see")]
@@ -66,10 +68,9 @@ namespace Banking.Tests.Acceptance.Steps
         }
 
         [When(@"she filters by deposit")]
-        public void WhenSheFiltersByDeposit()
+        public void WhenSheChooseToFilterByDeposit()
         {
-            IFilter filter = new DepositFilter();
-            _account.Statement(filter);
+            _filter = new DepositFilter();
         }
 
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]

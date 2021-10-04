@@ -41,7 +41,12 @@ namespace Banking.Domain
 
         public Statement Statement(IFilter filter = null)
         {
-            return new Statement(this.Transactions);
+            IList<ITransaction> transactions = this.Transactions;
+            if (filter != null)
+            {
+               transactions =  filter.Filter(this.Transactions);
+            }
+            return new Statement(transactions);
         }
     }
 

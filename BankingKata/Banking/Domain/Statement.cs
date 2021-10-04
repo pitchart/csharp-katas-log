@@ -8,7 +8,7 @@ namespace Banking.Domain
     {
         private readonly ImmutableList<ITransaction> _transactions;
 
-        public Statement(List<ITransaction> transactions)
+        public Statement(IList<ITransaction> transactions)
         {
             _transactions = transactions.OrderByDescending(transaction => transaction.Date).ToImmutableList();
         }

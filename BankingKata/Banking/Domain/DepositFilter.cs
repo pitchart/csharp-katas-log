@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Banking.Domain
 {
@@ -8,7 +9,7 @@ namespace Banking.Domain
     {
         public IList<ITransaction> Filter(IList<ITransaction> transactions)
         {
-            throw new NotImplementedException();
+            return transactions.Where(t => t is Deposit).ToList();
         }
     }
 
