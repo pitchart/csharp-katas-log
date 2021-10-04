@@ -1,4 +1,3 @@
-using System;
 using Tennis.Points;
 
 namespace Tennis
@@ -47,6 +46,8 @@ namespace Tennis
 
         private readonly ThirtyForty _thirtyForty = new  ThirtyForty();
 
+        private IPoint _currentScore;
+
         public TennisGame2(string player1Name, string player2Name)
         {
             this._player1Name = player1Name;
@@ -55,63 +56,7 @@ namespace Tennis
 
         public string GetScore()
         {
-            IPoint currentScore = null;
-
-            if (_p1Point == _p2Point && _p1Point < 3)
-            {
-                if (_p1Point == 0)
-                    currentScore = _loveAll;
-                if (_p1Point == 1)
-                    currentScore = _fifteenAll;
-                if (_p1Point == 2)
-                    currentScore = _thirtyAll;
-            }
-
-            if (_p1Point > 0 && _p2Point == 0)
-            {
-                if (_p1Point == 1) currentScore = _fifteenLove;
-                if (_p1Point == 2) currentScore = _thirtyLove;
-                if (_p1Point == 3) currentScore = _fortyLove;
-            }
-
-            if (_p2Point > 0 && _p1Point == 0)
-            {
-                if (_p2Point == 1) currentScore = _loveFifteen;
-                if (_p2Point == 2) currentScore = _loveThirty;
-                if (_p2Point == 3) currentScore = _loveForty;
-            }
-
-            if (_p1Point == 2 && _p2Point == 1) currentScore = _thirtyFifteen;
-            if (_p1Point == 3 && _p2Point == 1) currentScore = _fortyFifteen;
-            if (_p1Point == 3 && _p2Point == 2) currentScore = _fortyThirty;
-            
-            if (_p2Point == 2 && _p1Point == 1) currentScore = _fifteenThirty;
-            if (_p2Point == 3 && _p1Point == 1) currentScore = _fifteenForty;
-            if (_p2Point == 3 && _p1Point == 2) currentScore = _thirtyForty;
-
-            if (_p1Point == _p2Point && _p1Point > 2)
-                currentScore = _deuce;
-
-            if (_p1Point > _p2Point && _p2Point >= 3)
-            {
-                currentScore = _advantage;
-            }
-
-            if (_p2Point > _p1Point && _p1Point >= 3)
-            {
-                currentScore = _advantage;
-            }
-
-            if (_p1Point >= 4 && _p2Point >= 0 && (_p1Point - _p2Point) >= 2)
-            {
-                currentScore = _win;
-            }
-            if (_p2Point >= 4 && _p1Point >= 0 && (_p2Point - _p1Point) >= 2)
-            {
-                currentScore = _win;
-            }
-
-            return currentScore?.GetScore(WhoLeads()) ?? string.Empty;
+            return _currentScore?.GetScore(WhoLeads()) ?? string.Empty;
         }
 
         private string WhoLeads()
@@ -129,12 +74,12 @@ namespace Tennis
 
         private void P1Score()
         {
-            _p1Point++;
+            _currentScore = _currentScore.ScoreP1();
         }
 
         private void P2Score()
         {
-            _p2Point++;
+            _currentScore = _currentScore.ScoreP2();
         }
 
         public void WonPoint(string player)

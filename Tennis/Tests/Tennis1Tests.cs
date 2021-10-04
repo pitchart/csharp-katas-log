@@ -42,7 +42,7 @@ namespace Tennis.Tests
             
             game.WonPoint("PlayerOne");
             
-            game.GetScore().Should().Be("Advantage PlayerOne");
+            game.GetScore().Should().Be("AdvantageP1 PlayerOne");
         }
         
         [Fact]
@@ -60,7 +60,7 @@ namespace Tennis.Tests
             
             game.WonPoint("PlayerTwo");
             
-            game.GetScore().Should().Be("Advantage PlayerTwo");
+            game.GetScore().Should().Be("AdvantageP1 PlayerTwo");
         }
         
         [Fact]

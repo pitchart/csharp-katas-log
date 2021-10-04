@@ -7,6 +7,16 @@ namespace Tennis.Points
         {
             return "Thirty-Love";
         }
+
+        public IPoint ScoreP1()
+        {
+            return new FortyLove();
+        }
+
+        public IPoint ScoreP2()
+        {
+            return new ThirtyFifteen();
+        }
     }
 
 }

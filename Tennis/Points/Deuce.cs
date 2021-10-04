@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace Tennis.Points
 {
 
@@ -8,6 +6,16 @@ namespace Tennis.Points
         public string GetScore(string _ = "")
         {
             return "Deuce";
+        }
+
+        public IPoint ScoreP1()
+        {
+            return new AdvantageP1();
+        }
+
+        public IPoint ScoreP2()
+        {
+            return new AdvantageP2();
         }
     }
 

@@ -40,7 +40,7 @@ namespace Tennis
                 return GetScoreForEquality();
             }
 
-            if (_player1Score >= 4 || _player2Score >= 4) //Advantage or Win
+            if (_player1Score >= 4 || _player2Score >= 4) //AdvantageP1 or Win
             {
                 return GetScoreForAdvantageOrWin();
             }
@@ -69,7 +69,7 @@ namespace Tennis
         {
             return GetGap() switch
             {
-                1 => $"Advantage {GetLeadingPlayerName()}",
+                1 => $"AdvantageP1 {GetLeadingPlayerName()}",
                 _ => $"Win for {GetLeadingPlayerName()}"
             };
         }
