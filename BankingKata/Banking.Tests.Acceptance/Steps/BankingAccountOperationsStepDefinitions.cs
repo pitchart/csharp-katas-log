@@ -73,6 +73,12 @@ namespace Banking.Tests.Acceptance.Steps
             _filter = new DepositFilter();
         }
 
+        [When(@"she filters by withdrawal")]
+        public void WhenSheFiltersByWithdrawal()
+        {
+            ScenarioContext.StepIsPending();
+        }
+
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
         public void ThenClientABalanceShouldBeAndClientBBalanceShouldBe(int balanceA, int balanceB)
         {
