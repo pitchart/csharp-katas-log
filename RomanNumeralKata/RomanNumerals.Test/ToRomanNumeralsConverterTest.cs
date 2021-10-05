@@ -49,11 +49,21 @@ namespace RomanNumerals.Test
         }
 
         [Fact]
+        public void Should_be_IX_for_nine()
+        {
+            _converter.Convert(9).Should().Be("IX");
+        }
+
+        [Fact]
         public void Should_be_X_for_ten()
         {
             _converter.Convert(10).Should().Be("X");
         }
 
-
+        [Fact]
+        public void Should_be_XI_for_eleven()
+        {
+            _converter.Convert(11).Should().Be("XI");
+        }
     }
 }

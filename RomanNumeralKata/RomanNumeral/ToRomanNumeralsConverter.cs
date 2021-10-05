@@ -4,41 +4,50 @@ namespace RomanNumeral
 {
     public class ToRomanNumeralsConverter
     {
-        public string Convert(int arabic)
+        private readonly Dictionary<int, string> arabicToRomain;
+
+        public ToRomanNumeralsConverter()
         {
-            Dictionary<int, string> arabicToRomain = new Dictionary<int, string>
+            arabicToRomain = new Dictionary<int, string>
             {
                 { 1, "I" },
                 { 4, "IV" },
                 { 5, "V" },
+                { 9, "IX" },
                 { 10, "X" }
             };
+        }
 
-            string One = "I";
-            string Five = "V";
-            string Ten = "X";
+        public string Convert(int arabic)
+        {
             string Romain = string.Empty;
 
             while (arabic > 0)
             {
                 if(arabicToRomain.ContainsKey(arabic))
                 {
-                    Romain += arabicToRomain.GetValueOrDefault(arabic);
-                    arabic -= arabic;
+                    BuildRomainNumber(ref arabic, ref Romain, arabic);
                 }
-                else if (arabic >= 5)
+                else if (arabic > 10)
                 {
-                    Romain = Five;
-                    arabic -= 5;
+                    BuildRomainNumber(ref arabic, ref Romain, 10);
+                }
+                else if (arabic > 5)
+                {
+                    BuildRomainNumber(ref arabic, ref Romain, 5);
                 }
                 else
                 {
-                    Romain = string.Concat(Romain, One);
-                    arabic--;
+                    BuildRomainNumber(ref arabic, ref Romain, 1);
                 }
             }
             return Romain;
         }
 
+        private void BuildRomainNumber(ref int arabic, ref string Romain, int indexNumber)
+        {
+            Romain += arabicToRomain.GetValueOrDefault(indexNumber);
+            arabic -= indexNumber;
+        }
     }
 }
