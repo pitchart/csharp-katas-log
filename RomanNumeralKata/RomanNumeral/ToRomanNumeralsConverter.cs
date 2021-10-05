@@ -14,7 +14,9 @@ namespace RomanNumeral
                 { 4, "IV" },
                 { 5, "V" },
                 { 9, "IX" },
-                { 10, "X" }
+                { 10, "X" },
+                { 40, "XL" },
+                { 50, "L" }
             };
         }
 
@@ -27,6 +29,14 @@ namespace RomanNumeral
                 if(arabicToRomain.ContainsKey(arabic))
                 {
                     BuildRomainNumber(ref arabic, ref Romain, arabic);
+                }
+                else if (arabic > 50)
+                {
+                    BuildRomainNumber(ref arabic, ref Romain, 50);
+                }
+                else if (arabic > 40)
+                {
+                    BuildRomainNumber(ref arabic, ref Romain, 40);
                 }
                 else if (arabic > 10)
                 {
