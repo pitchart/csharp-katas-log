@@ -69,7 +69,7 @@ namespace Tennis
         {
             return GetGap() switch
             {
-                1 => $"AdvantageP1 {GetLeadingPlayerName()}",
+                1 => $"Advantage {GetLeadingPlayerName()}",
                 _ => $"Win for {GetLeadingPlayerName()}"
             };
         }
