@@ -3,7 +3,7 @@
 namespace Banking.Domain
 {
 
-    internal class Withdrawal : ITransaction
+    public class Withdrawal : ITransaction
     {
         public DateTime Date { get; }
         public float Value { get; }

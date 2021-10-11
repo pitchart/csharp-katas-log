@@ -136,5 +136,50 @@ namespace Banking.Tests.Unit
             Assert.Single(statement.Transactions);
             Assert.Collection(statement.Transactions, tr => Assert.True(tr is Deposit));
         }
+        
+        [Fact]
+        public void Should_filter_withdrawal_transactions_when_deposit_filter_is_set_with_no_deposit()
+        {
+            //Arrange
+            Account account = new Account();
+            account.Withdraw(50, DateTime.Now);
+            IFilter filter = new DepositFilter();
+
+            //Act
+            Statement statement = account.Statement(filter);
+
+            //Assert
+            Assert.Empty(statement.Transactions);
+        }
+        
+        [Fact]
+        public void Should_filter_deposit_transactions_when_withdrawal_filter_is_set()
+        {
+            //Arrange
+            Account account = new Account(100);
+            account.Withdraw(50, DateTime.Now);
+            IFilter filter = new WithdrawalFilter(); 
+
+            //Act
+            Statement statement = account.Statement(filter);
+
+            //Assert
+            Assert.Single(statement.Transactions);
+            Assert.Collection(statement.Transactions, tr => Assert.True(tr is Withdrawal));
+        }
+        
+        [Fact]
+        public void Should_filter_deposit_transactions_when_withdrawal_filter_is_set_with_no_withdrawal()
+        {
+            //Arrange
+            Account account = new Account(100);
+            IFilter filter = new WithdrawalFilter(); 
+
+            //Act
+            Statement statement = account.Statement(filter);
+
+            //Assert
+            Assert.Empty(statement.Transactions);
+        }
     }
 }

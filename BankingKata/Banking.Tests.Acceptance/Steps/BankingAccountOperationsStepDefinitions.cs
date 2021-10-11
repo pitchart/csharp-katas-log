@@ -76,7 +76,7 @@ namespace Banking.Tests.Acceptance.Steps
         [When(@"she filters by withdrawal")]
         public void WhenSheFiltersByWithdrawal()
         {
-            ScenarioContext.StepIsPending();
+            _filter = new WithdrawalFilter();
         }
 
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
