@@ -43,3 +43,8 @@ Scenario: Client filters it statement by withdrawal
 		date       ||   credit ||    debit ||  balance
 		14-01-2012 ||          ||   500.00 ||  2500.00
 		"""
+
+	Scenario: Client open new account
+	Given a client makes a deposit of 1000 on 10-01-2012
+	When she consults account status
+	Then she would see open status

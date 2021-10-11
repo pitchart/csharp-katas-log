@@ -15,10 +15,13 @@ namespace Banking.Domain
             if (initialDeposit != 0)
             {
                 this.Deposit(initialDeposit, DateTime.Now);
+                this.Status = "Open";
             }
         }
 
         private List<ITransaction> Transactions { get; } = new List<ITransaction>();
+
+        public string Status { get; set; }
 
         public void Deposit(float amount, DateTime date)
         {
@@ -28,9 +31,13 @@ namespace Banking.Domain
 
         public void Withdraw(float amount, DateTime date)
         {
-            
             var transaction = new Withdrawal(date, amount, Balance);
             this.Transactions.Add(transaction);
+
+            if (Balance < 0)
+            {
+                this.Status = "Frozen";
+            }
         }
 
         public void Transfer(float transferAmount, Account accountB)
@@ -47,6 +54,11 @@ namespace Banking.Domain
                transactions =  filter.Filter(this.Transactions);
             }
             return new Statement(transactions);
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
         }
     }
 

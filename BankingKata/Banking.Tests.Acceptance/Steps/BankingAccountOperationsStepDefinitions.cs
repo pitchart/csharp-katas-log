@@ -85,8 +85,7 @@ namespace Banking.Tests.Acceptance.Steps
             Assert.Equal(balanceA, _account.Balance);
             Assert.Equal(balanceB, _accountB.Balance);
         }
-
-
+        
         private static DateTime ParseDate(string date)
         {
             DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime parseDate);

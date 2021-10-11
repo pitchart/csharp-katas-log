@@ -1,6 +1,7 @@
 using System;
 using Banking.Domain;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Banking.Tests.Unit
 {
@@ -180,6 +181,46 @@ namespace Banking.Tests.Unit
 
             //Assert
             Assert.Empty(statement.Transactions);
+        }
+
+        [Fact]
+        public void Should_have_open_account_when_creating_new_account()
+        {
+            //Arrange
+            Account account = new Account(100);
+
+            //Act
+            string status = account.Status;
+
+            //Assert
+            Assert.Equal("Open", status);
+        }
+
+        [Fact]
+        public void Should_have_frozen_account_when_balance_account_is_negative()
+        {
+            //Arrange
+            Account account = new Account(100);
+            account.Withdraw(200, DateTime.Now);
+
+            //Act
+            string status = account.Status;
+
+            //Assert
+            Assert.Equal("Frozen", status);
+        }
+
+        [Fact]
+        public void Should_have_close_account_when_client_ask_to_close_account()
+        {
+            //Arrange
+            Account account = new Account(100);
+
+            //Act
+            account.Close();
+
+            //Assert
+            Assert.Equal("Close", account.Status);
         }
     }
 }
