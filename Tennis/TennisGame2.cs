@@ -5,18 +5,15 @@ namespace Tennis
 
     public class TennisGame2 : ITennisGame
     {
-        private int _p1Point;
-        private int _p2Point;
-        private string _player1Name;
-        private string _player2Name;
+        private Player _player1;
+        private Player _player2;
 
         private IPoint _currentScore;
 
         public TennisGame2(string player1Name, string player2Name)
         {
-            this._player1Name = player1Name;
-            this._player2Name = player2Name;
-
+            _player1 = new Player(player1Name);
+            _player2 = new Player(player2Name);
             _currentScore = new LoveAll();
         }
 
@@ -27,13 +24,13 @@ namespace Tennis
 
         private string WhoLeads()
         {
-            if (_p1Point > _p2Point)
+            if (_player1.GetPoints() > _player2.GetPoints())
             {
-                return _player1Name;
+                return _player1.Name;
             }
-            if (_p1Point < _p2Point)
+            if (_player1.GetPoints() < _player2.GetPoints())
             {
-                return _player2Name;
+                return _player2.Name;
             }
             return "";
         }
@@ -41,20 +38,20 @@ namespace Tennis
         private void P1Score()
         {
             _currentScore = _currentScore.ScoreP1();
-            _p1Point++;
+            _player1.Score();
         }
 
         private void P2Score()
         {
             _currentScore = _currentScore.ScoreP2();
-            _p2Point++;
+            _player2.Score();
         }
 
         public void WonPoint(string player)
         {
-            if (player == _player1Name)
+            if (player == _player1.Name)
                 P1Score();
-            else if (player == _player2Name)
+            else if (player == _player2.Name)
                 P2Score();
         }
     }
