@@ -1,42 +1,48 @@
+using System;
+
 namespace Tennis
 {
     public class TennisGame3 : ITennisGame
     {
-        private int p2;
-        private int p1;
-        private string p1N;
-        private string p2N;
+        private int _player2Point;
+        private int _player1Point;
+        private string _player1Name;
+        private string _player2Name;
+
+        private readonly string[] _tennisScore = { "Love", "Fifteen", "Thirty", "Forty" };
 
         public TennisGame3(string player1Name, string player2Name)
         {
-            this.p1N = player1Name;
-            this.p2N = player2Name;
+            this._player1Name = player1Name;
+            this._player2Name = player2Name;
         }
 
         public string GetScore()
         {
-            string s;
-            if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6))
+            if (_player1Point < 4 && _player2Point < 4 && _player1Point + _player2Point < 6)
             {
-                string[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                s = p[p1];
-                return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
+                var player1Score = _tennisScore[_player1Point];
+                return _player1Point == _player2Point ? 
+                    player1Score + "-All" : 
+                    player1Score + "-" + _tennisScore[_player2Point];
             }
-            else
-            {
-                if (p1 == p2)
-                    return "Deuce";
-                s = p1 > p2 ? p1N : p2N;
-                return ((p1 - p2) * (p1 - p2) == 1) ? "Advantage " + s : "Win for " + s;
-            }
+
+            if (_player1Point == _player2Point)
+                return "Deuce";
+
+            var advantagePlayerName = _player1Point > _player2Point ? _player1Name : _player2Name;
+
+            return Math.Abs(_player1Point - _player2Point) == 1 ? 
+                "Advantage " + advantagePlayerName : 
+                "Win for " + advantagePlayerName;
         }
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
-                this.p1 += 1;
-            else
-                this.p2 += 1;
+            if (playerName == _player1Name)
+                this._player1Point += 1;
+            else if(playerName == _player2Name)
+                this._player2Point += 1;
         }
 
     }
