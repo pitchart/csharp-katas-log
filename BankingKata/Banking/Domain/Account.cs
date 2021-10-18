@@ -11,11 +11,11 @@ namespace Banking.Domain
         public Account(float initialDeposit = 0)
         {
             TransactionValidator.ValidateInitialDeposit(initialDeposit);
+            this.Status = "Open";
 
             if (initialDeposit != 0)
             {
                 this.Deposit(initialDeposit, DateTime.Now);
-                this.Status = "Open";
             }
         }
 
@@ -56,9 +56,13 @@ namespace Banking.Domain
             return new Statement(transactions);
         }
 
-        public void Close()
+        public void Close(DateTime dateTime = default)
         {
-            throw new NotImplementedException();
+            if(dateTime == DateTime.MinValue)
+                dateTime = DateTime.Now;
+            
+            this.Status = "Close";
+            this.Withdraw(Balance, dateTime);
         }
     }
 

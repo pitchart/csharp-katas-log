@@ -21,6 +21,8 @@ namespace Banking.Tests.Acceptance.Steps
 
         private string _printStatementResult;
 
+        private string _status;
+
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
         public void GivenAClientMakesADepositOfOn(int amount, string date)
@@ -78,12 +80,32 @@ namespace Banking.Tests.Acceptance.Steps
         {
             _filter = new WithdrawalFilter();
         }
+        
+        [When(@"she consults account status")]
+        public void WhenSheConsultsAccountStatus()
+        {
+            _status = _account.Status;
+        }
+        
+        [When(@"she close her account on (.*)")]
+        public void WhenSheCloseHerAccount(string date)
+        {
+            DateTime parseDate = ParseDate(date);
+            
+            _account.Close(parseDate);
+        }
 
         [Then(@"clientA balance should be (.*) and clientB balance should be (.*)")]
         public void ThenClientABalanceShouldBeAndClientBBalanceShouldBe(int balanceA, int balanceB)
         {
             Assert.Equal(balanceA, _account.Balance);
             Assert.Equal(balanceB, _accountB.Balance);
+        }
+        
+        [Then(@"she would see (.*) status")]
+        public void ThenSheWouldSeeOpenStatus(string status)
+        {
+            Assert.Equal(status, _status);
         }
         
         private static DateTime ParseDate(string date)
