@@ -8,9 +8,9 @@ Scenario: Printing statement after deposits and withdrawal
 	Then she would see
 		"""
 		date       ||   credit ||    debit ||  balance
-		14-01-2012 ||          ||   500.00 ||  2500.00
-		13-01-2012 ||  2000.00 ||          ||  3000.00
 		10-01-2012 ||  1000.00 ||          ||  1000.00
+		13-01-2012 ||  2000.00 ||          ||  3000.00
+		14-01-2012 ||          ||   500.00 ||  2500.00
 		"""
 
 Scenario: Client makes a transfer
@@ -28,8 +28,8 @@ Scenario: Client filters it statement
 	Then she would see
 		"""
 		date       ||   credit ||    debit ||  balance
-		13-01-2012 ||  2000.00 ||          ||  3000.00
 		10-01-2012 ||  1000.00 ||          ||  1000.00
+		13-01-2012 ||  2000.00 ||          ||  3000.00
 		"""
 	
 Scenario: Client filters it statement by withdrawal
@@ -58,8 +58,8 @@ Scenario: Client close an account
 	And she would see
 		"""
 		date       ||   credit ||    debit ||  balance
-		11-01-2012 ||          ||  1000.00 ||     0.00
 		10-01-2012 ||  1000.00 ||          ||  1000.00
+		11-01-2012 ||          ||  1000.00 ||     0.00
 		"""
 	
 Scenario: Client get a frozen account

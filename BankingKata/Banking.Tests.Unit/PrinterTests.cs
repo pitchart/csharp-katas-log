@@ -95,8 +95,8 @@ namespace Banking.Tests.Unit
 
             //Assert
             string expected = "date       ||   credit ||    debit ||  balance" + Environment.NewLine +
-                              "14-01-2012 ||          ||   300.00 ||   200.00" + Environment.NewLine +
-                              "13-01-2012 ||   500.00 ||          ||   500.00";
+                              "13-01-2012 ||   500.00 ||          ||   500.00" + Environment.NewLine +
+                              "14-01-2012 ||          ||   300.00 ||   200.00";
             Assert.Equal(expected, printStatement);
         }
     }

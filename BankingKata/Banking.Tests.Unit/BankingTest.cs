@@ -16,7 +16,7 @@ namespace Banking.Tests.Unit
             int amount = 5000;
 
             //Act
-            account.Deposit(amount, DateTime.Today);
+            account.Deposit(amount, DateTime.Now);
 
             //Assert
             Assert.Equal(amount, account.Balance);
@@ -29,8 +29,8 @@ namespace Banking.Tests.Unit
             Account account = new Account();
 
             //Act
-            account.Deposit(5000, DateTime.Today);
-            account.Deposit(6000, DateTime.Today);
+            account.Deposit(5000, DateTime.Now);
+            account.Deposit(6000, DateTime.Now);
 
             //Assert
             Assert.Equal(11000, account.Balance);
@@ -44,7 +44,7 @@ namespace Banking.Tests.Unit
             int amount = 5000;
 
             //Act
-            account.Withdraw(amount, DateTime.Today);
+            account.Withdraw(amount, DateTime.Now);
 
             //Assert
             Assert.Equal(-amount, account.Balance);
@@ -57,8 +57,8 @@ namespace Banking.Tests.Unit
             Account account = new Account();
 
             //Act
-            account.Withdraw(5000, DateTime.Today);
-            account.Withdraw(6000, DateTime.Today);
+            account.Withdraw(5000, DateTime.Now);
+            account.Withdraw(6000, DateTime.Now);
 
             //Assert
             Assert.Equal(-11000, account.Balance);
@@ -71,8 +71,8 @@ namespace Banking.Tests.Unit
             Account account = new Account();
 
             //Act
-            account.Deposit(6000, DateTime.Today);
-            account.Withdraw(5000, DateTime.Today);
+            account.Deposit(6000, DateTime.Now);
+            account.Withdraw(5000, DateTime.Now);
 
             //Assert
             Assert.Equal(1000, account.Balance);

@@ -6,7 +6,10 @@ namespace Banking.Domain
 {
     public class Account
     {
-        public float Balance { get => Transactions.LastOrDefault()?.Balance ?? 0; }
+        public float Balance
+        {
+            get => Transactions.LastOrDefault().Value?.Balance ?? 0;
+        }
         
         public Account(float initialDeposit = 0)
         {
@@ -19,20 +22,20 @@ namespace Banking.Domain
             }
         }
 
-        private List<ITransaction> Transactions { get; } = new List<ITransaction>();
+        private SortedList<DateTime, ITransaction> Transactions { get; } = new SortedList<DateTime, ITransaction>(new DateTimeAscendComparer() );
 
         public string Status { get; set; }
 
         public void Deposit(float amount, DateTime date)
         {
             var transaction = new Deposit(date, amount, Balance);
-            this.Transactions.Add(transaction);
+            this.Transactions.Add(date,transaction);
         }
 
         public void Withdraw(float amount, DateTime date)
         {
             var transaction = new Withdrawal(date, amount, Balance);
-            this.Transactions.Add(transaction);
+            this.Transactions.Add(date, transaction);
 
             if (Balance < 0)
             {
@@ -48,10 +51,10 @@ namespace Banking.Domain
 
         public Statement Statement(IFilter filter = null)
         {
-            IList<ITransaction> transactions = this.Transactions;
+            IList<ITransaction> transactions = this.Transactions.Values;
             if (filter != null)
             {
-               transactions =  filter.Filter(this.Transactions);
+               transactions =  filter.Filter(this.Transactions.Values);
             }
             return new Statement(transactions);
         }
@@ -63,6 +66,14 @@ namespace Banking.Domain
             
             this.Status = "Close";
             this.Withdraw(Balance, dateTime);
+        }
+    }
+
+    internal class DateTimeAscendComparer : IComparer<DateTime>
+    {
+        public int Compare(DateTime x, DateTime y)
+        {
+            return DateTime.Compare(x,y);
         }
     }
 

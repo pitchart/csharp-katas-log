@@ -121,9 +121,9 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("she prints her bank statement", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.Then("she would see", "date       ||   credit ||    debit ||  balance\r\n14-01-2012 ||          ||   500.0" +
-                        "0 ||  2500.00\r\n13-01-2012 ||  2000.00 ||          ||  3000.00\r\n10-01-2012 ||  10" +
-                        "00.00 ||          ||  1000.00", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("she would see", "date       ||   credit ||    debit ||  balance\r\n10-01-2012 ||  1000.00 ||        " +
+                        "  ||  1000.00\r\n13-01-2012 ||  2000.00 ||          ||  3000.00\r\n14-01-2012 ||    " +
+                        "      ||   500.00 ||  2500.00", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -217,8 +217,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("she prints her bank statement", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 28
- testRunner.Then("she would see", "date       ||   credit ||    debit ||  balance\r\n13-01-2012 ||  2000.00 ||        " +
-                        "  ||  3000.00\r\n10-01-2012 ||  1000.00 ||          ||  1000.00", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("she would see", "date       ||   credit ||    debit ||  balance\r\n10-01-2012 ||  1000.00 ||        " +
+                        "  ||  1000.00\r\n13-01-2012 ||  2000.00 ||          ||  3000.00", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -360,8 +360,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("she would see Close status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 58
- testRunner.And("she would see", "date       ||   credit ||    debit ||  balance\r\n11-01-2012 ||          ||  1000.0" +
-                        "0 ||     0.00\r\n10-01-2012 ||  1000.00 ||          ||  1000.00", ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("she would see", "date       ||   credit ||    debit ||  balance\r\n10-01-2012 ||  1000.00 ||        " +
+                        "  ||  1000.00\r\n11-01-2012 ||          ||  1000.00 ||     0.00", ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
