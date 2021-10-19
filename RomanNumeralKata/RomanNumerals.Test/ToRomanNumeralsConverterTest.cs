@@ -41,7 +41,11 @@ namespace RomanNumerals.Test
         [InlineData(20, "XX")]
         [InlineData(49, "XLIX")]
         [InlineData(50, "L")]
+        [InlineData(90, "XC")]
         [InlineData(100, "C")]
+        [InlineData(149, "CXLIX")]
+        [InlineData(200, "CC")]
+        [InlineData(1000, "M")]
         public void Should_be_roman_symbol_for_number(int arabic, string romain)
         {
             _converter.Convert(arabic).Should().Be(romain);

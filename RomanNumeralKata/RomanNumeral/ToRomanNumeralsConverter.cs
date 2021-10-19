@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RomanNumeral
 {
     public class ToRomanNumeralsConverter
     {
-        private readonly Dictionary<int, string> arabicToRomain;
+        private readonly Dictionary<int, string> _arabicToRomain;
 
         public ToRomanNumeralsConverter()
         {
-            arabicToRomain = new Dictionary<int, string>
+            _arabicToRomain = new Dictionary<int, string>
             {
                 { 1, "I" },
                 { 4, "IV" },
@@ -16,48 +17,27 @@ namespace RomanNumeral
                 { 9, "IX" },
                 { 10, "X" },
                 { 40, "XL" },
-                { 50, "L" }
+                { 50, "L" },
+                { 90, "XC" },
+                {100, "C"},
+                {1000, "M"}
             };
         }
 
         public string Convert(int arabic)
         {
-            string Romain = string.Empty;
+            string romain = string.Empty;
 
-            while (arabic > 0)
+            foreach (var arabicKey in _arabicToRomain.Reverse())
             {
-                if(arabicToRomain.ContainsKey(arabic))
+                while (arabic >= arabicKey.Key)
                 {
-                    BuildRomainNumber(ref arabic, ref Romain, arabic);
-                }
-                else if (arabic > 50)
-                {
-                    BuildRomainNumber(ref arabic, ref Romain, 50);
-                }
-                else if (arabic > 40)
-                {
-                    BuildRomainNumber(ref arabic, ref Romain, 40);
-                }
-                else if (arabic > 10)
-                {
-                    BuildRomainNumber(ref arabic, ref Romain, 10);
-                }
-                else if (arabic > 5)
-                {
-                    BuildRomainNumber(ref arabic, ref Romain, 5);
-                }
-                else
-                {
-                    BuildRomainNumber(ref arabic, ref Romain, 1);
+                    romain += arabicKey.Value;
+                    arabic -= arabicKey.Key;
                 }
             }
-            return Romain;
-        }
-
-        private void BuildRomainNumber(ref int arabic, ref string Romain, int indexNumber)
-        {
-            Romain += arabicToRomain.GetValueOrDefault(indexNumber);
-            arabic -= indexNumber;
+            
+            return romain;
         }
     }
 }
