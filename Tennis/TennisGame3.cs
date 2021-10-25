@@ -1,4 +1,4 @@
-using System;
+using Tennis.ScoreTennis3;
 
 namespace Tennis
 {
@@ -22,19 +22,22 @@ namespace Tennis
             if (_player1Point < 4 && _player2Point < 4 && _player1Point + _player2Point < 6)
             {
                 var player1Score = _tennisScore[_player1Point];
-                return _player1Point == _player2Point ? 
-                    player1Score + "-All" : 
-                    player1Score + "-" + _tennisScore[_player2Point];
+                if (_player1Point == _player2Point)
+                    return player1Score + "-All";
+                
+                return player1Score + "-" + _tennisScore[_player2Point];
             }
 
             if (_player1Point == _player2Point)
                 return "Deuce";
 
-            var advantagePlayerName = _player1Point > _player2Point ? _player1Name : _player2Name;
+            string advantagePlayerName;
+            if (_player1Point > _player2Point)
+                advantagePlayerName = _player1Name;
+            else
+                advantagePlayerName = _player2Name;
 
-            return Math.Abs(_player1Point - _player2Point) == 1 ? 
-                "Advantage " + advantagePlayerName : 
-                "Win for " + advantagePlayerName;
+            return new Advantage(new Win()).GetScore(_player1Point, _player2Point, advantagePlayerName);
         }
 
         public void WonPoint(string playerName)
@@ -46,5 +49,11 @@ namespace Tennis
         }
 
     }
+
+    public interface IScore
+    {
+        string GetScore(int playerOnePoint, int playerTwoPoint, string playerName);
+    }
+
 }
 
