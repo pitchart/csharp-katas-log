@@ -10,12 +10,12 @@ namespace Tennis.Points
 
         public IPoint ScoreP1()
         {
-            return new AdvantageP1();
+            return new Advantage(Player.Pé1);
         }
 
         public IPoint ScoreP2()
         {
-            return new AdvantageP2();
+            return new Advantage(Player.Pé2);
         }
     }
 

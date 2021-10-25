@@ -5,15 +5,15 @@ namespace Tennis
 
     public class TennisGame2 : ITennisGame
     {
-        private Player _player1;
-        private Player _player2;
+        private TennisPlayer _player1;
+        private TennisPlayer _player2;
 
         private IPoint _currentScore;
 
         public TennisGame2(string player1Name, string player2Name)
         {
-            _player1 = new Player(player1Name);
-            _player2 = new Player(player2Name);
+            _player1 = new TennisPlayer(player1Name);
+            _player2 = new TennisPlayer(player2Name);
             _currentScore = new LoveAll();
         }
 

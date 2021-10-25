@@ -40,7 +40,7 @@ namespace Tennis
                 return GetScoreForEquality();
             }
 
-            if (_player1Score >= 4 || _player2Score >= 4) //AdvantageP1 or Win
+            if (_player1Score >= 4 || _player2Score >= 4) //Advantage or Win
             {
                 return GetScoreForAdvantageOrWin();
             }

@@ -6,8 +6,8 @@ namespace Tennis
     {
         private int _player2Point;
         private int _player1Point;
-        private string _player1Name;
-        private string _player2Name;
+        private readonly string _player1Name;
+        private readonly string _player2Name;
 
         private readonly string[] _tennisScore = { "Love", "Fifteen", "Thirty", "Forty" };
 
