@@ -1,80 +1,108 @@
+using System;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
-        private int m_score1 = 0;
-        private int m_score2 = 0;
-        private string player1Name;
-        private string player2Name;
+        private int _mScore1;
+        private int _mScore2;
+        private readonly string _player1Name;
+        private readonly string _player2Name;
 
         public TennisGame1(string player1Name, string player2Name)
         {
-            this.player1Name = player1Name;
-            this.player2Name = player2Name;
+            if (player1Name == player2Name)
+            {
+                throw new ArgumentException("Players cannot have the same name !");
+            }
+
+            _player1Name = player1Name;
+            _player2Name = player2Name;
         }
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
-                m_score1 += 1;
-            else
-                m_score2 += 1;
+            if (playerName == _player1Name)
+                _mScore1 += 1;
+            else if (playerName == _player2Name) _mScore2 += 1;
         }
 
         public string GetScore()
         {
-            string score = "";
-            var tempScore = 0;
-            if (m_score1 == m_score2)
+            if (ThereIsEquality())
             {
-                switch (m_score1)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
+                return EqualityScore();
+            }
+            if (ThereIsAdvantageOrVictory())
+            {
+                return AdvantageOrVictory();
+            }
+            
+            return OthersScore();
+        }
 
-                }
-            }
-            else if (m_score1 >= 4 || m_score2 >= 4)
+        private string OthersScore()
+        {
+            return ScoreToString(_mScore1) + "-" + ScoreToString(_mScore2);
+        }
+
+        private static string ScoreToString(int tempScore)
+        {
+            switch (tempScore)
             {
-                var minusResult = m_score1 - m_score2;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                case 0:
+                    return "Love";
+                case 1:
+                    return "Fifteen";
+                case 2:
+                    return "Thirty";
+                case 3:
+                    return "Forty";
+                default:
+                    throw new ArgumentException("Score should not be more than 3");
             }
-            else
+        }
+
+        private bool ThereIsAdvantageOrVictory()
+        {
+            return _mScore1 >= 4 || _mScore2 >= 4;
+        }
+
+        private string AdvantageOrVictory()
+        {
+            string score;
+            var minusResult = _mScore1 - _mScore2;
+            if (minusResult == 1) score = "Advantage player1";
+            else if (minusResult == -1) score = "Advantage player2";
+            else if (minusResult >= 2) score = "Win for player1";
+            else score = "Win for player2";
+            return score;
+        }
+
+        private bool ThereIsEquality()
+        {
+            return _mScore1 == _mScore2;
+        }
+
+        private string EqualityScore()
+        {
+            string score;
+            switch (_mScore1)
             {
-                for (var i = 1; i < 3; i++)
-                {
-                    if (i == 1) tempScore = m_score1;
-                    else { score += "-"; tempScore = m_score2; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
+                case 0:
+                    score = "Love-All";
+                    break;
+                case 1:
+                    score = "Fifteen-All";
+                    break;
+                case 2:
+                    score = "Thirty-All";
+                    break;
+                default:
+                    score = "Deuce";
+                    break;
             }
+
             return score;
         }
     }
