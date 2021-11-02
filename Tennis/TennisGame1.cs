@@ -38,7 +38,7 @@ namespace Tennis
             {
                 return AdvantageOrVictory();
             }
-            
+
             return OthersScore();
         }
 
@@ -52,13 +52,13 @@ namespace Tennis
             switch (tempScore)
             {
                 case 0:
-                    return "Love";
+                    return Scores.Love;
                 case 1:
-                    return "Fifteen";
+                    return Scores.Fifteen;
                 case 2:
-                    return "Thirty";
+                    return Scores.Thirty;
                 case 3:
-                    return "Forty";
+                    return Scores.Forty;
                 default:
                     throw new ArgumentException("Score should not be more than 3");
             }
@@ -91,16 +91,16 @@ namespace Tennis
             switch (_mScore1)
             {
                 case 0:
-                    score = "Love-All";
+                    score = string.Concat(Scores.Love, '-', Scores.All);
                     break;
                 case 1:
-                    score = "Fifteen-All";
+                    score = string.Concat(Scores.Fifteen, '-', Scores.All);
                     break;
                 case 2:
-                    score = "Thirty-All";
+                    score = string.Concat(Scores.Thirty, '-', Scores.All);
                     break;
                 default:
-                    score = "Deuce";
+                    score = Scores.Deuce;
                     break;
             }
 
