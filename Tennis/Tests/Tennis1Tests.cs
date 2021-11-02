@@ -64,6 +64,58 @@ namespace Tennis.Tests
             var score = tennisGame1.GetScore();
             Assert.Equal("Win for Roger", score);
         }
+
+        [Fact]
+        public void Should_AnnounceWinnerName_WhenSecondPlayerWins()
+        {
+            TennisGame1 tennisGame1 = new TennisGame1("Roger", "Rafael");
+
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+
+            var score = tennisGame1.GetScore();
+            Assert.Equal("Win for Rafael", score);
+        }
+
+        [Fact]
+        public void Should_AnnounceLeadingPlayer_WhenFirstPlayerHasAdvantage()
+        {
+            TennisGame1 tennisGame1 = new TennisGame1("Roger", "Rafael");
+
+            tennisGame1.WonPoint("Roger");
+            tennisGame1.WonPoint("Roger");
+            tennisGame1.WonPoint("Roger");
+
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+
+            tennisGame1.WonPoint("Roger");
+
+            var score = tennisGame1.GetScore();
+            Assert.Equal("Advantage Roger", score);
+        }
+
+        [Fact]
+        public void Should_AnnounceLeadingPlayer_WhenSecondPlayerHasAdvantage()
+        {
+            TennisGame1 tennisGame1 = new TennisGame1("Roger", "Rafael");
+
+            tennisGame1.WonPoint("Roger");
+            tennisGame1.WonPoint("Roger");
+            tennisGame1.WonPoint("Roger");
+
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+            tennisGame1.WonPoint("Rafael");
+
+            tennisGame1.WonPoint("Rafael");
+
+            var score = tennisGame1.GetScore();
+            Assert.Equal("Advantage Rafael", score);
+        }
     }
 
 }

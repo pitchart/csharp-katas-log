@@ -71,13 +71,27 @@ namespace Tennis
 
         private string AdvantageOrVictory()
         {
-            string score;
             var minusResult = _mScore1 - _mScore2;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
-            return score;
+
+            var leadingPlayer = GetLeadingPlayer();
+
+            return Math.Abs(minusResult) == 1 ? $"Advantage {leadingPlayer}" : $"Win for {leadingPlayer}";
+        }
+
+        private string GetLeadingPlayer()
+        {
+            var minusResult = _mScore1 - _mScore2;
+            if (minusResult > 0)
+            {
+                return _player1Name;
+            }
+
+            if (minusResult < 0)
+            {
+                return _player2Name;
+            }
+
+            throw new InvalidOperationException("Nobody is leading");
         }
 
         private bool ThereIsEquality()
