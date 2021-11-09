@@ -1,3 +1,5 @@
+using Xunit;
+
 namespace Tennis.Tests
 {
 
@@ -6,5 +8,4 @@ namespace Tennis.Tests
         public Tennis2Tests() : base(new TennisGame2("player1", "player2"))
         {}
     }
-
 }

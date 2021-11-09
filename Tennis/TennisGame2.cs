@@ -2,105 +2,139 @@ namespace Tennis
 {
     public class TennisGame2 : ITennisGame
     {
-        private int p1point;
-        private int p2point;
+        private int playerOnePoint;
+        private int playerTwoPoint;
 
-        private string p1res = "";
-        private string p2res = "";
-        private string player1Name;
-        private string player2Name;
+        private string playerOneScore = "";
+        private string playerTwoScore = "";
+        private string firstPlayerName;
+        private string secondPlayerName;
 
         public TennisGame2(string player1Name, string player2Name)
         {
-            this.player1Name = player1Name;
-            p1point = 0;
-            this.player2Name = player2Name;
+            firstPlayerName = player1Name;
+            playerOnePoint = 0;
+            secondPlayerName = player2Name;
         }
 
         public string GetScore()
         {
             var score = "";
-            if (p1point == p2point && p1point < 3)
+            if (playerOnePoint == playerTwoPoint && playerOnePoint < 3)
             {
-                if (p1point == 0)
-                    score = "Love";
-                if (p1point == 1)
-                    score = "Fifteen";
-                if (p1point == 2)
-                    score = "Thirty";
-                score += "-All";
+                return EqualityScore(score);
             }
-            if (p1point == p2point && p1point > 2)
-                score = "Deuce";
+            if (playerOnePoint == playerTwoPoint && playerOnePoint > 2)
+                return "Deuce";
 
-            if (p1point > 0 && p2point == 0)
+            if (playerOnePoint > 0 && playerTwoPoint == 0)
             {
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-
-                p2res = "Love";
-                score = p1res + "-" + p2res;
+                score = OnlyPlayerOneScore();
             }
-            if (p2point > 0 && p1point == 0)
+            if (playerTwoPoint > 0 && playerOnePoint == 0)
             {
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
-
-                p1res = "Love";
-                score = p1res + "-" + p2res;
+                score = OnlyPlayerTwoScore();
             }
 
-            if (p1point > p2point && p1point < 4)
+            if (playerOnePoint > playerTwoPoint && playerOnePoint < 4)
             {
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                score = p1res + "-" + p2res;
+                score = PlayerOneDominatingScore();
             }
-            if (p2point > p1point && p2point < 4)
+            if (playerTwoPoint > playerOnePoint && playerTwoPoint < 4)
             {
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                score = p1res + "-" + p2res;
+                score = PlayerTwoDominatingScore();
             }
 
-            if (p1point > p2point && p2point >= 3)
+            if (playerOnePoint > playerTwoPoint && playerTwoPoint >= 3)
             {
                 score = "Advantage player1";
             }
 
-            if (p2point > p1point && p1point >= 3)
+            if (playerTwoPoint > playerOnePoint && playerOnePoint >= 3)
             {
                 score = "Advantage player2";
             }
 
-            if (p1point >= 4 && p2point >= 0 && (p1point - p2point) >= 2)
+            if (playerOnePoint >= 4 && playerTwoPoint >= 0 && (playerOnePoint - playerTwoPoint) >= 2)
             {
                 score = "Win for player1";
             }
-            if (p2point >= 4 && p1point >= 0 && (p2point - p1point) >= 2)
+            if (playerTwoPoint >= 4 && playerOnePoint >= 0 && (playerTwoPoint - playerOnePoint) >= 2)
             {
                 score = "Win for player2";
             }
+            return score;
+        }
+
+        private string PlayerTwoDominatingScore()
+        {
+            string score;
+            if (playerTwoPoint == 2)
+                playerTwoScore = "Thirty";
+            if (playerTwoPoint == 3)
+                playerTwoScore = "Forty";
+            if (playerOnePoint == 1)
+                playerOneScore = "Fifteen";
+            if (playerOnePoint == 2)
+                playerOneScore = "Thirty";
+            score = playerOneScore + "-" + playerTwoScore;
+            return score;
+        }
+
+        private string PlayerOneDominatingScore()
+        {
+            string score;
+            if (playerOnePoint == 2)
+                playerOneScore = "Thirty";
+            if (playerOnePoint == 3)
+                playerOneScore = "Forty";
+            if (playerTwoPoint == 1)
+                playerTwoScore = "Fifteen";
+            if (playerTwoPoint == 2)
+                playerTwoScore = "Thirty";
+            score = playerOneScore + "-" + playerTwoScore;
+            return score;
+        }
+
+        private string OnlyPlayerTwoScore()
+        {
+            string score;
+            if (playerTwoPoint == 1)
+                playerTwoScore = "Fifteen";
+            if (playerTwoPoint == 2)
+                playerTwoScore = "Thirty";
+            if (playerTwoPoint == 3)
+                playerTwoScore = "Forty";
+
+            playerOneScore = "Love";
+            score = playerOneScore + "-" + playerTwoScore;
+            return score;
+        }
+
+        private string OnlyPlayerOneScore()
+        {
+            string score;
+            if (playerOnePoint == 1)
+                playerOneScore = "Fifteen";
+            if (playerOnePoint == 2)
+                playerOneScore = "Thirty";
+            if (playerOnePoint == 3)
+                playerOneScore = "Forty";
+
+            playerTwoScore = "Love";
+            score = playerOneScore + "-" + playerTwoScore;
+            return score;
+        }
+
+        private string EqualityScore(string score)
+        {
+            if (playerOnePoint == 0)
+                score = "Love";
+            if (playerOnePoint == 1)
+                score = "Fifteen";
+            if (playerOnePoint == 2)
+                score = "Thirty";
+            score += "-All";
             return score;
         }
 
@@ -122,12 +156,12 @@ namespace Tennis
 
         private void P1Score()
         {
-            p1point++;
+            playerOnePoint++;
         }
 
         private void P2Score()
         {
-            p2point++;
+            playerTwoPoint++;
         }
 
         public void WonPoint(string player)
