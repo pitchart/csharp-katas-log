@@ -6,26 +6,94 @@ namespace Bowling
 
     public class Bowling
     {
-        private readonly List<int> scores = new List<int>(); // 1
+        private readonly Frame _frames;
+
+        public Bowling()
+        {
+            _frames = new Frame(); // 1
+            for (int i = 0; i < 9; i++) // 6
+            {
+                _frames.SetNext(new Frame()); // 1
+            }
+        }
 
         public void Roll(int pins)
         {
-            scores.Add(pins); // 3
+            _frames.Score(pins); // 5
         }
 
         public int Score()
         {
-            int score = 0; // 1
-            for (int i = 0; i < 20; i = i + 2)// 6
+            return _frames.GetScore(); // 5
+        }
+    }
+
+    internal class Frame
+    {
+        private int? _first;
+
+        private int? _second;
+
+        private Frame _next;
+
+        public bool IsComplete()
+        {
+            return _first.HasValue && _second.HasValue; // 1
+        }
+
+        public Frame Score(int pins)
+        {
+            if (IsComplete()) // 4
             {
-                int frameScore = scores[i] + scores[i + 1]; // 1 + 3
-                score += frameScore; // 7
-                if (frameScore == 10) // 4
-                {
-                    score += scores[i + 2]; // 7
-                }
+                _next.Score(pins);
             }
-            return score; // 1
+            else if (!_first.HasValue)// 4
+            {
+                _first = pins;
+            }
+            else
+            {
+                _second = pins;
+            }
+
+            return this;
+        }
+
+        public int GetScore()
+        {
+            var bonus = 0;
+            if (IsSpare())// 4
+            {
+                bonus = _next?.First() ?? 0; // 2
+            }
+            return Pins() + bonus + (_next?.GetScore() ?? 0); // 1
+        }
+
+        private int Pins()
+        {
+            return (_first ?? 0) + (_second ?? 0); // 1
+        }
+
+        public bool IsSpare()
+        {
+            return Pins() == 10; // 1
+        }
+
+        public int First()
+        {
+            return _first ?? 0; // 1
+        }
+
+        public void SetNext(Frame frame)
+        {
+            if (_next == null) // 4
+            {
+                _next = frame;
+            }
+            else
+            {
+                _next.SetNext(frame);
+            }
         }
     }
 
