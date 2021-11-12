@@ -23,3 +23,5 @@ Ecrire une classe Game qui a deux méthodes :
 ## Informations supplémentaires
 * On considère que la méthode score ne sera appelée qu'à la fin de la partie
 * On considère que le nombre de lancers effectués avant d'appeler la méthode score est toujous valide.
+
+## Transformation Priority Premise
