@@ -1,7 +1,8 @@
 using System;
 
 using FluentAssertions;
-
+using FsCheck;
+using FsCheck.Xunit;
 using Xunit;
 
 namespace Diamond.Tests
@@ -12,15 +13,17 @@ namespace Diamond.Tests
         [Fact]
         public void AnEmptyInput_ShouldThrow()
         {
-            var action = new Action(() =>
-            {
-                var d = new Diamond();
-                d.Generate('\0');
-            });
-
-            action.Should().Throw<ArgumentException>();
+            new Diamond().Invoking(d => d.Generate('\0')).Should().Throw<ArgumentException>();
         }
 
+        [Property(Arbitrary = new [] {typeof(AnythingButALetterGenerator)})]
+        public Property ShouldNotAcceptAnythingButALetter(char notALetter)
+        {
+            var d = new Diamond();
+
+            return Prop.Throws<ArgumentException, string>(new Lazy<string>(() => d.Generate(notALetter)));
+        }
+        
         [Fact]
         public void A_ShouldPrintA()
         {
@@ -42,4 +45,10 @@ namespace Diamond.Tests
             result.Should().Be(" A \nB B\n A ");
         }
     }
+
+    public static class AnythingButALetterGenerator
+    {
+        public static Arbitrary<char> Generate() => Arb.Default.Char().Filter(c => c < 'A' || c > 'Z');
+    }
+
 }
