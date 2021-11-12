@@ -33,6 +33,24 @@ namespace Bowling.Test
 
             Assert.Equal(40, score);
         }
+
+        [Fact]
+        public void Should_score_20_when_one_spare_then_next_roll_knocks_5_pins()
+        {
+            //spare
+            game.Roll(6);
+            game.Roll(4);
+
+            //x2
+            game.Roll(5);
+
+            for (int i = 0; i < 17; i++)
+                game.Roll(0);
+
+            var score = game.Score();
+
+            Assert.Equal(20, score);
+        }
     }
 
 }
