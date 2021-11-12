@@ -30,6 +30,8 @@ namespace Bowling
 
     internal class Frame
     {
+        private List<int> _scores = new List<int>();
+
         private int? _first;
 
         private int? _second;
@@ -38,7 +40,7 @@ namespace Bowling
 
         public bool IsComplete()
         {
-            return _first.HasValue && _second.HasValue; // 1
+            return _scores.Count == 2; // 1
         }
 
         public Frame Score(int pins)
@@ -47,13 +49,9 @@ namespace Bowling
             {
                 _next.Score(pins);
             }
-            else if (!_first.HasValue)// 4
-            {
-                _first = pins;
-            }
             else
             {
-                _second = pins;
+                _scores.Add(pins);
             }
 
             return this;
@@ -71,7 +69,7 @@ namespace Bowling
 
         private int Pins()
         {
-            return (_first ?? 0) + (_second ?? 0); // 1
+            return _scores.Sum(); // 1
         }
 
         public bool IsSpare()
@@ -81,7 +79,7 @@ namespace Bowling
 
         public int First()
         {
-            return _first ?? 0; // 1
+            return _scores.FirstOrDefault(); // 1
         }
 
         public void SetNext(Frame frame)
