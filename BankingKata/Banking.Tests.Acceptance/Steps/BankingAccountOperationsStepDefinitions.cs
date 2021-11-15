@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Principal;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace Banking.Tests.Acceptance.Steps
@@ -11,6 +13,12 @@ namespace Banking.Tests.Acceptance.Steps
 
         private readonly ScenarioContext _scenarioContext;
 
+        private Account _clientAccount = new Account();
+
+        private Printer _printer = new Printer();
+
+        private string _printedStatement;
+
         public BankingAccountOperationsStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -18,27 +26,28 @@ namespace Banking.Tests.Acceptance.Steps
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
-        public void GivenAClientMakesADepositOfOn(int p0, DateTime p1)
+        public void GivenAClientMakesADepositOfOn(int amount, DateTime actionTime)
         {
-            ScenarioContext.StepIsPending();
+            _clientAccount.Deposit(amount, actionTime);
         }
 
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
-            ScenarioContext.StepIsPending();
+            _printedStatement = _printer.Print(_clientAccount.GetStatement());
         }
 
         [Then(@"she would see")]
         public void ThenSheWouldSee(string multilineText)
         {
-            ScenarioContext.StepIsPending();
+            _printedStatement.Should().Be(multilineText);
         }
 
         [Given(@"a withdrawal of (.*) on (.*)")]
-        public void GivenAWithdrawalOfOn(int p0, string p1)
+        public void GivenAWithdrawalOfOn(int amount, DateTime date)
         {
-            ScenarioContext.StepIsPending();
+            _clientAccount.Withdraw(amount, date);
         }
     }
+
 }

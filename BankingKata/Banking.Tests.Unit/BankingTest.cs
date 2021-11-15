@@ -11,9 +11,10 @@ namespace Banking.Tests.Unit
         {
             // Arrange
             var account = new Account();
+            var printer = new Printer();
 
             // Act
-            string output = Printer.Print(account.GetStatement());
+            string output = printer.Print(account.GetStatement());
 
             // Assert
             var ExpectedOutput = "date       ||   credit ||    debit ||  balance";
