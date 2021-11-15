@@ -1,10 +1,12 @@
-﻿using System;
-
-namespace Banking
+﻿namespace Banking
 {
 
     public class Account
     {
+        public Statement GetStatement()
+        {
+            return new Statement();
+        }
     }
 
 }
