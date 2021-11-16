@@ -12,7 +12,7 @@ namespace Tennis
         private string playerTwoScore = "";
         private string firstPlayerName;
         private string secondPlayerName;
-        private List<IScore> _scores = new List<IScore>() { new EqualityScore() };
+        private List<IScore> _scores = new List<IScore>() { new EqualityScore(), new Deuce(), new OnlyPlayerOneScore() };
 
         public TennisGame2(string player1Name, string player2Name)
         {
@@ -31,13 +31,7 @@ namespace Tennis
                 }
             }
             var scoreFinal = "";
-            if (playerOnePoint == playerTwoPoint && playerOnePoint > 2)
-                return "Deuce";
 
-            if (playerOnePoint > 0 && playerOnePoint < 4 && playerTwoPoint == 0)
-            {
-                return OnlyPlayerOneScore();
-            }
             if (playerTwoPoint > 0 && playerTwoPoint < 4 && playerOnePoint == 0)
             {
                 return OnlyPlayerTwoScore();
@@ -118,33 +112,6 @@ namespace Tennis
             return score;
         }
 
-        private string OnlyPlayerOneScore()
-        {
-            string score;
-            if (playerOnePoint == 1)
-                playerOneScore = "Fifteen";
-            if (playerOnePoint == 2)
-                playerOneScore = "Thirty";
-            if (playerOnePoint == 3)
-                playerOneScore = "Forty";
-
-            playerTwoScore = "Love";
-            score = playerOneScore + "-" + playerTwoScore;
-            return score;
-        }
-
-        private string EqualityScore(string score)
-        {
-            if (playerOnePoint == 0)
-                score = "Love";
-            if (playerOnePoint == 1)
-                score = "Fifteen";
-            if (playerOnePoint == 2)
-                score = "Thirty";
-            score += "-All";
-            return score;
-        }
-
         public void SetP1Score(int number)
         {
             for (int i = 0; i < number; i++)
@@ -179,6 +146,44 @@ namespace Tennis
                 P2Score();
         }
 
+    }
+
+    internal class OnlyPlayerOneScore : IScore
+    {
+        public string Handle(int playerOnePoint, int playerTwoPoint)
+        {
+            string score;
+            string playerOneScore = string.Empty;
+            string playerTwoScore;
+            if (playerOnePoint == 1)
+                playerOneScore = "Fifteen";
+            if (playerOnePoint == 2)
+                playerOneScore = "Thirty";
+            if (playerOnePoint == 3)
+                playerOneScore = "Forty";
+
+            playerTwoScore = "Love";
+            score = playerOneScore + "-" + playerTwoScore;
+            return score;
+        }
+
+        public bool Support(int playerOnePoint, int playerTwoPoint)
+        {
+            return playerOnePoint > 0 && playerOnePoint < 4 && playerTwoPoint == 0;
+        }
+    }
+
+    internal class Deuce : IScore
+    {
+        public string Handle(int playerOnePoint, int playerTwoPoint)
+        {
+            return "Deuce";
+        }
+
+        public bool Support(int playerOnePoint, int playerTwoPoint)
+        {
+            return playerOnePoint == playerTwoPoint && playerOnePoint > 2;
+        }
     }
 
     public class EqualityScore : IScore
