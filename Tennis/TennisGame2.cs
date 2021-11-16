@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Tennis.ScoresHandler;
+
 namespace Tennis
 {
     public class TennisGame2 : ITennisGame
@@ -9,6 +12,7 @@ namespace Tennis
         private string playerTwoScore = "";
         private string firstPlayerName;
         private string secondPlayerName;
+        private List<IScore> _scores = new List<IScore>() { new EqualityScore() };
 
         public TennisGame2(string player1Name, string player2Name)
         {
@@ -19,51 +23,54 @@ namespace Tennis
 
         public string GetScore()
         {
-            var score = "";
-            if (playerOnePoint == playerTwoPoint && playerOnePoint < 3)
+            foreach (var score in _scores)
             {
-                return EqualityScore(score);
+                if (score.Support(playerOnePoint, playerTwoPoint))
+                {
+                    return score.Handle(playerOnePoint, playerTwoPoint);
+                }
             }
+            var scoreFinal = "";
             if (playerOnePoint == playerTwoPoint && playerOnePoint > 2)
                 return "Deuce";
 
-            if (playerOnePoint > 0 && playerTwoPoint == 0)
+            if (playerOnePoint > 0 && playerOnePoint < 4 && playerTwoPoint == 0)
             {
-                score = OnlyPlayerOneScore();
+                return OnlyPlayerOneScore();
             }
-            if (playerTwoPoint > 0 && playerOnePoint == 0)
+            if (playerTwoPoint > 0 && playerTwoPoint < 4 && playerOnePoint == 0)
             {
-                score = OnlyPlayerTwoScore();
+                return OnlyPlayerTwoScore();
             }
 
             if (playerOnePoint > playerTwoPoint && playerOnePoint < 4)
             {
-                score = PlayerOneDominatingScore();
+                return PlayerOneDominatingScore();
             }
             if (playerTwoPoint > playerOnePoint && playerTwoPoint < 4)
             {
-                score = PlayerTwoDominatingScore();
+                return PlayerTwoDominatingScore();
             }
 
-            if (playerOnePoint > playerTwoPoint && playerTwoPoint >= 3)
+            if ((playerOnePoint - playerTwoPoint) == 1 && playerTwoPoint >= 3)
             {
-                score = "Advantage player1";
+                return "Advantage player1";
             }
 
-            if (playerTwoPoint > playerOnePoint && playerOnePoint >= 3)
+            if ((playerTwoPoint - playerOnePoint) == 1 && playerOnePoint >= 3)
             {
-                score = "Advantage player2";
+                return "Advantage player2";
             }
 
-            if (playerOnePoint >= 4 && playerTwoPoint >= 0 && (playerOnePoint - playerTwoPoint) >= 2)
+            if (playerOnePoint >= 4 && (playerOnePoint - playerTwoPoint) >= 2)
             {
-                score = "Win for player1";
+                return "Win for player1";
             }
-            if (playerTwoPoint >= 4 && playerOnePoint >= 0 && (playerTwoPoint - playerOnePoint) >= 2)
+            if (playerTwoPoint >= 4 && (playerTwoPoint - playerOnePoint) >= 2)
             {
-                score = "Win for player2";
+                return "Win for player2";
             }
-            return score;
+            return scoreFinal;
         }
 
         private string PlayerTwoDominatingScore()
@@ -172,6 +179,27 @@ namespace Tennis
                 P2Score();
         }
 
+    }
+
+    public class EqualityScore : IScore
+    {
+        public string Handle(int playerOnePoint, int playerTwoPoint)
+        {
+            string score = string.Empty;
+            if (playerOnePoint == 0)
+                score = "Love";
+            if (playerOnePoint == 1)
+                score = "Fifteen";
+            if (playerOnePoint == 2)
+                score = "Thirty";
+            score += "-All";
+            return score;
+        }
+
+        public bool Support(int playerOnePoint, int playerTwoPoint)
+        {
+            return playerOnePoint == playerTwoPoint && playerOnePoint < 3;
+        }
     }
 }
 
