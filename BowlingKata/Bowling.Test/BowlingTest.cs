@@ -51,6 +51,24 @@ namespace Bowling.Test
 
             Assert.Equal(20, score);
         }
+
+        [Fact]
+        public void Should_score_18_when_one_strike_then_next_2_rolls_knocks_4_combined_pins()
+        {
+            // strike
+            game.Roll(10);
+
+            // x2
+            game.Roll(1);
+            game.Roll(3);
+
+            for (int i = 0; i < 16; i++)
+                game.Roll(0);
+
+            var score = game.Score();
+
+            Assert.Equal(18, score);
+        }
     }
 
 }

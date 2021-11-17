@@ -15,12 +15,12 @@ namespace Bowling
 
         public void Roll(int pins)
         {
-            _frames.Score(pins); // 5
+            _frames.Score(pins); // 2
         }
 
         public int Score()
         {
-            return _frames.GetScore(); // 5
+            return _frames.GetScore(); // 2
         }
     }
 
