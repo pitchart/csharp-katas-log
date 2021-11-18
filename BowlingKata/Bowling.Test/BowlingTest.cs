@@ -69,6 +69,33 @@ namespace Bowling.Test
 
             Assert.Equal(18, score);
         }
+
+        [Fact]
+        public void Should_score_60_For_3_strikes_in_a_row_then_only_gutter_rolls()
+        {
+            // 3x strike
+            game.Roll(10);
+            game.Roll(10);
+            game.Roll(10);
+
+            for (int i = 0; i < 14; i++)
+                game.Roll(0);
+
+            var score = game.Score();
+
+            Assert.Equal(60, score);
+        }
+
+        [Fact]
+        public void Should_score_300_for_only_strike_rolls()
+        {
+            for (int i = 0; i < 12; i++)
+                game.Roll(10);
+
+            var score = game.Score();
+
+            Assert.Equal(300, score);
+        }
     }
 
 }
