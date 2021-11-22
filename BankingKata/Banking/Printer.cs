@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace Banking
@@ -11,8 +12,11 @@ namespace Banking
             var builder = new StringBuilder("date       ||   credit ||    debit ||  balance");
             if (statement.GetTransactions().Count != 0)
             {
-                builder.Append(Environment.NewLine);
-                builder.Append("22-11-2021 ||     1.00 ||          ||     1.00");
+                foreach (var transaction in statement.GetTransactions())
+                {
+                    builder.Append(Environment.NewLine);
+                    builder.Append($"{transaction.Date.Date:dd-MM-yyyy} ||     {transaction.Amount.ToString("0.00", CultureInfo.InvariantCulture)} ||          ||     {transaction.Amount.ToString("0.00", CultureInfo.InvariantCulture)}");
+                }
             }
             return builder.ToString();
         }
