@@ -1,6 +1,6 @@
 ﻿using Tennis.ScoresHandler;
 
-namespace Tennis
+namespace Tennis.ScoresHandler
 {
     internal class Deuce : IScore
     {

@@ -1,17 +1,17 @@
 ﻿using Tennis.ScoresHandler;
 
-namespace Tennis
+namespace Tennis.ScoresHandler
 {
-    internal class WinForPlayerTwo : IScore
+    internal class AdvantagePlayerOne : IScore
     {
         public string Handle(int _, int __)
         {
-            return "Win for player2";
+            return "Advantage player1";
         }
 
         public bool Support(int playerOnePoint, int playerTwoPoint)
         {
-            return playerTwoPoint >= 4 && (playerTwoPoint - playerOnePoint) >= 2;
+            return (playerOnePoint - playerTwoPoint) == 1 && playerTwoPoint >= 3;
         }
     }
 }
