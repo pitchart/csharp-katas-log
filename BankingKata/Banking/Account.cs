@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Banking
 {
@@ -13,29 +14,41 @@ namespace Banking
             return new Statement(_transactions);
         }
 
+
         public void Deposit(int amount, DateTime actionTime)
         {
-            _transactions.Add(new Deposit(amount, actionTime));
+
+            _transactions.Add(new Deposit(amount, actionTime,Balance()));
         }
 
-        public void Withdraw(int amount, DateTime date)
+        private decimal Balance()
         {
-            throw new NotImplementedException();
+            var lastestTansaction = _transactions.LastOrDefault();
+
+            return lastestTansaction?.Balance ?? 0;
+        }
+
+        public void Withdraw(int amount, DateTime actionTime)
+        {
+            _transactions.Add(new WithDraw(amount, actionTime, Balance()));
         }
     }
 
     public class Deposit : ITransaction
     {
        
-        public Deposit(decimal amount, DateTime actionTime)
+        public Deposit(decimal amount, DateTime actionTime, decimal balance)
         {
             Amount = amount;
             Date = actionTime;
+            Balance = balance + amount;
         }
 
         public decimal Amount { get; }
 
         public DateTime Date { get; }
+
+        public decimal Balance { get; }
     }
 
     public interface ITransaction
@@ -43,6 +56,7 @@ namespace Banking
         decimal Amount { get; }
 
         DateTime Date { get; }
+        decimal Balance { get; }
     }
 
 }
