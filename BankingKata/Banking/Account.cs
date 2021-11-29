@@ -23,9 +23,9 @@ namespace Banking
 
         private decimal Balance()
         {
-            var lastestTansaction = _transactions.LastOrDefault();
+            var latestTansaction = _transactions.LastOrDefault();
 
-            return lastestTansaction?.Balance ?? 0;
+            return latestTansaction?.Balance ?? 0;
         }
 
         public void Withdraw(int amount, DateTime actionTime)
