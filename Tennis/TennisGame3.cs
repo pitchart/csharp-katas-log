@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     public class TennisGame3 : ITennisGame
@@ -6,34 +8,45 @@ namespace Tennis
         private int _playerOneScore;
         private string _playerOneName;
         private string _playerTwoName;
+        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
 
         public TennisGame3(string player1Name, string player2Name)
         {
+            if (player1Name == player2Name)
+            {
+                throw new ArgumentException("Players cannot have the same name !");
+            }
             _playerOneName = player1Name;
             _playerTwoName = player2Name;
         }
 
         public string GetScore()
         {
-            if ((_playerOneScore < 4 && _playerTwoScore < 4) && (_playerOneScore + _playerTwoScore < 6))
+            if ((_playerOneScore < 4 && _playerTwoScore < 4) && (_playerOneScore != _playerTwoScore))
             {
-                string[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                if ((_playerOneScore == _playerTwoScore))
-                {
-                    return p[_playerOneScore] + "-All";
-                }
-
-                return p[_playerOneScore] + "-" + p[_playerTwoScore];
+                return NonEqualityScore();
             }
 
             if (_playerOneScore == _playerTwoScore)
-                return "Deuce";
-            
+            {
+                return EqualityScore();
+            }
+
             if ((_playerOneScore - _playerTwoScore) * (_playerOneScore - _playerTwoScore) == 1)
             {
-                return "Advantage " + GetLeadingPlayer();
+                return AvantageScore();
             }
+            return WinScore();
+        }
+
+        private string WinScore()
+        {
             return "Win for " + GetLeadingPlayer();
+        }
+
+        private string AvantageScore()
+        {
+            return "Advantage " + GetLeadingPlayer();
         }
 
         private string GetLeadingPlayer()
@@ -53,12 +66,23 @@ namespace Tennis
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
+            if (playerName == _playerOneName)
                 _playerOneScore += 1;
-            else
+            else if (playerName == _playerTwoName)
                 _playerTwoScore += 1;
         }
 
+        private string NonEqualityScore()
+        {
+            return _p[_playerOneScore] + "-" + _p[_playerTwoScore];
+        }
+
+        private string EqualityScore()
+        {
+            if (_playerOneScore + _playerTwoScore < 6)
+                return _p[_playerOneScore] + "-All";
+            return "Deuce";
+        }
     }
 }
 
