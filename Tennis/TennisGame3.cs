@@ -1,4 +1,5 @@
 using System;
+using Tennis.Tennis3;
 
 namespace Tennis
 {
@@ -8,7 +9,8 @@ namespace Tennis
         private int _playerOneScore;
         private string _playerOneName;
         private string _playerTwoName;
-        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
+
+        private NonEqualityScore _nonEqualityScore;
 
         public TennisGame3(string player1Name, string player2Name)
         {
@@ -18,35 +20,13 @@ namespace Tennis
             }
             _playerOneName = player1Name;
             _playerTwoName = player2Name;
+
+            _nonEqualityScore = new NonEqualityScore(new EqualityScore(new AvantageScore(new WinScore())));
         }
 
         public string GetScore()
         {
-            if ((_playerOneScore < 4 && _playerTwoScore < 4) && (_playerOneScore != _playerTwoScore))
-            {
-                return NonEqualityScore();
-            }
-
-            if (_playerOneScore == _playerTwoScore)
-            {
-                return EqualityScore();
-            }
-
-            if ((_playerOneScore - _playerTwoScore) * (_playerOneScore - _playerTwoScore) == 1)
-            {
-                return AvantageScore();
-            }
-            return WinScore();
-        }
-
-        private string WinScore()
-        {
-            return "Win for " + GetLeadingPlayer();
-        }
-
-        private string AvantageScore()
-        {
-            return "Advantage " + GetLeadingPlayer();
+            return _nonEqualityScore.GetScore(_playerOneScore, _playerTwoScore, GetLeadingPlayer());
         }
 
         private string GetLeadingPlayer()
@@ -71,17 +51,79 @@ namespace Tennis
             else if (playerName == _playerTwoName)
                 _playerTwoScore += 1;
         }
+    }
 
-        private string NonEqualityScore()
+    public class WinScore : IScore
+    {
+        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
         {
-            return _p[_playerOneScore] + "-" + _p[_playerTwoScore];
+            return "Win for " + playerName;
+        }
+    }
+
+    public class AvantageScore : IScore
+    {
+        private readonly IScore _nextCaseScore;
+
+        public AvantageScore(IScore nextCaseScore)
+        {
+            _nextCaseScore = nextCaseScore;
         }
 
-        private string EqualityScore()
+        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
         {
-            if (_playerOneScore + _playerTwoScore < 6)
-                return _p[_playerOneScore] + "-All";
-            return "Deuce";
+            if ((playerOneScore - playerTwoScore) * (playerOneScore - playerTwoScore) == 1)
+            {
+                return "Advantage " + playerName;
+            }
+
+            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
+        }
+    }
+
+    public class EqualityScore : IScore
+    {
+        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
+
+        private readonly IScore _nextCaseScore;
+
+        public EqualityScore(IScore nextCaseScore)
+        {
+            _nextCaseScore = nextCaseScore;
+        }
+
+        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
+        {
+            if (playerOneScore == playerTwoScore)
+            {
+                if (playerOneScore + playerTwoScore < 6)
+                    return _p[playerOneScore] + "-All";
+                return "Deuce";
+            }
+
+            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
+        }
+    }
+
+    public class NonEqualityScore : IScore
+    {
+        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
+
+        private readonly IScore _nextCaseScore;
+
+        public NonEqualityScore(IScore nextCaseScore)
+        {
+            _nextCaseScore = nextCaseScore;
+        }
+        
+        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
+        {
+            if ((playerOneScore < 4 && playerTwoScore < 4) && (playerOneScore != playerTwoScore))
+            {
+                return _p[playerOneScore] + "-" + _p[playerTwoScore];
+            }
+
+            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Tennis
         private int playerTwoPoint;
         private string firstPlayerName;
         private string secondPlayerName;
-        private List<IScore> _scores = new List<IScore>() { new EqualityScore(), new Deuce(), new OnlyPlayerOneScore(), new OnlyPlayerTwoScore(),
+        private List<IScore> _scores = new List<IScore>() { new ScoresHandler.EqualityScore(), new Deuce(), new OnlyPlayerOneScore(), new OnlyPlayerTwoScore(),
             new PlayerOneDominatingScore(), new PlayerTwoDominatingScore(), new AdvantagePlayerOne(), new AdvantagePlayerTwo(), new WinForPlayerOne(), new WinForPlayerTwo()};
 
         public TennisGame2(string player1Name, string player2Name)
