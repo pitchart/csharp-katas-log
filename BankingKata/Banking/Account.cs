@@ -17,8 +17,7 @@ namespace Banking
 
         public void Deposit(int amount, DateTime actionTime)
         {
-
-            _transactions.Add(new Deposit(amount, actionTime,Balance()));
+            _transactions.Add(new Deposit(amount, actionTime, Balance()));
         }
 
         private decimal Balance()
@@ -32,31 +31,6 @@ namespace Banking
         {
             _transactions.Add(new WithDraw(amount, actionTime, Balance()));
         }
-    }
-
-    public class Deposit : ITransaction
-    {
-       
-        public Deposit(decimal amount, DateTime actionTime, decimal balance)
-        {
-            Amount = amount;
-            Date = actionTime;
-            Balance = balance + amount;
-        }
-
-        public decimal Amount { get; }
-
-        public DateTime Date { get; }
-
-        public decimal Balance { get; }
-    }
-
-    public interface ITransaction
-    {
-        decimal Amount { get; }
-
-        DateTime Date { get; }
-        decimal Balance { get; }
     }
 
 }
