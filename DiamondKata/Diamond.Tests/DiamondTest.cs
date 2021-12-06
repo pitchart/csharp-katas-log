@@ -6,19 +6,19 @@ namespace Diamond.Tests
 
     public class DiamondTest
     {
-        private Diamond diamond = new Diamond(); 
-        
+        private Diamond diamond = new Diamond();
+
         [Fact]
         public void Write_A_Diamond()
         {
             //Arrange
             char letter = 'A';
-            
+
             //Act
             string result = diamond.Print(letter);
-            
+
             //Assert
-            Assert.Equal("A",result);
+            Assert.Equal("A", result);
         }
 
         [Fact]
@@ -26,12 +26,12 @@ namespace Diamond.Tests
         {
             //Arrange
             char letter = 'B';
-            
+
             //Act
             string result = diamond.Print(letter);
-            
+
             //Assert
-            Assert.StartsWith("AB",result);
+            Assert.StartsWith($"A{Environment.NewLine}B", result);
         }
     }
 

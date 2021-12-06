@@ -14,6 +14,10 @@ namespace Diamond
             while (letter.CompareTo(c) <= 0)
             {
                 result += letter;
+                if (c != letter)
+                {
+                    result += Environment.NewLine;
+                }
                 letter ++;
             }
 
