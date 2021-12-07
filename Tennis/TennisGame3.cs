@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Tennis.Tennis3;
 
 namespace Tennis
@@ -50,80 +51,6 @@ namespace Tennis
                 _playerOneScore += 1;
             else if (playerName == _playerTwoName)
                 _playerTwoScore += 1;
-        }
-    }
-
-    public class WinScore : IScore
-    {
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
-        {
-            return "Win for " + playerName;
-        }
-    }
-
-    public class AvantageScore : IScore
-    {
-        private readonly IScore _nextCaseScore;
-
-        public AvantageScore(IScore nextCaseScore)
-        {
-            _nextCaseScore = nextCaseScore;
-        }
-
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
-        {
-            if ((playerOneScore - playerTwoScore) * (playerOneScore - playerTwoScore) == 1)
-            {
-                return "Advantage " + playerName;
-            }
-
-            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
-        }
-    }
-
-    public class EqualityScore : IScore
-    {
-        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
-
-        private readonly IScore _nextCaseScore;
-
-        public EqualityScore(IScore nextCaseScore)
-        {
-            _nextCaseScore = nextCaseScore;
-        }
-
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
-        {
-            if (playerOneScore == playerTwoScore)
-            {
-                if (playerOneScore + playerTwoScore < 6)
-                    return _p[playerOneScore] + "-All";
-                return "Deuce";
-            }
-
-            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
-        }
-    }
-
-    public class NonEqualityScore : IScore
-    {
-        private string[] _p = { "Love", "Fifteen", "Thirty", "Forty" };
-
-        private readonly IScore _nextCaseScore;
-
-        public NonEqualityScore(IScore nextCaseScore)
-        {
-            _nextCaseScore = nextCaseScore;
-        }
-        
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
-        {
-            if ((playerOneScore < 4 && playerTwoScore < 4) && (playerOneScore != playerTwoScore))
-            {
-                return _p[playerOneScore] + "-" + _p[playerTwoScore];
-            }
-
-            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
         }
     }
 }
