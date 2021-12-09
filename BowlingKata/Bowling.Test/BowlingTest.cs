@@ -7,15 +7,13 @@ namespace Bowling.Test
     public class BowlingTest
     {
         [Fact]
-        public void Bowling_WhenPlayingTheEntireGameWithOnlyGutter_ShouldReturnAScoreOf0()
+        public void Should_score_0_when_twenty_rolls_in_gutter()
         {
             //Arrange
-            const int fullGame = 20;
-            const int expectedScore = 0;
             Bowling bowling = new Bowling();
             
             //Act
-            for (int i = 0; i < fullGame; i++)
+            for (int i = 0; i < 20; i++)
             {
                 bowling.Roll(0);
             }
@@ -23,7 +21,25 @@ namespace Bowling.Test
             int score = bowling.GetScore();
 
             //Assert
-            score.Should().Be(expectedScore);
+            score.Should().Be(0);
+        }
+
+        [Fact]
+        public void Should_score_20_when_each_roll_is_1_pin()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+            for (int i = 0; i < 20; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(20);
         }
     }
 
