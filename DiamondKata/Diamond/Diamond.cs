@@ -9,6 +9,13 @@ namespace Diamond
         
         public string Print(char c)
         {
+            if (!char.IsLetter(c))
+            {
+                throw new ArgumentException("Character should be a letter");
+            }
+
+            c = char.ToUpper(c);
+
             string result = "";
             char letter = startChar;
             while (letter.CompareTo(c) <= 0)
@@ -19,6 +26,12 @@ namespace Diamond
                     result += Environment.NewLine;
                 }
                 letter ++;
+            }
+
+            if (c != startChar)
+            {
+                result += Environment.NewLine;
+                result += startChar;
             }
 
             return result;
