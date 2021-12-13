@@ -81,25 +81,46 @@ namespace Banking.Tests.Unit
             s.Should().Be(ExpectedOutput);
         }
 
-        //[Fact]
-        //public void Should_print_transactions()
-        //{
-        //    //Arrange
+        [Fact]
+        public void Should_print_transactions()
+        {
+            //Arrange
+            var account = new Account();
+            account.Deposit(300, DateTime.Parse("2021-11-21"));
+            account.Withdraw(100, DateTime.Parse("2021-11-22"));
 
-        //    var account = new Account();
-        //    account.Deposit(300, DateTime.Parse("2021-11-21"));
-        //    account.Withdraw(100, DateTime.Parse("2021-11-22"));
+            var printer = new Printer();
 
-        //    var printer = new Printer();
+            //Act
+            string output = printer.Print(account.GetStatement());
 
-        //    //Act
-        //    string output = printer.Print(account.GetStatement());
+            //Assert
+            var ExpectedOutput =
+                "22-11-2021 ||          ||   100.00 ||   200.00" + Environment.NewLine +
+                "21-11-2021 ||   300.00 ||          ||   300.00";
+            string.Join(Environment.NewLine, output.Split(Environment.NewLine).Skip(1)).Should().Be(ExpectedOutput);
+        }
+        
+        [Fact]
+        public void Should_print_transactions_when_date()
+        {
+            //Arrange
+            var account = new Account();
+            account.Deposit(300, DateTime.Parse("2021-11-21"));
+            account.Deposit(500, DateTime.Parse("2021-11-23"));
+            account.Withdraw(100, DateTime.Parse("2021-11-22"));
 
-        //    //Assert
-        //    var ExpectedOutput =
-        //        "22-11-2021 ||     100.00 ||          ||     200.00" + Environment.NewLine +
-        //        "21-11-2021 ||     300.00 ||          ||     300.00";
-        //    output.Split(Environment.NewLine).Last().Should().Be(ExpectedOutput);
-        //}
+            var printer = new Printer();
+
+            //Act
+            string output = printer.Print(account.GetStatement());
+
+            //Assert
+            var ExpectedOutput =
+                "23-11-2021 ||   500.00 ||          ||   700.00" + Environment.NewLine +
+                "22-11-2021 ||          ||   100.00 ||   200.00" + Environment.NewLine +
+                "21-11-2021 ||   300.00 ||          ||   300.00";
+            string.Join(Environment.NewLine, output.Split(Environment.NewLine).Skip(1)).Should().Be(ExpectedOutput);
+        }
     }
 }
