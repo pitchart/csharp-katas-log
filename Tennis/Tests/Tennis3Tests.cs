@@ -50,6 +50,20 @@ namespace Tennis.Tests
         {
             Assert.Throws<ArgumentException>(() => new TennisGame3("Williams", "Williams"));
         }
+
+        [Fact]
+        public void Should_AnnounceWinnerName_WhenFirstPlayerWins()
+        {
+            TennisGame3 tennisGame3 = new TennisGame3("Roger", "Rafael");
+
+            tennisGame3.WonPoint("Roger");
+            tennisGame3.WonPoint("Roger");
+            tennisGame3.WonPoint("Roger");
+            tennisGame3.WonPoint("Roger");
+
+            var score = tennisGame3.GetScore();
+            Assert.Equal("Win for Roger", score);
+        }
     }
 
 }
