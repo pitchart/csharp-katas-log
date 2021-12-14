@@ -10,7 +10,11 @@ namespace Tennis
         private string _playerOneName;
         private string _playerTwoName;
 
-        private NonEqualityScore _nonEqualityScore;
+        private readonly NonEqualityScore _nonEqualityScore;
+        private readonly EqualityScore _equalityScore;
+        private readonly AvantageScore _avantageScore;
+        private readonly WinScore _winScore;
+
 
         public TennisGame3(string player1Name, string player2Name)
         {
@@ -21,7 +25,12 @@ namespace Tennis
             _playerOneName = player1Name;
             _playerTwoName = player2Name;
 
-            _nonEqualityScore = new NonEqualityScore(new EqualityScore(new AvantageScore(new WinScore())));
+            _nonEqualityScore = new NonEqualityScore();
+            _equalityScore = new EqualityScore();
+            _avantageScore= new AvantageScore();
+            _winScore = new WinScore();
+
+            _nonEqualityScore.SetNext(_equalityScore).SetNext(_avantageScore).SetNext(_winScore);
         }
 
         public string GetScore()

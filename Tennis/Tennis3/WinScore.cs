@@ -2,9 +2,9 @@
 
 namespace Tennis
 {
-    public class WinScore : IScore
+    public class WinScore : ScoreHandler
     {
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
+        public override string GetScore(int playerOneScore, int playerTwoScore, string playerName)
         {
             return "Win for " + playerName;
         }

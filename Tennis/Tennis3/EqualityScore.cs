@@ -1,15 +1,8 @@
 ﻿namespace Tennis.Tennis3
 {
-    public class EqualityScore : IScore
+    public class EqualityScore : ScoreHandler
     {
-        private readonly IScore _nextCaseScore;
-
-        public EqualityScore(IScore nextCaseScore)
-        {
-            _nextCaseScore = nextCaseScore;
-        }
-
-        public string GetScore(int playerOneScore, int playerTwoScore, string playerName)
+        public override string GetScore(int playerOneScore, int playerTwoScore, string playerName)
         {
             if (playerOneScore == playerTwoScore)
             {
@@ -18,7 +11,7 @@
                 return "Deuce";
             }
 
-            return _nextCaseScore.GetScore(playerOneScore, playerTwoScore, playerName);
+            return base.GetScore(playerOneScore, playerTwoScore, playerName);
         }
     }
 }
