@@ -71,7 +71,46 @@ namespace Bowling.Test
             score.Should().Be(150);
         }
 
+        [Fact]
+        public void Should_score_total_fallen_pins_and_bonuses_when_twenty_rolls_with_one_strike_at_first_throw()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
 
+            //Act
+            bowling.Roll(10);
+
+            for (int i = 2; i < 20; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(30);
+        }
+
+        [Fact]
+        public void Should_score_total_fallen_pins_and_bonuses_when_twenty_rolls_with_two_consecutive_strikes()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+            bowling.Roll(10);
+            bowling.Roll(10);
+
+            for (int i = 4; i < 20; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(49);
+        }
     }
 
 }
