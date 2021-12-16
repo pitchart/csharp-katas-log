@@ -49,6 +49,28 @@ namespace Bowling.Test
             score.Should().Be(29);
         }
 
+        [Fact]
+        public void Should_score_total_fallen_pins_and_bonuses_when_twenty_rolls_with_one_spare_at_last_throw()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+
+            //Act
+
+            for (int i = 0; i < 20; i++)
+            {
+                bowling.Roll(5);
+            }
+
+            bowling.Roll(5);
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(150);
+        }
+
 
     }
 
