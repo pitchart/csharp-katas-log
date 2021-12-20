@@ -8,7 +8,7 @@ namespace Banking
         decimal Amount { get; }
 
         DateTime Date { get; }
-        decimal Balance { get; }
+        decimal Balance { get; set; }
     }
 
 }

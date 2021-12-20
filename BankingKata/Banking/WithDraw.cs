@@ -15,6 +15,6 @@ namespace Banking
 
         public DateTime Date { get; }
 
-        public decimal Balance { get; }
+        public decimal Balance { get; set;  }
     }
 }

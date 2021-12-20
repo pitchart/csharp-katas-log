@@ -102,7 +102,7 @@ namespace Banking.Tests.Unit
         }
         
         [Fact]
-        public void Should_print_transactions_when_date()
+        public void Should_print_transactions_when_date_are_not_sorted()
         {
             //Arrange
             var account = new Account();

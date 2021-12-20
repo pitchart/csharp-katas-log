@@ -55,7 +55,7 @@ namespace Banking.Tests.Unit
 
             // Assert
             var statement = account.GetStatement();
-            var transaction = statement.GetTransactions().Last();
+            var transaction = statement.GetTransactions().First();
             transaction.Balance.Should().Be(1400);
             transaction.Date.Should().Be(DateTime.Parse("2021-11-17 00:00:00"));
         }
