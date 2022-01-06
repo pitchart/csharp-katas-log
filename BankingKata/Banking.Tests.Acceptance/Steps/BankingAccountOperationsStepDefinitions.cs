@@ -1,5 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow;
+using Xunit;
+using Banking;
 
 namespace Banking.Tests.Acceptance.Steps
 {
@@ -10,7 +12,8 @@ namespace Banking.Tests.Acceptance.Steps
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
         private readonly ScenarioContext _scenarioContext;
-
+        private readonly Account _account = new Account();
+        private string printedBankStatement = string.Empty;
         public BankingAccountOperationsStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -18,27 +21,28 @@ namespace Banking.Tests.Acceptance.Steps
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
-        public void GivenAClientMakesADepositOfOn(int p0, DateTime p1)
+        public void GivenAClientMakesADepositOfOn(int p0, string p1)
         {
-            ScenarioContext.StepIsPending();
+            _account.Deposite(p0, Convert.ToDateTime(p1));
         }
 
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
-            ScenarioContext.StepIsPending();
+            var statement = _account.GetStatement();
+            printedBankStatement = Printer.PrintAccountBankStatement(statement);
         }
 
         [Then(@"she would see")]
         public void ThenSheWouldSee(string multilineText)
         {
-            ScenarioContext.StepIsPending();
+            Assert.Equal(multilineText, printedBankStatement);
         }
 
         [Given(@"a withdrawal of (.*) on (.*)")]
         public void GivenAWithdrawalOfOn(int p0, string p1)
         {
-            ScenarioContext.StepIsPending();
+            _account.WithDraw(p0, Convert.ToDateTime(p1));
         }
     }
 }
