@@ -15,7 +15,7 @@ namespace Bowling
         {
             throwsHistory.Add(fallenPins);
             
-            if (fallenPins == 10 && throwsHistory.Count%2 == 1)
+            if (TurnIsAStrike(fallenPins) && throwsHistory.Count%2 == 1)
                 throwsHistory.Add(0);
         }
 
@@ -28,27 +28,27 @@ namespace Bowling
                 int turnScore = throwsHistory[i] + throwsHistory[i+1];
                 score += turnScore;
 
-                if (IsASpare(throwsHistory[i], throwsHistory[i + 1]))
+                if (TurnIsASpare(throwsHistory[i], throwsHistory[i + 1]))
                 {
                     score += throwsHistory[i+2];
                 }
 
-                if (IsAStrike(throwsHistory[i]))
+                if (TurnIsAStrike(throwsHistory[i]))
                 {
                     score += throwsHistory[i+2];
-                    score += throwsHistory[i+2] == 10 ? throwsHistory[i+4] : throwsHistory[i+3];
+                    score += TurnIsAStrike(throwsHistory[i+2]) ? throwsHistory[i+4] : throwsHistory[i+3];
                 }
             }
 
             return score;
         }
 
-        private bool IsAStrike(int firstThrow)
+        private bool TurnIsAStrike(int firstThrow)
         {
             return firstThrow == maxScorePerTurn;
         }
 
-        private bool IsASpare(int firstThrow, int secondThrow)
+        private bool TurnIsASpare(int firstThrow, int secondThrow)
         {
             return firstThrow < maxScorePerTurn && firstThrow + secondThrow == maxScorePerTurn;
         }
