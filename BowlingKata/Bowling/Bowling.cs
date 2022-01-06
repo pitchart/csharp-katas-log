@@ -15,7 +15,7 @@ namespace Bowling
         {
             throwsHistory.Add(fallenPins);
             
-            if (fallenPins == 10)
+            if (fallenPins == 10 && throwsHistory.Count%2 == 1)
                 throwsHistory.Add(0);
         }
 
@@ -36,7 +36,7 @@ namespace Bowling
                 if (IsAStrike(throwsHistory[i]))
                 {
                     score += throwsHistory[i+2];
-                    score += throwsHistory[i+3];
+                    score += throwsHistory[i+2] == 10 ? throwsHistory[i+4] : throwsHistory[i+3];
                 }
             }
 

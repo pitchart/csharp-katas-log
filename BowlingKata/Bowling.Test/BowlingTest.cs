@@ -111,6 +111,27 @@ namespace Bowling.Test
             //Assert
             score.Should().Be(49);
         }
+
+        [Fact]
+        public void Should_scores_a_spare_when_second_roll_of_a_turn_is_ten_pins()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+            bowling.Roll(0);
+            bowling.Roll(10);
+
+            for (int i = 2; i < 20; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(29);
+        }
     }
 
 }
