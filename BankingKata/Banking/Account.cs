@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.XPath;
 
 namespace Banking
 {
@@ -62,4 +60,17 @@ namespace Banking
         }
     }
 
+    public class Amount
+    {
+        public double Value { get; }
+
+        public Amount(double value)
+        {
+            Value = value > 0 ? value : throw new Exception("Amount should not be negative.");
+        }
+
+        public static Amount operator +(Amount first, Amount second) => new Amount(first.Value + second.Value);
+
+        public static Amount operator -(Amount first, Amount second) => new Amount(first.Value - second.Value);
+    }
 }
