@@ -73,6 +73,28 @@ namespace Diamond.Tests
             return (string.Join(Environment.NewLine, lines.Reverse()) == result).ToProperty();
         }
 
+        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        public Property EachLineContainsTwoLettersExceptFirstAndLast(char c)
+        {
+            var result = diamond.Print(c);
+            var lines = result.Split(Environment.NewLine);
+            lines = lines.Skip(1).SkipLast(1).Select(s=>s.Replace(" ","")).ToArray();
+            return (lines.Select(l => l.Length).All(c => c == 2)).ToProperty();
+        }
+
+        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        public Property HasDecreasingToZeroLeftSpacesUntilInputCharLine(char c)
+        {
+            var result = diamond.Print(c);
+            var lines = result.Split(Environment.NewLine);
+
+            lines = lines.Take(c - 'A' + 1).ToArray();
+
+            var spaces = lines.Select(s => s.TakeWhile(c => c.Equals(' '))).Select(s => s.Count());
+                 
+            return (spaces == Enumerable.Range(lines.Length - 1, 0)).ToProperty();
+        }
+
     }
 
     internal static class ALetterGenerator

@@ -22,7 +22,12 @@ namespace Diamond
             List<string> lines = new List<string>();
             while (letter.CompareTo(c) <= 0)
             {
-                lines.Add(letter.ToString());                
+                string line = letter.ToString();
+                if (letter != startChar)
+                {
+                    line += letter.ToString();
+                }
+                lines.Add(line);
                 letter ++;
             }
             
