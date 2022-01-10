@@ -1,0 +1,192 @@
+[
+    {
+      "OfferTechnicalId": "666_TEST1_6_CDISFR",
+      "OfferId": 6543125,
+      "OfferState": "inactive",
+      "Comments": "Comments6cde3ff4-c802-4398-946a-45b722691a02",
+      "SellerId": 666,
+      "Product": {
+        "ProductId": "TEST1",
+        "ParentProductId": "ParentProductId425353bc-b21a-4335-a639-7624e41d843a",
+        "TemplateProductId": "TemplateProductId21c53d80-448b-4fca-818d-cc4f749b8120",
+        "SellerProductId": "testtest",
+        "ProductEan": "ProductEan846fb0b4-3aa9-4b4b-8e77-695fc13aa239",
+        "ProductConditionId": "New",
+        "ProductState": 1
+      },
+      "CreationDate": "2021-08-05T17:31:42.8343878",
+      "LastUpdateDate": "2022-07-26T18:59:34.2764625",
+      "SupplyMode": "seller",
+      "PackagingUnitId": 0,
+      "PackagingValue": 222,
+      "PreparationTime": 251,
+      "IntegrationPrice": {
+        "PriceValue": 107,
+        "StrikedPrice": 64,
+        "OriginPrice": 64,
+        "Currency": "Currency4fbffa68-c499-4b19-bd97-c7d796566631",
+        "Taxes": [
+          {
+            "Value": 139,
+            "Category": 0,
+            "Type": 0
+          },
+          {
+            "Value": 177,
+            "Category": 1,
+            "Type": 1
+          },
+          {
+            "Value": 172,
+            "Category": 2,
+            "Type": 1
+          }
+        ]
+      },
+      "FacialPrice": {
+        "PriceValue": 114,
+        "StrikedPrice": 153,
+        "OriginPrice": 153,
+        "Currency": "Currency3930a428-4667-4086-9ae9-e9654676d91a",
+        "Taxes": [
+          {
+            "Value": 126,
+            "Category": 3,
+            "Type": 1
+          },
+          {
+            "Value": 229,
+            "Category": 4,
+            "Type": 1
+          },
+          {
+            "Value": 190,
+            "Category": 5,
+            "Type": 1
+          }
+        ]
+      },
+      "ConversionDate": "2019-04-20T05:40:06.9962389",
+      "SalesChannelId": "CDISFR",
+      "ShippingList": [
+        {
+          "DeliveryMode": 1,
+          "Charges": 92,
+          "AdditionalCharges": 16,
+          "MinLeadTime": 55,
+          "MaxLeadTime": 213
+        },
+        {
+          "DeliveryMode": 2,
+          "Charges": 127,
+          "AdditionalCharges": 134,
+          "MinLeadTime": 45,
+          "MaxLeadTime": 123
+        },
+        {
+          "DeliveryMode": 3,
+          "Charges": 87,
+          "AdditionalCharges": 6,
+          "MinLeadTime": 144,
+          "MaxLeadTime": 118
+        }
+      ],
+      "Score": "Score0e602a8b-08fc-4d2b-94fe-63bf2da89a50",
+      "Quantity": 90
+  },
+  {
+    "OfferTechnicalId": "667_TEST2_6_CDISFR",
+      "OfferId": 6543144,
+      "OfferState": "inactive",
+      "Comments": "Comments6cde3ff4-c802-4398-946a-45b722691a02",
+      "SellerId": 667,
+      "Product": {
+        "ProductId": "TEST2",
+        "ParentProductId": "ParentProductId425353bc-b21a-4335-a639-7624e41d843a",
+        "TemplateProductId": "TemplateProductId21c53d80-448b-4fca-818d-cc4f749b8120",
+        "SellerProductId": "testtest2",
+        "ProductEan": "ProductEan846fb0b4-3aa9-4b4b-8e77-695fc13aa239",
+        "ProductConditionId": "New",
+        "ProductState": 1
+      },
+      "CreationDate": "2021-08-05T17:31:42.8343878",
+      "LastUpdateDate": "2022-07-26T18:59:34.2764625",
+      "SupplyMode": 0,
+      "PackagingUnitId": 0,
+      "PackagingValue": 222,
+      "PreparationTime": 251,
+      "IntegrationPrice": {
+        "PriceValue": 107,
+        "StrikedPrice": 64,
+        "OriginPrice": 64,
+        "Currency": "Currency4fbffa68-c499-4b19-bd97-c7d796566631",
+        "Taxes": [
+          {
+            "Value": 139,
+            "Category": 0,
+            "Type": 0
+          },
+          {
+            "Value": 177,
+            "Category": 1,
+            "Type": 1
+          },
+          {
+            "Value": 172,
+            "Category": 2,
+            "Type": 1
+          }
+        ]
+      },
+      "FacialPrice": {
+        "PriceValue": 114,
+        "StrikedPrice": 153,
+        "OriginPrice": 153,
+        "Currency": "Currency3930a428-4667-4086-9ae9-e9654676d91a",
+        "Taxes": [
+          {
+            "Value": 126,
+            "Category": 3,
+            "Type": 1
+          },
+          {
+            "Value": 229,
+            "Category": 4,
+            "Type": 1
+          },
+          {
+            "Value": 190,
+            "Category": 5,
+            "Type": 1
+          }
+        ]
+      },
+      "ConversionDate": "2019-04-20T05:40:06.9962389",
+      "SalesChannelId": "CDISFR",
+      "ShippingList": [
+        {
+          "DeliveryMode": 1,
+          "Charges": 92,
+          "AdditionalCharges": 16,
+          "MinLeadTime": 55,
+          "MaxLeadTime": 213
+        },
+        {
+          "DeliveryMode": 2,
+          "Charges": 127,
+          "AdditionalCharges": 134,
+          "MinLeadTime": 45,
+          "MaxLeadTime": 123
+        },
+        {
+          "DeliveryMode": 3,
+          "Charges": 87,
+          "AdditionalCharges": 6,
+          "MinLeadTime": 144,
+          "MaxLeadTime": 118
+        }
+      ],
+      "Score": "Score0e602a8b-08fc-4d2b-94fe-63bf2da89a50",
+      "Quantity": 90
+  }
+]

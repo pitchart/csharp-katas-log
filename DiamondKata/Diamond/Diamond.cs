@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Diamond
 {
@@ -16,25 +18,17 @@ namespace Diamond
 
             c = char.ToUpper(c);
 
-            string result = "";
             char letter = startChar;
+            List<string> lines = new List<string>();
             while (letter.CompareTo(c) <= 0)
             {
-                result += letter;
-                if (c != letter)
-                {
-                    result += Environment.NewLine;
-                }
+                lines.Add(letter.ToString());                
                 letter ++;
             }
+            
+            lines = lines.Concat(lines.ToArray().Reverse().Skip(1)).ToList();
 
-            if (c != startChar)
-            {
-                result += Environment.NewLine;
-                result += startChar;
-            }
-
-            return result;
+            return string.Join(Environment.NewLine, lines);
         }
     }
 
