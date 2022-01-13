@@ -35,14 +35,18 @@ namespace Bowling
             _nextTurn = turn;
         }
 
-        internal int GetTotalScore()
+        internal int GetTotalScore() {
+            return GetTotalScoreRec(0);
+        }
+        
+        private int GetTotalScoreRec(int currentScore)
         {
             if (_nextTurn == null)
             {
-                return GetScore();
+                return currentScore;
             }
-
-            return GetScore() + GetBonus() + _nextTurn.GetTotalScore();
+            int currentTurnScore = currentScore + GetScore() + GetBonus();
+            return _nextTurn.GetTotalScoreRec(currentTurnScore);
         }
 
         private int GetBonus()
