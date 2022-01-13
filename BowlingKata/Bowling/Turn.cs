@@ -6,28 +6,88 @@ namespace Bowling
 {
     internal class Turn
     {
-        public bool IsComplete => rolls.Count == 2 || IsAStrike();
+        public bool IsComplete => _rolls.Count == 2 || IsAStrike();
 
         internal bool IsAStrike()
         {
-            return rolls.FirstOrDefault() == 10;
+            return _rolls.FirstOrDefault() == 10;
         }
 
-        private List<int> rolls = new List<int>();
+        private readonly List<int> _rolls = new List<int>(2);
+        private readonly Turn _nextTurn;
+
+        internal static Turn BuildDefault()
+        {
+            return Build(10);
+        }
+
+        private static Turn Build(int turnsNumber)
+        {
+            if (turnsNumber == 1)
+            {
+                return new Turn(null);
+            }
+            return new Turn(Build(turnsNumber - 1));
+        }
+
+        public Turn(Turn turn = null)
+        {
+            _nextTurn = turn;
+        }
+
+        internal int GetTotalScore()
+        {
+            if (_nextTurn == null)
+            {
+                return GetScore();
+            }
+
+            return GetScore() + GetBonus() + _nextTurn.GetTotalScore();
+        }
+
+        private int GetBonus()
+        {
+            if (IsASpare())
+            {
+                return _nextTurn.GetFirstRollScore();
+            }
+
+            if (IsAStrike())
+            {
+                return _nextTurn.GetCompleteStrikeBonus();
+            }
+
+            return 0;
+        }
+
+        private int GetCompleteStrikeBonus()
+        {
+            return GetScore() + (IsAStrike() ? _nextTurn.GetFirstRollScore() : 0);
+        }
+
+        internal int GetFirstRollScore()
+        {
+            return _rolls.FirstOrDefault();
+        }
 
         internal void Roll(int fallenPins)
         {
-            rolls.Add(fallenPins);
+            _rolls.Add(fallenPins);
         }
 
         internal int GetScore()
         {
-            return rolls.Sum();
+            return _rolls.Sum();
         }
 
         internal bool IsASpare()
         {
             return GetScore() == 10 && !IsAStrike();
+        }
+
+        internal int GetStrikeBonus()
+        {
+            return GetScore();
         }
     }
 }

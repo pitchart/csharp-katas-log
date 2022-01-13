@@ -132,6 +132,27 @@ namespace Bowling.Test
             //Assert
             score.Should().Be(29);
         }
+
+        [Fact]
+        public void Should()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+            bowling.Roll(10);
+            bowling.Roll(10);
+            
+            for (int i = 4; i < 20; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(49);
+        }
     }
 
 }
