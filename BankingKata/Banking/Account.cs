@@ -1,21 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Banking
 {
     public class Account
     {
-        DateTime Date { set; get; }
-        decimal Credit { set; get; }
+        private List<Transaction> Transactions = new List<Transaction>();
 
         public void Deposite(decimal p0, DateTime dateTime)
         {
-            Credit += p0;
-            Date = dateTime;
+            Transactions.Add(new Transaction
+            {
+                Date = dateTime, Credit = p0, Balance = p0
+            });
         }
 
         public Statement GetStatement()
         {
-            return new Statement();
+            return new Statement(this.Transactions);
         }
 
         public void WithDraw(int p0, DateTime dateTime)

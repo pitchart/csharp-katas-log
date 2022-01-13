@@ -4,9 +4,10 @@ namespace Banking
 {
     public class Statement
     {
-        IEnumerable<Transaction> Transactions;
-        public Statement()
+        public readonly IEnumerable<Transaction> Transactions;
+        public Statement(IList<Transaction> transactions)
         {
+            Transactions = transactions;
         }
     }
 }

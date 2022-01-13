@@ -2,7 +2,7 @@
 
 namespace Banking
 {
-    internal class Transaction
+    public class Transaction
     {
         public DateTime Date { get; set; }
         public decimal Credit { get; set; }
