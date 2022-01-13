@@ -1,10 +1,10 @@
 using System;
 using Xunit;
 
-namespace Banking.Tests.Unit
+namespace Lags.Tests
 {
 
-    public class BankingTest
+    public class UnitTest1
     {
         [Fact]
         public void Test1()

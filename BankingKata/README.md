@@ -7,11 +7,13 @@ When in doubt, go for the simplest solution
 
 ## Requirements
 
-- [ ] Deposit and Withdrawal  
-- [ ] Transfer  
-- [ ] Account statement (date, amount, balance)  
-- [ ] Statement printing  
+- [ ] Deposit and Withdrawal
+- [ ] Account statement (date, amount, balance)
+- [ ] Statement printing
+- [ ] Transfer
 - [ ] Statement filters (just deposits, withdrawal, date)
+- [ ] Account status (open, closed, frozen)
+
 
 ## BDD
 
