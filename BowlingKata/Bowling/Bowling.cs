@@ -10,7 +10,7 @@ namespace Bowling
         private const int RegularThrowLimit = 20;
         private const int ThrowCountPerTurn = 2;
 
-        private Turn _firstTurn;
+        private readonly Turn _firstTurn;
         private readonly List<Turn> _turns = new List<Turn>();
 
         public Bowling()
@@ -34,8 +34,8 @@ namespace Bowling
         {
 
             int score = 0;
+            //TODO: Refactorer pour utiliser la structure récursive
             int newScore = _firstTurn.GetTotalScore();
-
 
             for (int i = 0; i < RegularThrowLimit; i+= ThrowCountPerTurn)
             {
