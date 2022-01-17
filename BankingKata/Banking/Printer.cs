@@ -18,11 +18,11 @@ namespace Banking
                     builder.Append(Environment.NewLine);
                     if (transaction.GetType() == typeof(Deposit))
                     {
-                        builder.Append($"{transaction.Date.Date:dd-MM-yyyy} || {transaction.Amount.ToString("0.00", CultureInfo.InvariantCulture),8} ||          || {transaction.Balance.ToString("0.00", CultureInfo.InvariantCulture),8}");
+                        builder.Append($"{transaction.Date.Date:dd-MM-yyyy} || {transaction.Amount.Value.ToString("0.00", CultureInfo.InvariantCulture),8} ||          || {transaction.Balance.Value.ToString("0.00", CultureInfo.InvariantCulture),8}");
                     }
                     else
                     {
-                        builder.Append($"{transaction.Date.Date:dd-MM-yyyy} ||          || {transaction.Amount.ToString("0.00", CultureInfo.InvariantCulture),8} || {transaction.Balance.ToString("0.00", CultureInfo.InvariantCulture),8}");
+                        builder.Append($"{transaction.Date.Date:dd-MM-yyyy} ||          || {transaction.Amount.Value.ToString("0.00", CultureInfo.InvariantCulture),8} || {transaction.Balance.Value.ToString("0.00", CultureInfo.InvariantCulture),8}");
                     }
                 }
             }

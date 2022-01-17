@@ -23,13 +23,13 @@ namespace Banking.Tests.Unit
         public void Should_have_a_value_with_cents()
         {
             //Arrange
-            double givenValue = 1.05;
+            decimal givenValue = 1.05m;
 
             //Act
             Amount amount = new Amount(givenValue);
 
             //Assert
-            amount.Value.Should().Be(1.05);
+            amount.Value.Should().Be(1.05m);
         }
 
         [Fact]

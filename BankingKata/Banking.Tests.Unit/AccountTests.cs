@@ -15,12 +15,12 @@ namespace Banking.Tests.Unit
             Account account = new Account();
 
             // Act
-            account.Deposit(new Amount(1), DateTime.Parse("2021-11-15 00:00:00"));
+            account.Deposit(new Amount(1m), DateTime.Parse("2021-11-15 00:00:00"));
 
             // Assert
             Statement statement = account.GetStatement();
             ITransaction transaction = statement.GetTransactions().First();
-            transaction.Amount.Should().Be(1);
+            transaction.Amount.Value.Should().Be(1m);
             transaction.Date.Should().Be(DateTime.Parse("2021-11-15 00:00:00"));
             transaction.Should().BeOfType(typeof(Deposit));
         }
@@ -30,13 +30,14 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             Account account = new Account();
+            account.Deposit(new Amount(2m), DateTime.Parse("2021-11-14 00:00:00"));
 
             //Act
-            account.Withdraw(new Amount(1), DateTime.Parse("2021-11-15 00:00:00"));
+            account.Withdraw(new Amount(1m), DateTime.Parse("2021-11-15 00:00:00"));
 
             //Assert
             ITransaction transaction = account.GetStatement().GetTransactions().First();
-            transaction.Amount.Should().Be(1);
+            transaction.Amount.Value.Should().Be(1m);
             transaction.Date.Should().Be(DateTime.Parse("2021-11-15 00:00:00"));
             transaction.Should().BeOfType(typeof(WithDraw));
         }
@@ -48,15 +49,15 @@ namespace Banking.Tests.Unit
             Account account = new Account();
 
             // Act
-            account.Deposit(new Amount(1000), DateTime.Parse("2021-11-15 00:00:00"));
-            account.Withdraw(new Amount(100), DateTime.Parse("2021-11-16 00:00:00"));
-            account.Deposit(new Amount(500), DateTime.Parse("2021-11-17 00:00:00"));
+            account.Deposit(new Amount(1000m), DateTime.Parse("2021-11-15 00:00:00"));
+            account.Withdraw(new Amount(100m), DateTime.Parse("2021-11-16 00:00:00"));
+            account.Deposit(new Amount(500m), DateTime.Parse("2021-11-17 00:00:00"));
 
 
             // Assert
             Statement statement = account.GetStatement();
             ITransaction transaction = statement.GetTransactions().First();
-            transaction.Balance.Should().Be(1400);
+            transaction.Balance.Value.Should().Be(1400m);
             transaction.Date.Should().Be(DateTime.Parse("2021-11-17 00:00:00"));
         }
     }

@@ -27,11 +27,11 @@ namespace Banking.Tests.Unit
         [Theory]
         [InlineData(1, "2021-11-22", "22-11-2021 ||     1.00 ||          ||     1.00")]
         [InlineData(2, "2021-11-22", "22-11-2021 ||     2.00 ||          ||     2.00")]
-        public void Should_print_deposits(int amount, string date, string transactionLine)
+        public void Should_print_deposits(decimal amount, string date, string transactionLine)
         {
             //Arrange
             var account = new Account();
-            account.Deposit(amount, DateTime.Parse(date));
+            account.Deposit(new Amount(amount), DateTime.Parse(date));
             var printer = new Printer();
 
             //Act
@@ -48,8 +48,8 @@ namespace Banking.Tests.Unit
             //Arrange
 
             var account = new Account();
-            account.Deposit(100, DateTime.Parse("2021-11-21"));
-            account.Withdraw(200, DateTime.Parse("2021-11-22"));
+            account.Deposit(new Amount(300m), DateTime.Parse("2021-11-21"));
+            account.Withdraw(new Amount(200m), DateTime.Parse("2021-11-22"));
 
             var printer = new Printer();
 
@@ -64,12 +64,12 @@ namespace Banking.Tests.Unit
 
         [Theory]
         [InlineData(500, "2021-11-22", "22-11-2021 ||          ||   500.00 ||  1000.00")]
-        public void Should_print_withdrawal(int amount, string date, string transactionLine)
+        public void Should_print_withdrawal(decimal amount, string date, string transactionLine)
         {
             //Arrange
             var account = new Account();
-            account.Deposit(1500, DateTime.Parse("2021-11-21"));
-            account.Withdraw(amount, DateTime.Parse(date));
+            account.Deposit(new Amount(1500m), DateTime.Parse("2021-11-21"));
+            account.Withdraw(new Amount(amount), DateTime.Parse(date));
             var printer = new Printer();
 
             //Act
@@ -86,8 +86,8 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             var account = new Account();
-            account.Deposit(300, DateTime.Parse("2021-11-21"));
-            account.Withdraw(100, DateTime.Parse("2021-11-22"));
+            account.Deposit(new Amount(300m), DateTime.Parse("2021-11-21"));
+            account.Withdraw(new Amount(100m), DateTime.Parse("2021-11-22"));
 
             var printer = new Printer();
 
@@ -106,9 +106,9 @@ namespace Banking.Tests.Unit
         {
             //Arrange
             var account = new Account();
-            account.Deposit(300, DateTime.Parse("2021-11-21"));
-            account.Deposit(500, DateTime.Parse("2021-11-23"));
-            account.Withdraw(100, DateTime.Parse("2021-11-22"));
+            account.Deposit(new Amount(300m), DateTime.Parse("2021-11-21"));
+            account.Deposit(new Amount(500m), DateTime.Parse("2021-11-23"));
+            account.Withdraw(new Amount(100m), DateTime.Parse("2021-11-22"));
 
             var printer = new Printer();
 

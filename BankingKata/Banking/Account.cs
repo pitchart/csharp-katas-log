@@ -14,12 +14,6 @@ namespace Banking
         {
             return new Statement(_transactions.Values);
         }
-
-
-        public void Deposit(int amount, DateTime date)
-        {
-            Deposit(new Amount(amount), date);
-        }
         
         public void Deposit(Amount amount, DateTime date)
         {
@@ -28,17 +22,12 @@ namespace Banking
                 CalculateBalances(date);
         }
 
-        private decimal Balance(DateTime actionTime)
+        private Amount Balance(DateTime actionTime)
         {
             IEnumerable<KeyValuePair<DateTime,ITransaction>> keyValuePairs = _transactions.SkipWhile(pair => DateTime.Compare(pair.Key, actionTime) >= 0).ToList();
             ITransaction beforeTransaction = keyValuePairs.Select(t => t.Value).FirstOrDefault();
             
-            return beforeTransaction?.Balance ?? 0; 
-        }
-
-        public void Withdraw(int amount, DateTime date)
-        {
-            Withdraw(new Amount(amount), date);
+            return beforeTransaction?.Balance ?? new Amount(0); 
         }
 
         public void Withdraw(Amount amount, DateTime date)
@@ -53,7 +42,7 @@ namespace Banking
         {
             foreach (KeyValuePair<DateTime, ITransaction> transaction in _transactions.Where(x=> x.Value.Date > actionTime).Reverse())
             {
-                decimal previousBalance = Balance(transaction.Key);
+                Amount previousBalance = Balance(transaction.Key);
                 transaction.Value.Balance = transaction.Value is WithDraw ? previousBalance - transaction.Value.Amount : previousBalance + transaction.Value.Amount ;
             }
         }

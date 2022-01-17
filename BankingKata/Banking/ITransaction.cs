@@ -5,10 +5,10 @@ namespace Banking
 
     public interface ITransaction
     {
-        decimal Amount { get; }
+        Amount Amount { get; }
 
         DateTime Date { get; }
-        decimal Balance { get; set; }
+        Amount Balance { get; set; }
     }
 
 }

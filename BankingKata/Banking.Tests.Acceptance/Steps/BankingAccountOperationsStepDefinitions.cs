@@ -25,7 +25,7 @@ namespace Banking.Tests.Acceptance.Steps
 
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
-        public void GivenAClientMakesADepositOfOn(int amount, DateTime actionTime)
+        public void GivenAClientMakesADepositOfOn(decimal amount, DateTime actionTime)
         {
             _clientAccount.Deposit(new Amount(amount), actionTime);
         }
