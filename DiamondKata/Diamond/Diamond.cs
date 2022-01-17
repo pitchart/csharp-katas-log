@@ -7,8 +7,8 @@ namespace Diamond
 
     public class Diamond
     {
-        private  char startChar = 'A';
-        
+        private char startChar = 'A';
+
         public string Print(char c)
         {
             if (!char.IsLetter(c))
@@ -20,17 +20,23 @@ namespace Diamond
 
             char letter = startChar;
             List<string> lines = new List<string>();
+            string outer = string.Empty.PadRight(c - startChar + 1);
+
             while (letter.CompareTo(c) <= 0)
             {
-                string line = letter.ToString();
+                outer = outer[1..];
+                string line = outer + letter;
                 if (letter != startChar)
                 {
                     line += letter.ToString();
                 }
+
+                line += outer;
+
                 lines.Add(line);
-                letter ++;
+                letter++;
             }
-            
+
             lines = lines.Concat(lines.ToArray().Reverse().Skip(1)).ToList();
 
             return string.Join(Environment.NewLine, lines);

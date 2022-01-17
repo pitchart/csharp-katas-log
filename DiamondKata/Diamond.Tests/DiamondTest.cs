@@ -27,19 +27,6 @@ namespace Diamond.Tests
         }
 
         [Fact]
-        public void Write_B_Diamond()
-        {
-            //Arrange
-            char letter = 'B';
-
-            //Act
-            string result = diamond.Print(letter);
-
-            //Assert
-            Assert.StartsWith($"A{Environment.NewLine}B", result);
-        }
-
-        [Fact]
         public void ThrowsException_WhenInvalidCharacter()
         {
             char number = '_';
@@ -47,7 +34,7 @@ namespace Diamond.Tests
             Assert.Throws<ArgumentException>(() => diamond.Print(number));
         }
 
-        [Property(Arbitrary = new []{typeof(NotALetterGenerator)})]
+        [Property(Arbitrary = new[] { typeof(NotALetterGenerator) })]
         public Property ThrowsException_WhenNotALetter(char c)
         {
             var result = Record.Exception(() => diamond.Print(c));
@@ -78,7 +65,7 @@ namespace Diamond.Tests
         {
             var result = diamond.Print(c);
             var lines = result.Split(Environment.NewLine);
-            lines = lines.Skip(1).SkipLast(1).Select(s=>s.Replace(" ","")).ToArray();
+            lines = lines.Skip(1).SkipLast(1).Select(s => s.Replace(" ", "")).ToArray();
             return (lines.Select(l => l.Length).All(c => c == 2)).ToProperty();
         }
 
@@ -88,13 +75,25 @@ namespace Diamond.Tests
             var result = diamond.Print(c);
             var lines = result.Split(Environment.NewLine);
 
-            lines = lines.Take(c - 'A' + 1).ToArray();
+            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
 
-            var spaces = lines.Select(s => s.TakeWhile(c => c.Equals(' '))).Select(s => s.Count());
-                 
-            return (spaces == Enumerable.Range(lines.Length - 1, 0)).ToProperty();
+            var spaces = lines.Select(s => s.TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+
+            return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
         }
 
+        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        public Property HasDecreasingToZeroRightSpacesUntilInputCharLine(char c)
+        {
+            var result = diamond.Print(c);
+            var lines = result.Split(Environment.NewLine);
+
+            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
+
+            var spaces = lines.Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+
+            return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
     }
 
     internal static class ALetterGenerator
