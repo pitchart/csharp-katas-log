@@ -69,26 +69,26 @@ namespace Diamond.Tests
             return (lines.Select(l => l.Length).All(c => c == 2)).ToProperty();
         }
 
-        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        [Property(Arbitrary = new[] { typeof(UpperLetterGenerator) })]
         public Property HasDecreasingToZeroLeftSpacesUntilInputCharLine(char c)
         {
             var result = diamond.Print(c);
             var lines = result.Split(Environment.NewLine);
 
-            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
+            lines = lines.Take(c - 'A' + 1).ToArray();
 
             var spaces = lines.Select(s => s.TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
 
             return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
         }
 
-        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        [Property(Arbitrary = new[] { typeof(UpperLetterGenerator) })]
         public Property HasDecreasingToZeroRightSpacesUntilInputCharLine(char c)
         {
             var result = diamond.Print(c);
             var lines = result.Split(Environment.NewLine);
 
-            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
+            lines = lines.Take(c - 'A' + 1).ToArray();
 
             var spaces = lines.Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
 
@@ -100,7 +100,15 @@ namespace Diamond.Tests
     {
         public static Arbitrary<char> Generate()
         {
-            return Arb.Default.Char().Filter(c => char.IsLetter(c));
+            return Arb.Default.Char().Filter(char.IsLetter);
+        }
+    }
+
+    internal static class UpperLetterGenerator
+    {
+        public static Arbitrary<char> Generate()
+        {
+            return Arb.Default.Char().Filter(c => char.IsLetter(c) && char.IsUpper(c));
         }
     }
 
