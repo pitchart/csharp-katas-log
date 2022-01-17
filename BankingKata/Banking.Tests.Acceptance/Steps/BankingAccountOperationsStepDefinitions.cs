@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Security.Principal;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -29,7 +27,7 @@ namespace Banking.Tests.Acceptance.Steps
         [Given(@"a deposit of (.*) on (.*)")]
         public void GivenAClientMakesADepositOfOn(int amount, DateTime actionTime)
         {
-            _clientAccount.Deposit(amount, actionTime);
+            _clientAccount.Deposit(new Amount(amount), actionTime);
         }
 
         [When(@"she prints her bank statement")]
@@ -47,7 +45,7 @@ namespace Banking.Tests.Acceptance.Steps
         [Given(@"a withdrawal of (.*) on (.*)")]
         public void GivenAWithdrawalOfOn(int amount, DateTime date)
         {
-            _clientAccount.Withdraw(amount, date);
+            _clientAccount.Withdraw(new Amount(amount), date);
         }
     }
 

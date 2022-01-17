@@ -6,11 +6,15 @@ namespace Banking
     public class Deposit : ITransaction
     {
        
-        public Deposit(decimal amount, DateTime actionTime, decimal balance)
+        public Deposit(decimal amount, DateTime date, decimal balance)
         {
             this.Amount = amount;
-            this.Date = actionTime;
+            this.Date = date;
             this.Balance = balance + amount;
+        }
+
+        public Deposit(Amount amount, DateTime date, decimal balance) : this((decimal) amount.Value, date, balance)
+        {
         }
 
         public decimal Amount { get; }

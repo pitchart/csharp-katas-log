@@ -4,11 +4,15 @@ namespace Banking
 {
     public class WithDraw : ITransaction
     {  
-        public WithDraw(decimal amount, DateTime actionTime, decimal balance)
+        public WithDraw(decimal amount, DateTime date, decimal balance)
         {
             Amount = amount;
-            Date = actionTime;
+            Date = date;
             Balance = balance - amount;
+        }
+
+        public WithDraw(Amount amount, DateTime date, decimal balance)  : this((decimal) amount.Value, date, balance)
+        {
         }
 
         public decimal Amount { get; }
