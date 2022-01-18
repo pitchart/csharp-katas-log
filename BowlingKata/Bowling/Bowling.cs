@@ -12,7 +12,7 @@ namespace Bowling
         {
             _scores.Add(pins);
 
-            if (pins == 10)
+            if (pins == 10 && IsFirstRollOfATurn(_scores.Count - 1))
             {
                 _scores.Add(0);
             }
@@ -27,9 +27,10 @@ namespace Bowling
 
                 if (IsStrike(i))
                 {
-                    score += _scores[i + 2] + _scores[i + 3];
+                    score += _scores[i + 2] + (IsStrike(i + 2) ? _scores[i + 4] : _scores[i + 3]);
                 }
-                else if (IsSpare(i))
+
+                if (IsSpare(i))
                 {
                     score += _scores[i + 2];
                 }
@@ -39,12 +40,17 @@ namespace Bowling
 
         private bool IsStrike(int i)
         {
-            return _scores[i] == 10;
+            return _scores[i] == 10 && IsFirstRollOfATurn(i);
+        }
+
+        private static bool IsFirstRollOfATurn(int i)
+        {
+            return i % 2 == 0;
         }
 
         private bool IsSpare(int turn)
         {
-            return (_scores[turn] + _scores[turn + 1]) == 10;
+            return (_scores[turn] + _scores[turn + 1]) == 10 && _scores[turn] != 10;
         }
     }
 
