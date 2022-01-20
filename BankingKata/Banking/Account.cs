@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Banking
 {
@@ -11,8 +12,15 @@ namespace Banking
         {
             Transactions.Add(new Transaction
             {
-                Date = dateTime, Credit = p0, Balance = p0
+                Date = dateTime,
+                Credit = p0,
+                Balance = GetBalance() + p0
             });
+        }
+
+        private decimal GetBalance()
+        {
+            return Transactions.OrderByDescending(t => t.Date).FirstOrDefault()?.Balance ?? 0;
         }
 
         public Statement GetStatement()
@@ -20,9 +28,14 @@ namespace Banking
             return new Statement(this.Transactions);
         }
 
-        public void WithDraw(int p0, DateTime dateTime)
+        public void WithDraw(decimal p0, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            Transactions.Add(new Transaction
+            {
+                Date = dateTime,
+                Debit = p0,
+                Balance = GetBalance() - p0
+            });
         }
     }
 }

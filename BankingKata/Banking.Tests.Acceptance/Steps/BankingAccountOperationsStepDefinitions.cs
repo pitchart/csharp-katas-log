@@ -2,6 +2,7 @@
 using TechTalk.SpecFlow;
 using Xunit;
 using Banking;
+using System.Globalization;
 
 namespace Banking.Tests.Acceptance.Steps
 {
@@ -19,11 +20,17 @@ namespace Banking.Tests.Acceptance.Steps
             _scenarioContext = scenarioContext;
         }
 
+        [StepArgumentTransformation(@"(\d{2}-\d{2}-\d{4})")]
+        public DateTime InXDaysTransform(string date)
+        {
+            return DateTime.ParseExact(date, "dd-mm-yyyy", CultureInfo.CurrentCulture);
+        }
+
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
-        public void GivenAClientMakesADepositOfOn(int p0, string p1)
+        public void GivenAClientMakesADepositOfOn(decimal p0, DateTime p1)
         {
-            _account.Deposite(p0, Convert.ToDateTime(p1));
+            _account.Deposite(p0,  p1);
         }
 
         [When(@"she prints her bank statement")]
@@ -40,9 +47,9 @@ namespace Banking.Tests.Acceptance.Steps
         }
 
         [Given(@"a withdrawal of (.*) on (.*)")]
-        public void GivenAWithdrawalOfOn(int p0, string p1)
+        public void GivenAWithdrawalOfOn(decimal p0, DateTime p1)
         {
-            _account.WithDraw(p0, Convert.ToDateTime(p1));
+            _account.WithDraw(p0, p1);
         }
     }
 }
