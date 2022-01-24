@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ namespace Diamond.Tests
 
     public class DiamondTest
     {
-        private Diamond diamond = new Diamond();
+        private readonly Diamond diamond = new Diamond();
 
         [Fact]
         public void Write_A_Diamond()
@@ -38,47 +40,39 @@ namespace Diamond.Tests
         [Property(Arbitrary = new[] { typeof(NotALetterGenerator) })]
         public Property ThrowsException_WhenNotALetter(char c)
         {
-            var result = Record.Exception(() => diamond.Print(c));
-
-            return (result.GetType() == typeof(ArgumentException)).ToProperty();
+            return Prop.Throws<ArgumentException,string>(new Lazy<string>(()=> diamond.Print(c)));
         }
 
         [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
         public Property FirstLineAndLastLineContainA(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
+            string[] lines = ConstructLines(c);
 
-            return (lines.FirstOrDefault().Contains('A') && lines.LastOrDefault().Contains('A')).ToProperty();
+            return (lines.First().Contains('A') && lines.Last().Contains('A')).ToProperty();
         }
 
         [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
-        public Property IsHorizontallySymetric(char c)
+        public Property IsHorizontallySymmetric(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
-
-            return (string.Join(Environment.NewLine, lines.Reverse()) == result).ToProperty();
+            string[] lines = ConstructLines(c);
+            return lines.SequenceEqual(lines.Reverse()).ToProperty();
         }
 
         [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
         public Property EachLineContainsTwoLettersExceptFirstAndLast(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
+            string[] lines = ConstructLines(c);
             lines = lines.Skip(1).SkipLast(1).Select(s => s.Replace(" ", "")).ToArray();
-            return (lines.Select(l => l.Length).All(c => c == 2)).ToProperty();
+            return (lines.Select(l => l.Length).All(l => l == 2)).ToProperty();
         }
 
         [Property(Arbitrary = new[] { typeof(UpperLetterGenerator) })]
         public Property HasDecreasingToZeroLeftSpacesUntilInputCharLine(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
+            string[] lines = ConstructLines(c);
+            lines = TakeUntilInput(lines, c);;
 
-            lines = lines.Take(c - 'A' + 1).ToArray();
-
-            var spaces = lines.Select(s => s.TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+            var spaces = CountSpacesBeforeFirstLetter(lines);
 
             return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
         }
@@ -86,23 +80,45 @@ namespace Diamond.Tests
         [Property(Arbitrary = new[] { typeof(UpperLetterGenerator) })]
         public Property HasDecreasingToZeroRightSpacesUntilInputCharLine(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
+            string[] lines = ConstructLines(c);
+            lines = TakeUntilInput(lines, c); 
 
-            lines = lines.Take(c - 'A' + 1).ToArray();
-
-            var spaces = lines.Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+            var spaces = CountSpacesAfterLastLetter(lines);
 
             return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
+
+        private string[] TakeUntilInput(IEnumerable<string> lines, char c)
+        {
+            return lines.Take(c - 'A' + 1).ToArray();
         }
 
         [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
         public Property DiamondIsSquare(char c)
         {
-            var result = diamond.Print(c);
-            var lines = result.Split(Environment.NewLine);
-
+            string[] lines = ConstructLines(c);
             return lines.All(line => line.Length.Equals(lines.Length)).ToProperty();
+        }
+
+        private string[] ConstructLines(char c)
+        {
+            return diamond.Print(c).Split(Environment.NewLine);
+        }
+
+        private IEnumerable<int> CountSpacesBeforeFirstLetter(IEnumerable<string> lines)
+        {
+            return lines
+                .Select(s => s.TakeWhile(cc => cc.Equals(' ')))
+                .Select(s => s.Count())
+                ;
+        }
+
+        private IEnumerable<int> CountSpacesAfterLastLetter(string[] lines)
+        {
+            return lines
+                .Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' ')))
+                .Select(s => s.Count())
+                ;
         }
     }
 
