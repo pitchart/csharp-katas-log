@@ -21,6 +21,7 @@ namespace Diamond
             char letter = startChar;
             List<string> lines = new List<string>();
             string outer = string.Empty.PadRight(c - startChar + 1);
+            string inner = " ";
 
             while (letter.CompareTo(c) <= 0)
             {
@@ -28,7 +29,8 @@ namespace Diamond
                 string line = outer + letter;
                 if (letter != startChar)
                 {
-                    line += letter.ToString();
+                    line += inner + letter;
+                    inner += "  ";
                 }
 
                 line += outer;

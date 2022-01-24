@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FsCheck;
@@ -93,6 +94,15 @@ namespace Diamond.Tests
             var spaces = lines.Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
 
             return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
+
+        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        public Property DiamondIsSquare(char c)
+        {
+            var result = diamond.Print(c);
+            var lines = result.Split(Environment.NewLine);
+
+            return lines.All(line => line.Length.Equals(lines.Length)).ToProperty();
         }
     }
 
