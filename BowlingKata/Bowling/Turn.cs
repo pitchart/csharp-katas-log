@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,24 +5,19 @@ namespace Bowling
 {
     internal class Turn
     {
-        public bool IsComplete => _rolls.Count == 2 || IsAStrike();
+        private const int MaximumPinsByTurn = 10;
 
         internal bool IsAStrike()
         {
-            return _rolls.FirstOrDefault() == 10;
+            return _rolls.FirstOrDefault() == MaximumPinsByTurn;
         }
 
         private readonly List<int> _rolls = new List<int>(2);
         private readonly Turn _nextTurn;
 
-        internal static Turn BuildDefault()
+        internal static Turn Build(int turnsNumber)
         {
-            return Build(10);
-        }
-
-        private static Turn Build(int turnsNumber)
-        {
-            if (turnsNumber == 1)
+            if (turnsNumber == 0)
             {
                 return new Turn(null);
             }
@@ -58,40 +52,41 @@ namespace Bowling
 
             if (IsAStrike())
             {
-                return _nextTurn.GetCompleteStrikeBonus();
+                return _nextTurn.GetStrikeBonus();
             }
 
             return 0;
         }
 
-        private int GetCompleteStrikeBonus()
+        private int GetStrikeBonus()
         {
             return GetScore() + (IsAStrike() ? _nextTurn.GetFirstRollScore() : 0);
         }
 
-        internal int GetFirstRollScore()
+        private int GetFirstRollScore()
         {
             return _rolls.FirstOrDefault();
         }
 
-        internal void Roll(int fallenPins)
-        {
-            _rolls.Add(fallenPins);
-        }
-
-        internal int GetScore()
+        private int GetScore()
         {
             return _rolls.Sum();
         }
 
-        internal bool IsASpare()
+        private bool IsASpare()
         {
-            return GetScore() == 10 && !IsAStrike();
+            return GetScore() == MaximumPinsByTurn && !IsAStrike();
         }
 
-        internal int GetStrikeBonus()
+        internal void Roll(int fallenPins)
         {
-            return GetScore();
+            if ((_rolls.Count == 2 || IsAStrike()) && _nextTurn != null)
+            {
+                _nextTurn.Roll(fallenPins);
+                return;
+            }
+
+            _rolls.Add(fallenPins);
         }
     }
 }
