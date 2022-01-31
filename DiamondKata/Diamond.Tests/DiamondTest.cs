@@ -15,6 +15,9 @@ namespace Diamond.Tests
     public class DiamondTest
     {
         private readonly Diamond diamond = new Diamond();
+        private readonly Diamond2 diamond2 = new Diamond2();
+
+        private Arbitrary<char> _upperLetterCharGenerator = UpperLetterGenerator.Generate();
 
         [Fact]
         public void Write_A_Diamond()
@@ -62,8 +65,8 @@ namespace Diamond.Tests
         public Property EachLineContainsTwoLettersExceptFirstAndLast(char c)
         {
             string[] lines = ConstructLines(c);
-            lines = lines.Skip(1).SkipLast(1).Select(s => s.Replace(" ", "")).ToArray();
-            return (lines.Select(l => l.Length).All(l => l == 2)).ToProperty();
+            var linesExceptFirstAndLastWithoutSpaces = lines.Skip(1).SkipLast(1).Select(s => s.Replace(" ", "")).ToArray();
+            return (linesExceptFirstAndLastWithoutSpaces.Select(l => l.Length).All(l => l == 2)).ToProperty();
         }
 
         [Property(Arbitrary = new[] { typeof(UpperLetterGenerator) })]
@@ -99,6 +102,16 @@ namespace Diamond.Tests
             string[] lines = ConstructLines(c);
             return lines.All(line => line.Length.Equals(lines.Length)).ToProperty();
         }
+
+        [Fact]
+        public void Diamond2EqualsDiamond()
+        => Prop.ForAll(_upperLetterCharGenerator, c =>
+            {
+                string print2 = new Diamond2().Print(c);
+                string print = new Diamond().Print(c);
+                return print == print2;
+            })
+        .QuickCheckThrowOnFailure();
 
         private string[] ConstructLines(char c)
         {
