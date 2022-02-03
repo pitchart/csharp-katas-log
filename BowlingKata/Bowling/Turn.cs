@@ -4,42 +4,39 @@ using System.Linq;
 namespace Bowling
 {
     //Todo : Make an interface to handle bonus turn
-    internal class Turn
+    public class Turn : ITurn
     {
         private const int MaximumPinsByTurn = 10;
 
-        internal bool IsAStrike()
+        public bool IsAStrike()
         {
             return _rolls.FirstOrDefault() == MaximumPinsByTurn;
         }
 
         private readonly List<int> _rolls = new List<int>(2);
-        private readonly Turn _nextTurn;
+        private readonly ITurn _nextTurn;
 
-        internal static Turn Build(int turnsNumber)
+        public static ITurn Build(int turnsNumber)
         {
             if (turnsNumber == 0)
             {
-                return new Turn(null);
+                return new BonusTurn();
             }
             return new Turn(Build(turnsNumber - 1));
         }
 
-        public Turn(Turn turn = null)
+        public Turn(ITurn turn = null)
         {
             _nextTurn = turn;
         }
 
-        internal int GetTotalScore() {
+        public int GetTotalScore()
+        {
             return GetTotalScoreRec(0);
         }
-        
-        private int GetTotalScoreRec(int currentScore)
+
+        public int GetTotalScoreRec(int currentScore)
         {
-            if (_nextTurn == null)
-            {
-                return currentScore;
-            }
             int currentTurnScore = currentScore + GetScore() + GetBonus();
             return _nextTurn.GetTotalScoreRec(currentTurnScore);
         }
@@ -59,12 +56,12 @@ namespace Bowling
             return 0;
         }
 
-        private int GetStrikeBonus()
+        public int GetStrikeBonus()
         {
             return GetScore() + (IsAStrike() ? _nextTurn.GetFirstRollScore() : 0);
         }
 
-        private int GetFirstRollScore()
+        public int GetFirstRollScore()
         {
             return _rolls.FirstOrDefault();
         }
@@ -79,9 +76,9 @@ namespace Bowling
             return GetScore() == MaximumPinsByTurn && !IsAStrike();
         }
 
-        internal void Roll(int fallenPins)
+        public void Roll(int fallenPins)
         {
-            if ((_rolls.Count == 2 || IsAStrike()) && _nextTurn != null)
+            if (_rolls.Count == 2 || IsAStrike())
             {
                 _nextTurn.Roll(fallenPins);
                 return;

@@ -7,13 +7,13 @@ namespace Bowling.Test
     public class BowlingTest
     {
         [Theory]
-        [InlineData(0,0)]
+        [InlineData(0, 0)]
         [InlineData(1, 20)]
         public void Should_score_total_fallen_pins_when_twenty_rolls_with_neither_strikes_nor_spares(int fallenPinsPerRoll, int expectedScore)
         {
             //Arrange
             Bowling bowling = new Bowling();
-            
+
             //Act
             for (int i = 0; i < 20; i++)
             {
@@ -57,7 +57,6 @@ namespace Bowling.Test
 
 
             //Act
-
             for (int i = 0; i < 20; i++)
             {
                 bowling.Roll(5);
@@ -142,7 +141,7 @@ namespace Bowling.Test
             //Act
             bowling.Roll(10);
             bowling.Roll(10);
-            
+
             for (int i = 4; i < 20; i++)
             {
                 bowling.Roll(1);

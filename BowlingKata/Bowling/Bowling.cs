@@ -2,7 +2,7 @@
 {
     public class Bowling
     {
-        private readonly Turn _firstTurn;
+        private readonly ITurn _firstTurn;
 
         public Bowling()
         {
