@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Bowling
 {
+    //Todo : Make an interface to handle bonus turn
     internal class Turn
     {
         private const int MaximumPinsByTurn = 10;
