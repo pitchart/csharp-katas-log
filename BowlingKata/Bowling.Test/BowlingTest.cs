@@ -133,7 +133,7 @@ namespace Bowling.Test
         }
 
         [Fact]
-        public void Should()
+        public void Should_score_a_double_strike_when_two_consecutive_strike_at_first_throw()
         {
             //Arrange
             Bowling bowling = new Bowling();
@@ -151,6 +151,25 @@ namespace Bowling.Test
 
             //Assert
             score.Should().Be(49);
+        }
+
+        [Fact]
+        public void Should_score_perfect_score_when_all_throws_are_strikes()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+
+            for (int i = 0; i < 12; i++)
+            {
+                bowling.Roll(10);
+            }
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(300);
         }
     }
 
