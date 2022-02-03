@@ -160,7 +160,6 @@ namespace Bowling.Test
             Bowling bowling = new Bowling();
 
             //Act
-
             for (int i = 0; i < 12; i++)
             {
                 bowling.Roll(10);
@@ -170,6 +169,28 @@ namespace Bowling.Test
 
             //Assert
             score.Should().Be(300);
+        }
+
+        [Fact]
+        public void Should_score_failed_perfect_score_when_all_throws_are_strikes_and_bonus_throw_is_a_spare()
+        {
+            //Arrange
+            Bowling bowling = new Bowling();
+
+            //Act
+            for (int i = 0; i < 10; i++)
+            {
+                bowling.Roll(10);
+            }
+
+            bowling.Roll(9);
+            bowling.Roll(1);
+
+
+            int score = bowling.GetScore();
+
+            //Assert
+            score.Should().Be(289);
         }
     }
 
