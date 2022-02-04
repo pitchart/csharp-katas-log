@@ -1,19 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bowling
 {
 
-    public class Bowling
-    {
-        public void Roll(int v)
-        {
-            throw new NotImplementedException();
-        }
+	public class Bowling
+	{
+        readonly List<int> rolls;
 
-        public int GetScore()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public Bowling ()
+		{
+			rolls = new List<int>();
+		}
+
+		public void Roll(int v)
+		{
+			rolls.Add(v);
+		}
+
+		public int GetScore()
+		{
+			int total = rolls.Sum();
+
+            
+
+            return total;
+		}
+	}
 
 }
