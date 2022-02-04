@@ -21,9 +21,16 @@ namespace Bowling
 
 		public int GetScore()
 		{
-			int total = rolls.Sum();
-
-            
+			int total = 0;
+            for (int i = 0; i < rolls.Count; i += 2)
+            {
+                int scoreRound = rolls[i] + rolls[i+1];
+                if (scoreRound == 10)
+                {
+                    scoreRound += rolls[i+2];
+                }
+                total += scoreRound;
+            }
 
             return total;
 		}

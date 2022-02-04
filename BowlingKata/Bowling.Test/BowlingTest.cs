@@ -47,5 +47,7 @@ namespace Bowling.Test
             // Assert
             Assert.Equal(29, total);
         }
+
+        // TODO Ajouter le cas d'un strike
     }
 }
