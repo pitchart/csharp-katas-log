@@ -24,11 +24,23 @@ namespace Diamond
         }      
 
         private IEnumerable<string> BuildDiamond(char c)
+        {        
+            var firstPart = CreateFisrtPart(c);
+            var lastPart = CreateLastPart(firstPart);            
+            return firstPart.Concat( lastPart);
+        }
+
+        private IEnumerable<string> CreateLastPart(IEnumerable<string> firstPart)
+        {
+            
+            return firstPart.Reverse().Skip(1);
+        }
+
+        private IEnumerable<string> CreateFisrtPart(char   c)
         {
             char letter = startChar;
             string outer = string.Empty.PadRight(c - startChar + 1);
             string inner = " ";
-
             while (letter.CompareTo(c) <= 0)
             {
                 outer = outer[1..];
@@ -39,30 +51,10 @@ namespace Diamond
                     inner += "  ";
                 }
 
-                line += outer; 
+                line += outer;
 
                 yield return line;
                 letter++;
-            }
-
-            letter--;
-            letter--;
-            inner = inner[2..];
-            
-            while (letter.CompareTo(startChar) >= 0)
-            {
-                outer += " ";
-                string line = outer + letter;
-                if (letter != startChar)
-                {
-                    inner = inner[2..];
-                    line += inner + letter;
-                }
-
-                line += outer; 
-
-                yield return line;
-                letter--;
             }
         }
     }
