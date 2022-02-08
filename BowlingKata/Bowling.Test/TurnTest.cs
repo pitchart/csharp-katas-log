@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Bowling.Test
@@ -128,54 +125,65 @@ namespace Bowling.Test
         {
             Assert.Throws<ArgumentException>(() => new Turn(-1));
         }
-    }
 
-    public class NotAllowRollException : Exception
-    {
-    }
-
-    internal class Turn
-    {
-        private readonly int _turnNumber;
-        List<int> rolls = new List<int>(2);
-
-        public Turn(int turnNumber)
+        [Fact]
+        public void Turn_number_should_be_equal_or_less_than_ten()
         {
-            _turnNumber = turnNumber;
+            Assert.Throws<ArgumentException>(() => new Turn(11));
         }
 
-        internal int GetScore()
+        [Fact]
+        public void Pin_number_should_be_positive()
         {
-            return rolls.Sum();
+            Turn turn = new Turn(1);
+            Assert.Throws<ArgumentException>(() => turn.Roll(-1));
         }
 
-        internal bool IsComplete()
+        [Fact]
+        public void Pin_number_should_be_equal_or_less_than_ten()
         {
-            if (_turnNumber == 10)
-            {
-                return (IsStrike() || IsSpare()) && rolls.Count == 3 || (!IsStrike() && !IsSpare() && rolls.Count == 2);
-            }
-            return IsStrike() || rolls.Count == 2;
+            Turn turn = new Turn(1);
+            Assert.Throws<ArgumentException>(() => turn.Roll(11));
         }
 
-        internal bool IsSpare()
+        [Fact]
+        public void Should_not_have_bonus_when_not_spare_not_strike()
         {
-            return rolls.Sum() == 10 && !IsStrike();
+            Turn turn = new Turn(1);
+            turn.Roll(4);
+            turn.Roll(5);
+
+            Turn secondTurn = new Turn(2);
+            secondTurn.Roll(4);
+            secondTurn.Roll(5);
+
+            Turn thirdTurn = new Turn(3);
+            thirdTurn.Roll(4);
+            thirdTurn.Roll(5);
+
+            var score = turn.Bonus(secondTurn, thirdTurn);
+
+            Assert.Equal(0, score);
         }
 
-        internal bool IsStrike()
+        [Fact]
+        public void Should_have_bonus_for_spare()
         {
-            return rolls.FirstOrDefault() == 10;
-        }
+            Turn turn = new Turn(1);
+            turn.Roll(5);
+            turn.Roll(5);
 
-        internal void Roll(int pins)
-        {
-            if (IsComplete())
-            {
-                throw new NotAllowRollException();
-            }
+            Turn secondTurn = new Turn(2);
+            secondTurn.Roll(4);
+            secondTurn.Roll(5);
 
-            rolls.Add(pins);
+            Turn thirdTurn = new Turn(3);
+            thirdTurn.Roll(4);
+            thirdTurn.Roll(5);
+
+            var score = turn.Bonus(secondTurn, thirdTurn);
+
+            Assert.Equal(4, score);
         }
     }
 }

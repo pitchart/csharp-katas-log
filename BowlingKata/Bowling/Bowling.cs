@@ -7,9 +7,18 @@ namespace Bowling
     public class Bowling
     {
         private List<int> _scores = new List<int>();
+        private List<Turn> _turns = new List<Turn>();
 
         public void Roll(int pins)
         {
+            var turn = _turns.FirstOrDefault(turn => !turn.IsComplete());
+            if(turn is null)
+            {
+                turn = new Turn(_turns.Count());
+                _turns.Add(turn);
+            }
+            turn.Roll(pins);
+
             _scores.Add(pins);
 
             if (pins == 10 && IsFirstRollOfATurn(_scores.Count - 1))
