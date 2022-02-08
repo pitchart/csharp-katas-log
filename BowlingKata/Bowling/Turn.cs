@@ -34,7 +34,7 @@ namespace Bowling
 
         public bool IsSpare()
         {
-            return rolls.Sum() == 10 && !IsStrike();
+            return rolls.Take(2).Sum() == 10 && !IsStrike();
         }
 
         public bool IsStrike()
@@ -56,8 +56,29 @@ namespace Bowling
             rolls.Add(pins);
         }
 
-        public object Bonus(Turn secondTurn, Turn thirdTurn)
+        public int Bonus(Turn secondTurn, Turn thirdTurn)
         {
+            if (secondTurn is null && thirdTurn is null)
+            {
+                return 0;
+            }
+            if (IsStrike() && secondTurn.IsStrike())
+            {
+                if (thirdTurn is null)
+                {
+                    return secondTurn.rolls.Take(2).Sum();
+                }
+                return secondTurn.rolls.FirstOrDefault() + thirdTurn.rolls.FirstOrDefault();
+            }
+            if (IsSpare())
+            {
+                return secondTurn.rolls.FirstOrDefault();
+            }
+            if (IsStrike())
+            {
+                return secondTurn.rolls.Sum();
+            }
+
             return 0;
         }
     }

@@ -44,7 +44,14 @@ namespace Bowling
                     score += _scores[i + 2];
                 }
             }
-            return score;
+
+            int tempScore = 0;
+            foreach (Turn turn in _turns)
+            {
+                int currentIndex = _turns.IndexOf(turn);
+                tempScore += turn.GetScore() + turn.Bonus(_turns[currentIndex+1], _turns[currentIndex+2]);
+            }
+            return tempScore;
         }
 
         private bool IsStrike(int i)

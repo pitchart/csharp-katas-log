@@ -185,5 +185,95 @@ namespace Bowling.Test
 
             Assert.Equal(4, score);
         }
+
+        [Fact]
+        public void Should_have_bonus_for_strike()
+        {
+            Turn turn = new Turn(1);
+            turn.Roll(10);
+
+            Turn secondTurn = new Turn(2);
+            secondTurn.Roll(4);
+            secondTurn.Roll(5);
+
+            Turn thirdTurn = new Turn(3);
+            thirdTurn.Roll(4);
+            thirdTurn.Roll(5);
+
+            var score = turn.Bonus(secondTurn, thirdTurn);
+
+            Assert.Equal(9, score);
+        }
+
+        [Fact]
+        public void Should_have_bonus_for_successive_strike()
+        {
+            Turn turn = new Turn(1);
+            turn.Roll(10);
+
+            Turn secondTurn = new Turn(2);
+            secondTurn.Roll(10);
+
+            Turn thirdTurn = new Turn(3);
+            thirdTurn.Roll(4);
+            thirdTurn.Roll(5);
+
+            var score = turn.Bonus(secondTurn, thirdTurn);
+
+            Assert.Equal(14, score);
+        }
+
+        [Fact]
+        public void Should_not_have_bonus_for_spare_on_last_turn()
+        {
+            Turn turn = new Turn(10);
+            turn.Roll(5);
+            turn.Roll(5);
+            turn.Roll(5);
+
+            Assert.Equal(15, turn.GetScore());
+            Assert.Equal(0, turn.Bonus(null, null));
+        }
+
+        [Fact]
+        public void Should_not_have_bonus_for_strike_on_last_turn()
+        {
+            Turn turn = new Turn(10);
+            turn.Roll(10);
+            turn.Roll(5);
+            turn.Roll(5);
+
+            Assert.Equal(20, turn.GetScore());
+            Assert.Equal(0, turn.Bonus(null, null));
+        }
+
+        [Fact]
+        public void Should_have_bonus_for_spare_on_before_last_turn()
+        {
+            Turn turn = new Turn(9);
+            turn.Roll(5);
+            turn.Roll(5);
+
+            Turn lastTurn = new Turn(10);
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
+
+            Assert.Equal(5, turn.Bonus(lastTurn, null));
+        }
+
+        [Fact]
+        public void Should_have_bonus_for_strike_on_before_last_turn()
+        {
+            Turn turn = new Turn(9);
+            turn.Roll(10);
+
+            Turn lastTurn = new Turn(10);
+            lastTurn.Roll(10);
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
+
+            Assert.Equal(15, turn.Bonus(lastTurn, null));
+        }
     }
 }
