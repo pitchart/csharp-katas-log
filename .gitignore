@@ -340,3 +340,6 @@ CoverageResults/
 
 # Test report
 **/TEST.xml
+
+# Mac OS
+.DS_Store
