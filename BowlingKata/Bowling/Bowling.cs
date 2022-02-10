@@ -27,6 +27,11 @@ namespace Bowling
                 int scoreRound = rolls[i] + rolls[i+1];
                 if (scoreRound == 10)
                 {
+					if(rolls[i+1] == 0)
+					{
+						scoreRound += rolls[i+3];
+					}
+
                     scoreRound += rolls[i+2];
                 }
                 total += scoreRound;

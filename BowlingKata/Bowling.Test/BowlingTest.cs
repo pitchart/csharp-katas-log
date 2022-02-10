@@ -48,6 +48,24 @@ namespace Bowling.Test
             Assert.Equal(29, total);
         }
 
-        // TODO Ajouter le cas d'un strike
+        [Fact]
+        public void WhenAStrikeHappensDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+            
+            // Act
+            bowling.Roll(10);
+            bowling.Roll(0);
+            for (int i = 0; i < 18; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int total = bowling.GetScore();
+
+            // Assert
+            Assert.Equal(30, total);
+        }
     }
 }
