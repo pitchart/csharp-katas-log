@@ -91,6 +91,27 @@ namespace Bowling.Test
         }
 
         [Fact]
+        public void WhenASpareThatStartsWithAgutterHappensDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+
+            // Act
+            bowling.Roll(0);
+            bowling.Roll(10);
+
+            for (int i = 0; i < 18; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int total = bowling.GetScore();
+
+            // Assert
+            Assert.Equal(29, total);
+        }
+
+        [Fact]
         public void WhenTwoStrikesHappensSuccessibelyDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
         {
             // Arrange
@@ -110,6 +131,28 @@ namespace Bowling.Test
 
             // Assert
             Assert.Equal(49, total);
+        }
+
+        [Fact]
+        public void WhenASpareHappensAtTheEndOfAGame_ShouldReturnTheCorrectScoreWithBonusRound()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+
+            // Act
+            for (int i = 0; i < 18; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            bowling.Roll(0);
+            bowling.Roll(10);
+            bowling.Roll(1);
+
+            int total = bowling.GetScore();
+
+            // Assert
+            Assert.Equal(30, total);
         }
     }
 }

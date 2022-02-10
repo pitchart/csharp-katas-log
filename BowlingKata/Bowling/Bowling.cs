@@ -34,7 +34,7 @@ namespace Bowling
 				if(IsStrike(rolls[i]))
 				{
 					scoreRound += rolls[i+2];
-					scoreRound += rolls[i + 2] == MAX_SCORE_PER_ROUND ? rolls[i + 4] : rolls[i + 3];
+					scoreRound += rolls[i+2] == MAX_SCORE_PER_ROUND ? rolls[i+4] : rolls[i+3];
 				}
                 total += scoreRound;
             }
