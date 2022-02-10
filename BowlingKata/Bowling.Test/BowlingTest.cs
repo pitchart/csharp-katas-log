@@ -49,6 +49,28 @@ namespace Bowling.Test
         }
 
         [Fact]
+        public void WhenTwoSpareHappensSuccessivelyDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+
+            // Act
+            bowling.Roll(9);
+            bowling.Roll(1);
+            bowling.Roll(9);
+            bowling.Roll(1);
+            for (int i = 0; i < 16; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int total = bowling.GetScore();
+
+            // Assert
+            Assert.Equal(46, total);
+        }
+
+        [Fact]
         public void WhenAStrikeHappensDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
         {
             // Arrange
@@ -66,6 +88,28 @@ namespace Bowling.Test
 
             // Assert
             Assert.Equal(30, total);
+        }
+
+        [Fact]
+        public void WhenTwoStrikesHappensSuccessibelyDuringAGame_ShouldReturnTheCorrectScoreWithBonus()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+            
+            // Act
+            bowling.Roll(10);
+            bowling.Roll(0);
+            bowling.Roll(10);
+            bowling.Roll(0);
+            for (int i = 0; i < 16; i++)
+            {
+                bowling.Roll(1);
+            }
+
+            int total = bowling.GetScore();
+
+            // Assert
+            Assert.Equal(49, total);
         }
     }
 }

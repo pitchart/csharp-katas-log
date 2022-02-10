@@ -7,6 +7,8 @@ namespace Bowling
 
 	public class Bowling
 	{
+        private const int MAX_SCORE_PER_ROUND = 10;
+        private const int LAUNCH_NUMBER_PER_ROUND = 2;
         readonly List<int> rolls;
 
 		public Bowling ()
@@ -22,22 +24,32 @@ namespace Bowling
 		public int GetScore()
 		{
 			int total = 0;
-            for (int i = 0; i < rolls.Count; i += 2)
+            for (int i = 0; i < rolls.Count; i += LAUNCH_NUMBER_PER_ROUND)
             {
                 int scoreRound = rolls[i] + rolls[i+1];
-                if (scoreRound == 10)
+                if (IsSpare(rolls[i], rolls[i+1]))
                 {
-					if(rolls[i+1] == 0)
-					{
-						scoreRound += rolls[i+3];
-					}
-
                     scoreRound += rolls[i+2];
                 }
+				if(IsStrike(rolls[i]))
+				{
+					scoreRound += rolls[i+2];
+					scoreRound += rolls[i + 2] == MAX_SCORE_PER_ROUND ? rolls[i + 4] : rolls[i + 3];
+				}
                 total += scoreRound;
             }
 
             return total;
+		}
+
+		private bool IsSpare(int firstRoll, int secondRoll)
+		{
+			return (firstRoll != MAX_SCORE_PER_ROUND) && (firstRoll + secondRoll == MAX_SCORE_PER_ROUND);
+		}
+
+		private bool IsStrike(int firstRoll)
+		{
+			return firstRoll == MAX_SCORE_PER_ROUND;
 		}
 	}
 
