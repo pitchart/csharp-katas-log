@@ -2,12 +2,23 @@ using Approval.Shared.Data;
 using Approval.Shared.ReadModels;
 using FluentAssertions;
 using System;
+using Approval.Web;
+using AutoMapper;
 using Xunit;
 
 namespace Approval.Tests.Unit;
 
 public class EmployeeMapping
 {
+    private IMapper _mapper;
+    public EmployeeMapping()
+    {
+        var config = new MapperConfiguration(cfg => {
+            cfg.AddProfile<MappingProfile>();
+        });
+        _mapper = config.CreateMapper();
+    }
+
     [Fact(DisplayName = "Here we should check the mapping from ReadModels.Employee -> EmployeeEntity")]
     public void Should_Map_Employee_To_EmployeeEntity()
     {
@@ -16,7 +27,7 @@ public class EmployeeMapping
             1, "dep");
 
         //Act
-        EmployeeEntity employeeEntity = Map<EmployeeEntity>(employee);
+        EmployeeEntity employeeEntity = Map(employee);
 
         //Assert
         employeeEntity.Should().NotBeNull();
@@ -24,13 +35,13 @@ public class EmployeeMapping
         employeeEntity.FirstName.Should().Be(employee.FirstName);
         employeeEntity.LastName.Should().Be(employee.LastName);
         employeeEntity.Email.Should().Be(employee.Email);
-        employeeEntity.DateOfBirth.ToDateTime(TimeOnly.MinValue).Should().Be(employee.DateOfBirth.Date);
+        employeeEntity.DateOfBirth.Should().Be(DateOnly.FromDateTime(employee.DateOfBirth));
         employeeEntity.DepartmentId.Should().Be(employee.DepartmentId);
         employeeEntity.Department.Should().Be(employee.Department);
     }
 
-    private T Map<T>(Employee employee)
+    private EmployeeEntity Map(Employee employee)
     {
-        throw new NotImplementedException();
+        return _mapper.Map<EmployeeEntity>(employee);
     }
 }
