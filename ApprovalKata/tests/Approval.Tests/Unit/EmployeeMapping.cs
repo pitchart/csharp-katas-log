@@ -40,6 +40,12 @@ public class EmployeeMapping
         employeeEntity.Department.Should().Be(employee.Department);
     }
 
+    [Fact(DisplayName = "Here we should check the mapping from SalesForce.PersonAccount -> IndividualParty")]
+    public void Should_Map_PersonAccount_To_IndividualParty()
+    {
+        throw new NotImplementedException();
+    }
+
     private EmployeeEntity Map(Employee employee)
     {
         return _mapper.Map<EmployeeEntity>(employee);

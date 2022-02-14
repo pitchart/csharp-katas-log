@@ -8,8 +8,7 @@ namespace Approval.Web
     {
         public MappingProfile()
         {
-            CreateMap<Employee, EmployeeEntity>()
-                .ForCtorParam("Id", ept => ept.MapFrom(src => src.EmployeeId))
+            CreateMap<Employee, EmployeeEntity>().ForCtorParam("Id", ept => ept.MapFrom(src => src.EmployeeId))
                 .ForCtorParam("DateOfBirth", opt => opt.MapFrom(src => DateOnly.FromDateTime(src.DateOfBirth)));
         }
     }
