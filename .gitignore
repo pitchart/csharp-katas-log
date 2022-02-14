@@ -340,4 +340,8 @@ CoverageResults/
 
 # Test report
 **/TEST.xml
+
+# Mac OS
+.DS_Store
+
 /BankingKata/creation.txt
