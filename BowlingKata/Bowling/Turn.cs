@@ -4,10 +4,12 @@ using System.Linq;
 
 namespace Bowling
 {
-    public class Turn
+    public class Turn : ITurn
     {
         private readonly int _turnNumber;
         List<int> rolls = new List<int>(2);
+
+        public List<int> Rolls => rolls;
 
         public Turn(int turnNumber)
         {
@@ -56,7 +58,7 @@ namespace Bowling
             rolls.Add(pins);
         }
 
-        public int Bonus(Turn secondTurn, Turn thirdTurn)
+        public int Bonus(ITurn secondTurn, ITurn thirdTurn)
         {
             if (secondTurn is null && thirdTurn is null)
             {
@@ -66,17 +68,17 @@ namespace Bowling
             {
                 if (thirdTurn is null)
                 {
-                    return secondTurn.rolls.Take(2).Sum();
+                    return secondTurn.Rolls.Take(2).Sum();
                 }
-                return secondTurn.rolls.FirstOrDefault() + thirdTurn.rolls.FirstOrDefault();
+                return secondTurn.Rolls.FirstOrDefault() + thirdTurn.Rolls.FirstOrDefault();
             }
             if (IsSpare())
             {
-                return secondTurn.rolls.FirstOrDefault();
+                return secondTurn.Rolls.FirstOrDefault();
             }
             if (IsStrike())
             {
-                return secondTurn.rolls.Sum();
+                return secondTurn.Rolls.Sum();
             }
 
             return 0;
