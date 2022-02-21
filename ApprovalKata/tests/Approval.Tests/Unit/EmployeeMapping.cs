@@ -3,14 +3,18 @@ using Approval.Shared.ReadModels;
 using FluentAssertions;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Approval.Shared.SalesForce;
 using Approval.Web;
 using AutoMapper;
 using FluentAssertions.Extensions;
+using VerifyXunit;
 using Xunit;
+using static VerifyXunit.Verifier;
 
 namespace Approval.Tests.Unit;
 
+[UsesVerify]
 public class EmployeeMapping
 {
     private IMapper _mapper;
@@ -61,6 +65,16 @@ public class EmployeeMapping
         individualParty.Documents.First().ExpirationDate.Should().Be(5.January(2000));
         individualParty.Documents.First().Number.Should().Be(personAccount.LegalDocumentNumber1__c);
         individualParty.Gender.Should().Be(Gender.Male);
+    }
+
+    [Fact(DisplayName = "Here we should check the mapping from SalesForce.PersonAccount -> IndividualParty")]
+    public Task Should_Map_PersonAccount_To_IndividualParty_WithVerify()
+    {
+        PersonAccount personAccount = DataBuilder.AlCapone();
+
+        IndividualParty individualParty = Map(personAccount);
+
+        return Verify(individualParty).ModifySerialization(opt => opt.DontScrubDateTimes());
     }
 
     private EmployeeEntity Map(Employee employee)

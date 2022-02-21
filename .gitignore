@@ -345,3 +345,6 @@ CoverageResults/
 .DS_Store
 
 /BankingKata/creation.txt
+
+# Lib Verify
+*.received.*
