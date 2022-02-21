@@ -2,6 +2,8 @@ using Approval.Shared.Data;
 using Approval.Shared.ReadModels;
 using FluentAssertions;
 using System;
+using System.Linq;
+using Approval.Shared.SalesForce;
 using Approval.Web;
 using AutoMapper;
 using Xunit;
@@ -43,11 +45,30 @@ public class EmployeeMapping
     [Fact(DisplayName = "Here we should check the mapping from SalesForce.PersonAccount -> IndividualParty")]
     public void Should_Map_PersonAccount_To_IndividualParty()
     {
-        throw new NotImplementedException();
+        PersonAccount personAccount = DataBuilder.AlCapone();
+
+        IndividualParty individualParty = Map(personAccount);
+
+        individualParty.BirthCity.Should().Be(personAccount.CityOfBirth__pc);
+        individualParty.BirthDate.ToString().Should().Be(personAccount.PersonBirthdate);
+        individualParty.FirstName.Should().Be(personAccount.FirstName);
+        individualParty.LastName.Should().Be(personAccount.LastName);
+        individualParty.MiddleName.Should().Be(personAccount.MiddleName);
+        individualParty.PepMep.Should().Be(false);
+        individualParty.Title.Should().Be(personAccount.Salutation);
+        individualParty.Documents.First().DocumentType.Should().Be(personAccount.LegalDocumentName1__c);
+        individualParty.Documents.First().ExpirationDate.ToString().Should().Be(personAccount.LegalDocumentExpirationDate1__c);
+        individualParty.Documents.First().Number.Should().Be(personAccount.LegalDocumentNumber1__c);
+        individualParty.Gender.Should().Be(Gender.Male);
     }
 
     private EmployeeEntity Map(Employee employee)
     {
         return _mapper.Map<EmployeeEntity>(employee);
+    }
+
+    private IndividualParty Map(PersonAccount personAccount)
+    {
+        return _mapper.Map<IndividualParty>(personAccount);
     }
 }
