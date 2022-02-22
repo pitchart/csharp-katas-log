@@ -101,23 +101,23 @@ namespace Bowling.Test
         [Fact]
         public void Last_Turn_should_contain_three_roll_when_have_spare_bonus()
         {
-            Turn turn = new Turn(10);
-            turn.Roll(6);
-            turn.Roll(4);
-            turn.Roll(5);
+            LastTurn lastTurn = new LastTurn();
+            lastTurn.Roll(6);
+            lastTurn.Roll(4);
+            lastTurn.Roll(5);
 
-            Assert.Equal(15, turn.GetScore());
+            Assert.Equal(15, lastTurn.GetScore());
         }
 
         [Fact]
         public void Last_Turn_should_contain_three_roll_when_have_strike_bonus()
         {
-            Turn turn = new Turn(10);
-            turn.Roll(10);
-            turn.Roll(4);
-            turn.Roll(5);
+           LastTurn lastTurn = new LastTurn();
+            lastTurn.Roll(10);
+            lastTurn.Roll(4);
+            lastTurn.Roll(5);
 
-            Assert.Equal(19, turn.GetScore());
+            Assert.Equal(19, lastTurn.GetScore());
         }
 
         [Fact]
@@ -226,25 +226,23 @@ namespace Bowling.Test
         [Fact]
         public void Should_not_have_bonus_for_spare_on_last_turn()
         {
-            Turn turn = new Turn(10);
-            turn.Roll(5);
-            turn.Roll(5);
-            turn.Roll(5);
+           LastTurn lastTurn = new LastTurn();
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
 
-            Assert.Equal(15, turn.GetScore());
-            Assert.Equal(0, turn.Bonus(null, null));
+            Assert.Equal(15, lastTurn.GetScore());
         }
 
         [Fact]
         public void Should_not_have_bonus_for_strike_on_last_turn()
         {
-            Turn turn = new Turn(10);
-            turn.Roll(10);
-            turn.Roll(5);
-            turn.Roll(5);
+           LastTurn lastTurn = new LastTurn();
+            lastTurn.Roll(10);
+            lastTurn.Roll(5);
+            lastTurn.Roll(5);
 
-            Assert.Equal(20, turn.GetScore());
-            Assert.Equal(0, turn.Bonus(null, null));
+            Assert.Equal(20, lastTurn.GetScore());
         }
 
         [Fact]
@@ -254,12 +252,12 @@ namespace Bowling.Test
             turn.Roll(5);
             turn.Roll(5);
 
-            Turn lastTurn = new Turn(10);
+            LastTurn lastTurn = new LastTurn();
             lastTurn.Roll(5);
             lastTurn.Roll(5);
             lastTurn.Roll(5);
 
-            Assert.Equal(5, turn.Bonus(lastTurn, null));
+            Assert.Equal(5, turn.Bonus(lastTurn));
         }
 
         [Fact]
@@ -268,12 +266,12 @@ namespace Bowling.Test
             Turn turn = new Turn(9);
             turn.Roll(10);
 
-            Turn lastTurn = new Turn(10);
+            LastTurn lastTurn = new LastTurn();
             lastTurn.Roll(10);
             lastTurn.Roll(5);
             lastTurn.Roll(5);
 
-            Assert.Equal(15, turn.Bonus(lastTurn, null));
+            Assert.Equal(15, turn.Bonus(lastTurn));
         }
     }
 }

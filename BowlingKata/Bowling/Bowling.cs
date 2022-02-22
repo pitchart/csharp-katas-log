@@ -29,9 +29,9 @@ namespace Bowling
                 {
                     LastTurn lastTurn => lastTurn.GetScore(),
                     Turn currentTurn when _turns[currentIndex + 1] is LastTurn => currentTurn.GetScore() +
-                        currentTurn.Bonus(_turns[currentIndex + 1], null),
+                        currentTurn.Bonus((LastTurn)_turns[currentIndex + 1]),
                     _ => turn.GetScore() +
-                         (turn as Turn).Bonus(_turns[currentIndex + 1], _turns[currentIndex + 2])
+                         (turn as Turn).Bonus((Turn)_turns[currentIndex + 1], _turns[currentIndex + 2])
                 };
             }
             return tempScore;
