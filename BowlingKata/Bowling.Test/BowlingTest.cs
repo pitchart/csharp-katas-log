@@ -200,5 +200,71 @@ namespace Bowling.Test
             // Then
             Assert.Equal(48, total);
         }
+
+        [Fact]
+        public void WhenWeDoThePerfectScore_ShouldReturnTheCorrectScore()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+
+            // Act
+            for (int i = 0; i < 9; i++)
+            {
+                bowling.Roll(10);
+                bowling.Roll(0);
+            }
+
+            bowling.Roll(10);
+            bowling.Roll(0);
+            bowling.Roll(10);
+            bowling.Roll(10);
+
+            int total = bowling.GetScore();
+
+            // Then
+            Assert.Equal(300, total);
+        }
+
+        // [Fact]
+        // public void WhenWeDoSparesOnAllRound_ShouldReturnTheCorrectScore()
+        // {
+        //     // Arrange
+        //     Bowling bowling = new Bowling();
+
+        //     // Act
+        //     for (int i = 0; i < 10; i++)
+        //     {
+        //         bowling.Roll(5);
+        //         bowling.Roll(5);
+        //     }
+
+        //     bowling.Roll(5);
+
+        //     int total = bowling.GetScore();
+
+        //     // Then
+        //     Assert.Equal(150, total);
+        // }
+
+        [Fact]
+        public void WhenWeDoSparesOnAllRound_ShouldReturnTheCorrectScore()
+        {
+            // Arrange
+            Bowling bowling = new Bowling();
+
+            // Act
+            for (int i = 0; i < 10; i++)
+            {
+                bowling.Roll(5);
+                bowling.Roll(5);
+            }
+
+            bowling.Roll(5);
+
+            int total = bowling.GetScore();
+
+            // Then
+            Assert.Equal(150, total);
+        }
     }
 }
