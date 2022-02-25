@@ -18,7 +18,7 @@ namespace Bowling
 			_rounds = new List<Round>();
 		}
 
-		public void NewRoll(int pins)
+		public void Roll(int pins)
 		{
 			if (!_rounds.LastOrDefault()?.SecondRoll.HasValue == true && !_rounds.LastOrDefault()?.IsStrike == true)
 			{
@@ -33,31 +33,42 @@ namespace Bowling
 			}
 		}
 
-		public void Roll(int v)
-		{
-			_rolls.Add(v);
-		}
+		// public void Roll(int v)
+		// {
+		// 	_rolls.Add(v);
+		// }
 
 		public int GetScore()
-		{
+		{			
 			int total = 0;
-            for (int i = 0; i < MAX_NON_BONUS_LAUNCH_PER_MATCH; i += LAUNCH_NUMBER_PER_ROUND)
-            {
-                int scoreRound = _rolls[i] + _rolls[i+1];
-                if (IsSpare(_rolls[i], _rolls[i+1]))
-                {
-                    scoreRound += _rolls[i+2];
-                }
-				if(IsStrike(_rolls[i]))
-				{
-					scoreRound += _rolls[i+2];
-					scoreRound += _rolls[i+2] == MAX_SCORE_PER_ROUND && (i+2) != MAX_NON_BONUS_LAUNCH_PER_MATCH ? _rolls[i+4] : _rolls[i+3];
-				}
-                total += scoreRound;
-            }
+			foreach(var round in _rounds)
+			{
+				total += round.IntermediateScore; 
+			}
 
-            return total;
+			return total;
 		}
+
+		// public int GetScore()
+		// {
+		// 	int total = 0;
+        //     for (int i = 0; i < MAX_NON_BONUS_LAUNCH_PER_MATCH; i += LAUNCH_NUMBER_PER_ROUND)
+        //     {
+        //         int scoreRound = _rolls[i] + _rolls[i+1];
+        //         if (IsSpare(_rolls[i], _rolls[i+1]))
+        //         {
+        //             scoreRound += _rolls[i+2];
+        //         }
+		// 		if(IsStrike(_rolls[i]))
+		// 		{
+		// 			scoreRound += _rolls[i+2];
+		// 			scoreRound += _rolls[i+2] == MAX_SCORE_PER_ROUND && (i+2) != MAX_NON_BONUS_LAUNCH_PER_MATCH ? _rolls[i+4] : _rolls[i+3];
+		// 		}
+        //         total += scoreRound;
+        //     }
+
+        //     return total;
+		// }
 
 		private bool IsSpare(int firstRoll, int secondRoll)
 		{
@@ -87,6 +98,14 @@ namespace Bowling
 			get
 			{
 				return FirstRoll == MAX_SCORE_PER_ROUND;
+			} 
+		}
+
+		public int IntermediateScore
+		{
+			get
+			{
+				return FirstRoll + SecondRoll ?? 0;
 			} 
 		}
 	}
