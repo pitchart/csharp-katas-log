@@ -1,0 +1,9 @@
+﻿{
+  EmployeeId: Id_1,
+  FirstName: employeeFirstName,
+  LastName: employeeLastName,
+  Email: employee@employee.com,
+  DateOfBirth: 2000-01-10,
+  DepartmentId: Id_1,
+  Department: department
+}
