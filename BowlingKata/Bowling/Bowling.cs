@@ -7,19 +7,24 @@ namespace Bowling
 	public class Bowling
 	{
         private const int MAX_SCORE_PER_ROUND = 10;
-        private const int LAUNCH_NUMBER_PER_ROUND = 2;
-		private const int MAX_NON_BONUS_LAUNCH_PER_MATCH = 20;
+        //private const int LAUNCH_NUMBER_PER_ROUND = 2;
+		private const int MAX_NON_BONUS_ROUNDS_PER_MATCH = 10;
         private readonly List<int> _rolls;
-		private readonly List<Round> _rounds;
+        private readonly List<Round> _rounds;
 
-		public Bowling ()
+        public Bowling ()
 		{
 			_rolls = new List<int>();
-			_rounds = new List<Round>();
+            _rounds = new List<Round>();
 		}
 
-		public void Roll(int pins)
-		{
+        //public void Roll(int v)
+        //{
+        //    _rolls.Add(v); // Hello
+        //}
+
+        public void Roll(int pins)
+        {
 			if (!_rounds.LastOrDefault()?.SecondRoll.HasValue == true && !_rounds.LastOrDefault()?.IsStrike == true)
 			{
 				_rounds.Last().SecondRoll = pins;
@@ -27,58 +32,28 @@ namespace Bowling
 			else
 			{
 				_rounds.Add(new Round
-				{
-					FirstRoll = pins
-				});
+                {
+                    FirstRoll = pins
+                });
 			}
-		}
+        }
 
-		// public void Roll(int v)
-		// {
-		// 	_rolls.Add(v);
-		// }
+        public int GetScore()
+        {
+            int total = 0;
+            for (int currentRoundIndex = 0; currentRoundIndex < MAX_NON_BONUS_ROUNDS_PER_MATCH; currentRoundIndex += 1)
+            {
+                Round currentRound = _rounds.ElementAt(currentRoundIndex);
+                Round nextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 1);
+                Round nextNextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 2);
 
-		public int GetScore()
-		{			
-			int total = 0;
-			foreach(var round in _rounds)
-			{
-				total += round.IntermediateScore; 
-			}
+                int scoreRound = currentRound.GetScore(nextRound, nextNextRound);
 
-			return total;
-		}
+                total += scoreRound;
+            }
 
-		// public int GetScore()
-		// {
-		// 	int total = 0;
-        //     for (int i = 0; i < MAX_NON_BONUS_LAUNCH_PER_MATCH; i += LAUNCH_NUMBER_PER_ROUND)
-        //     {
-        //         int scoreRound = _rolls[i] + _rolls[i+1];
-        //         if (IsSpare(_rolls[i], _rolls[i+1]))
-        //         {
-        //             scoreRound += _rolls[i+2];
-        //         }
-		// 		if(IsStrike(_rolls[i]))
-		// 		{
-		// 			scoreRound += _rolls[i+2];
-		// 			scoreRound += _rolls[i+2] == MAX_SCORE_PER_ROUND && (i+2) != MAX_NON_BONUS_LAUNCH_PER_MATCH ? _rolls[i+4] : _rolls[i+3];
-		// 		}
-        //         total += scoreRound;
-        //     }
-
-        //     return total;
-		// }
-
-		private bool IsSpare(int firstRoll, int secondRoll)
-		{
-			return (firstRoll != MAX_SCORE_PER_ROUND) && (firstRoll + secondRoll == MAX_SCORE_PER_ROUND);
-		}
-
-		private bool IsStrike(int firstRoll)
-		{
-			return firstRoll == MAX_SCORE_PER_ROUND;
-		}
+            return total;
+        }
 	}
 
 	public class Round
@@ -105,8 +80,25 @@ namespace Bowling
 		{
 			get
 			{
-				return FirstRoll + SecondRoll ?? 0;
+				return FirstRoll + (SecondRoll ?? 0);
 			} 
 		}
+
+        public int GetScore(Round nextRound, Round nextNextRound)
+        {
+            int score = IntermediateScore;
+
+            if (IsSpare)
+            {
+                score += nextRound.FirstRoll;
+            }
+            if (IsStrike)
+            {
+                score += nextRound.FirstRoll;
+                score += nextRound.IsStrike ? nextNextRound.FirstRoll : nextRound.SecondRoll.Value;
+            }
+
+            return score;
+        }
 	}
 }

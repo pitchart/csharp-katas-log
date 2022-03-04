@@ -78,7 +78,6 @@ namespace Bowling.Test
             
             // Act
             bowling.Roll(10);
-            bowling.Roll(0);
             for (int i = 0; i < 18; i++)
             {
                 bowling.Roll(1);
@@ -119,9 +118,7 @@ namespace Bowling.Test
             
             // Act
             bowling.Roll(10);
-            bowling.Roll(0);
             bowling.Roll(10);
-            bowling.Roll(0);
             for (int i = 0; i < 16; i++)
             {
                 bowling.Roll(1);
@@ -168,7 +165,6 @@ namespace Bowling.Test
             }
 
             bowling.Roll(10);
-            bowling.Roll(0);
             bowling.Roll(1);
             bowling.Roll(1);
 
@@ -191,7 +187,6 @@ namespace Bowling.Test
             }
 
             bowling.Roll(10);
-            bowling.Roll(0);
             bowling.Roll(10);
             bowling.Roll(10);
 
@@ -211,11 +206,9 @@ namespace Bowling.Test
             for (int i = 0; i < 9; i++)
             {
                 bowling.Roll(10);
-                bowling.Roll(0);
             }
 
             bowling.Roll(10);
-            bowling.Roll(0);
             bowling.Roll(10);
             bowling.Roll(10);
 
@@ -224,27 +217,6 @@ namespace Bowling.Test
             // Then
             Assert.Equal(300, total);
         }
-
-        // [Fact]
-        // public void WhenWeDoSparesOnAllRound_ShouldReturnTheCorrectScore()
-        // {
-        //     // Arrange
-        //     Bowling bowling = new Bowling();
-
-        //     // Act
-        //     for (int i = 0; i < 10; i++)
-        //     {
-        //         bowling.Roll(5);
-        //         bowling.Roll(5);
-        //     }
-
-        //     bowling.Roll(5);
-
-        //     int total = bowling.GetScore();
-
-        //     // Then
-        //     Assert.Equal(150, total);
-        // }
 
         [Fact]
         public void WhenWeDoSparesOnAllRound_ShouldReturnTheCorrectScore()
