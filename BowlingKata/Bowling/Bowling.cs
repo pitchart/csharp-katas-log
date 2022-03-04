@@ -6,22 +6,13 @@ namespace Bowling
 {
 	public class Bowling
 	{
-        private const int MAX_SCORE_PER_ROUND = 10;
-        //private const int LAUNCH_NUMBER_PER_ROUND = 2;
 		private const int MAX_NON_BONUS_ROUNDS_PER_MATCH = 10;
-        private readonly List<int> _rolls;
         private readonly List<Round> _rounds;
 
         public Bowling ()
 		{
-			_rolls = new List<int>();
             _rounds = new List<Round>();
 		}
-
-        //public void Roll(int v)
-        //{
-        //    _rolls.Add(v); // Hello
-        //}
 
         public void Roll(int pins)
         {
