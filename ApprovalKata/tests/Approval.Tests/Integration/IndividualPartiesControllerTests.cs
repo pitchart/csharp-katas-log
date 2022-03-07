@@ -7,10 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using VerifyXunit;
 using Xunit;
+using static VerifyXunit.Verifier;
 
 namespace Approval.Tests.Integration
 {
+    [UsesVerify]
     public class IndividualPartiesControllerTests : AppFactory
     {
         private HttpClient _httpClient;
@@ -31,10 +35,27 @@ namespace Approval.Tests.Integration
 
             //Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
-            var individualParties = Assert.IsAssignableFrom<IndividualParty[]>(await result.Content.ReadAsStringAsync());
+
+            var individualParties =
+                JsonConvert.DeserializeObject<IndividualParty[]>(await result.Content.ReadAsStringAsync());
 
             AssertAlCapOne(individualParties[0], alCapOne);
             AssertMesrine(individualParties[1], mesrine);
+        }
+
+        [Fact]
+        public Task Should_Map_PersonAccounts_To_IndividualParties_WithVerify()
+        {
+            //Act
+            var result =  _httpClient.GetAsync("/individualParties").Result;
+
+            //Assert
+            result.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var individualParties =
+                JsonConvert.DeserializeObject<IndividualParty[]>(result.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+
+            return Verify(individualParties).ModifySerialization(opt => opt.DontScrubDateTimes());
         }
 
         private static void AssertAlCapOne(IndividualParty individualParty, PersonAccount personAccount)
