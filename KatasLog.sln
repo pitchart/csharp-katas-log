@@ -39,6 +39,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags.Tests", "LagsKata\Lags.Tests\Lags.Tests.csproj", "{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "Tennis\Tennis.csproj", "{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections", "ElectionsKata\Elections\Elections.csproj", "{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections.Tests", "ElectionsKata\Elections.Tests\Elections.Tests.csproj", "{84C8142A-E28B-4769-B33B-6A1EACFECDA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,5 +129,13 @@ Global
 		{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
