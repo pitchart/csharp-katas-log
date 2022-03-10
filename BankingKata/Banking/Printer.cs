@@ -6,23 +6,31 @@ namespace Banking
 {
     public class Printer
     {
+        private const string header = "date       ||   credit ||    debit ||  balance";
+        private const string separator = " || ";
+
         public static string PrintAccountBankStatement(Statement statement)
         {
-            var result = "date       ||   credit ||    debit ||  balance";
+            var result = header;
             foreach (var transaction in statement.Transactions.OrderByDescending(t => t.Date))
             {
-                if (transaction.Debit > 0)
-                    result += Environment.NewLine + FormatDate(transaction.Date) + " ||          ||   "+ FormatPrice(transaction.Debit) +" ||  " +
-                              FormatPrice(transaction.Balance);
+                if (transaction is Withdrawal)
+                    result += Environment.NewLine + FormatDate(transaction.Date) + separator + FormatCell("") + separator + FormatCell(FormatAmount(transaction.Amount)) + separator +
+                              FormatCell(FormatAmount(transaction.Balance));
                 else
-                    result += Environment.NewLine + FormatDate(transaction.Date) + " ||  " + FormatPrice(transaction.Credit) + " ||          ||  " +
-                          FormatPrice(transaction.Balance);
+                    result += Environment.NewLine + FormatDate(transaction.Date) + separator + FormatCell(FormatAmount(transaction.Amount)) + separator + FormatCell("") + separator +
+                          FormatCell(FormatAmount(transaction.Balance));
             }
 
             return result;
         }
 
-        private static string FormatPrice(decimal price)
+        private static string FormatCell(string v)
+        {
+            return v.PadLeft(8);
+        }
+
+        private static string FormatAmount(decimal price)
         {
             return price.ToString("0.00", CultureInfo.InvariantCulture);
         }

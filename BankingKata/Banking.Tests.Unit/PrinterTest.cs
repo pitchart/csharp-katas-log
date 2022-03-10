@@ -49,7 +49,7 @@ namespace Banking.Tests.Unit
             var statement = account.GetStatement();
             var printedBankStatement = Printer.PrintAccountBankStatement(statement);
             string header = "date       ||   credit ||    debit ||  balance" + Environment.NewLine
-                + "12-01-2012 ||          ||   900.00 ||  100.00" + Environment.NewLine
+                + "12-01-2012 ||          ||   900.00 ||   100.00" + Environment.NewLine
                 + "10-01-2012 ||  1000.00 ||          ||  1000.00";
             Assert.Equal(header, printedBankStatement);
         }

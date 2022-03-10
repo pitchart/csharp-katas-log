@@ -6,16 +6,11 @@ namespace Banking
 {
     public class Account
     {
-        private List<Transaction> Transactions = new List<Transaction>();
+        private List<ITransaction> Transactions = new List<ITransaction>();
 
-        public void Deposite(decimal p0, DateTime dateTime)
+        public void Deposite(decimal amount, DateTime date)
         {
-            Transactions.Add(new Transaction
-            {
-                Date = dateTime,
-                Credit = p0,
-                Balance = GetBalance() + p0
-            });
+            Transactions.Add(new Deposite(date,amount,GetBalance()));
         }
 
         private decimal GetBalance()
@@ -25,17 +20,12 @@ namespace Banking
 
         public Statement GetStatement()
         {
-            return new Statement(this.Transactions);
+            return new Statement(Transactions);
         }
 
-        public void WithDraw(decimal p0, DateTime dateTime)
+        public void WithDraw(decimal amount, DateTime date)
         {
-            Transactions.Add(new Transaction
-            {
-                Date = dateTime,
-                Debit = p0,
-                Balance = GetBalance() - p0
-            });
+            Transactions.Add(new Withdrawal(date, amount, GetBalance()));
         }
     }
 }
