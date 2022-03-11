@@ -10,26 +10,21 @@ namespace Bowling
 
         public Bowling ()
 		{
-            _rounds = new Rounds();
+            _rounds = new Rounds(MAX_NON_BONUS_ROUNDS_PER_MATCH);
 		}
 
         public void Roll(int pins)
         {
-			_rounds.addRound(pins);
+			_rounds.AddRound(pins);
         }
 
         public int GetScore()
         {
             int total = 0;
-            for (int currentRoundIndex = 0; currentRoundIndex < MAX_NON_BONUS_ROUNDS_PER_MATCH; currentRoundIndex += 1)
-            {
-                Round currentRound = _rounds.getRound(currentRoundIndex);
-                Round nextRound = _rounds.getRound(currentRoundIndex + 1);
-                Round nextNextRound = _rounds.getRound(currentRoundIndex + 2);
-
-                int scoreRound = currentRound.GetScore(nextRound, nextNextRound);
-
-                total += scoreRound;
+			while(!_rounds.IsEndOfGame())
+			{
+                total += _rounds.GetCurrentRound().GetScore(_rounds.GetNextRound(), _rounds.GetNextNextRound());
+				_rounds.AdvanceNextRound();
             }
 
             return total;
@@ -39,13 +34,18 @@ namespace Bowling
 	public class Rounds
 	{
 		private List<Round> _rounds;
+		private int _currentRound;
+		private int _maxRounds;
 
-		public Rounds()
+		public Rounds(int maxRounds)
 		{
 			_rounds = new List<Round>();
+			_currentRound = 0;
+			_maxRounds = maxRounds;
+
 		}
 
-		public void addRound(int pins)
+		public void AddRound(int pins)
 		{
 			if (!_rounds.LastOrDefault()?.SecondRoll.HasValue == true && !_rounds.LastOrDefault()?.IsStrike == true)
 			{
@@ -60,10 +60,36 @@ namespace Bowling
 			}
 		}
 
-		public Round getRound(int index)
+		private Round GetRound(int index)
 		{
 			return _rounds.ElementAtOrDefault(index);
 		}
+
+		public Round GetCurrentRound()
+		{
+			return GetRound(_currentRound);
+		}
+
+		public Round GetNextRound()
+		{
+			return GetRound(_currentRound + 1);
+		}
+
+		public Round GetNextNextRound()
+		{
+			return GetRound(_currentRound + 2);
+		}
+
+		public void AdvanceNextRound()
+		{
+			_currentRound++;
+		}
+
+		public bool IsEndOfGame()
+		{
+			return _currentRound >= _maxRounds;
+		}
+
 	}
 
 	public class Round
