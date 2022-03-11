@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Bowling
@@ -7,15 +6,47 @@ namespace Bowling
 	public class Bowling
 	{
 		private const int MAX_NON_BONUS_ROUNDS_PER_MATCH = 10;
-        private readonly List<Round> _rounds;
+        private readonly Rounds _rounds;
 
         public Bowling ()
 		{
-            _rounds = new List<Round>();
+            _rounds = new Rounds();
 		}
 
         public void Roll(int pins)
         {
+			_rounds.addRound(pins);
+        }
+
+        public int GetScore()
+        {
+            int total = 0;
+            for (int currentRoundIndex = 0; currentRoundIndex < MAX_NON_BONUS_ROUNDS_PER_MATCH; currentRoundIndex += 1)
+            {
+                Round currentRound = _rounds.getRound(currentRoundIndex);
+                Round nextRound = _rounds.getRound(currentRoundIndex + 1);
+                Round nextNextRound = _rounds.getRound(currentRoundIndex + 2);
+
+                int scoreRound = currentRound.GetScore(nextRound, nextNextRound);
+
+                total += scoreRound;
+            }
+
+            return total;
+        }
+	}
+
+	public class Rounds
+	{
+		private List<Round> _rounds;
+
+		public Rounds()
+		{
+			_rounds = new List<Round>();
+		}
+
+		public void addRound(int pins)
+		{
 			if (!_rounds.LastOrDefault()?.SecondRoll.HasValue == true && !_rounds.LastOrDefault()?.IsStrike == true)
 			{
 				_rounds.Last().SecondRoll = pins;
@@ -27,24 +58,12 @@ namespace Bowling
                     FirstRoll = pins
                 });
 			}
-        }
+		}
 
-        public int GetScore()
-        {
-            int total = 0;
-            for (int currentRoundIndex = 0; currentRoundIndex < MAX_NON_BONUS_ROUNDS_PER_MATCH; currentRoundIndex += 1)
-            {
-                Round currentRound = _rounds.ElementAt(currentRoundIndex);
-                Round nextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 1);
-                Round nextNextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 2);
-
-                int scoreRound = currentRound.GetScore(nextRound, nextNextRound);
-
-                total += scoreRound;
-            }
-
-            return total;
-        }
+		public Round getRound(int index)
+		{
+			return _rounds.ElementAtOrDefault(index);
+		}
 	}
 
 	public class Round
