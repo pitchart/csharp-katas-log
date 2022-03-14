@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>language_ext.kata</RootNamespace>
+    <LangVersion>latestmajor</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Persons\" />
+    <Folder Include="Account\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="3.4.13" />
+  </ItemGroup>
+</Project>
