@@ -1,0 +1,4 @@
+﻿{
+  TemplateId: DEERPP,
+  TemplateFile: DEERPP.ftl
+}
