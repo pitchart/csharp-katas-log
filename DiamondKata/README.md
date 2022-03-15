@@ -35,3 +35,31 @@ A    A      A         A
 > With property based testing :)
 
 Focus on results properties and implement from less to more complex 
+
+
+**A**
+*B*B*
+C***C
+*B*B*
+**A**
+
+//ABC
+
+//new line
+A
+B
+C
+
+//horizontal symetry
+A
+B
+C
+B
+A
+
+//2 letters
+A
+BB
+CC
+BB
+A
