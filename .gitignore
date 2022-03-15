@@ -343,3 +343,4 @@ CoverageResults/
 
 # Mac OS
 .DS_Store
+/ElectionsKata/Elections.Tests/ElectionsTests.Should_run_with_districts_and_ignore_elector_vote_in_another_district.verified.txt
