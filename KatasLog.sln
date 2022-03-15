@@ -135,7 +135,7 @@ Global
 		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	    {84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
