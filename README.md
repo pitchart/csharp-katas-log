@@ -49,4 +49,8 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 - Gilded Rose
 - Race Car Katas
 - Ugly trivia game
-- Others from https://kata-log.rocks/refactoring
+
+### Other katas
+- [Approval Kata](ApprovalKata/README.md)
+- [Functional Programming in C# Kata](LanguageExtKata/README.md)
+- Other [refactoring katas](https://kata-log.rocks/refactoring)
