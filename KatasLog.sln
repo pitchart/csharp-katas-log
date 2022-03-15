@@ -54,6 +54,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata", "Langua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata-tests", "LanguageExtKata\language-ext-kata-tests\language-ext-kata-tests.csproj", "{EF11E146-39B1-49AE-A100-5B476E062FF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShipping", "OrderShippingKata\Order Shipping\OrderShipping.csproj", "{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShippingTest", "OrderShippingKata\Order_Shipping_Test\OrderShippingTest.csproj", "{A6B18B20-7514-4D99-A742-2E10C2BB4469}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,5 +172,13 @@ Global
 		{EF11E146-39B1-49AE-A100-5B476E062FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF11E146-39B1-49AE-A100-5B476E062FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF11E146-39B1-49AE-A100-5B476E062FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
