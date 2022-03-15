@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="TechTalk.SpecFlow" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+        <PackageReference Include="SpecFlow.xUnit" Version="3.9.52" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions" Version="6.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\TcrKata.Domain\TcrKata.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Features\SubmarineData.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Features\SubmarineCommands.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Features\SubmarineCommands.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Features\SubmarineFinalValue.txt" />
+        <Content Include="Features\SubmarineFinalValue.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
