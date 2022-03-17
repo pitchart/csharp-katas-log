@@ -27,3 +27,13 @@
         13-01-2012 || 10000.50 ||          || 11000.50
         10-01-2012 ||  1000.00 ||          ||  1000.00
         """
+
+    Scenario: Printing deposit statement only after deposite and withdrawal
+        Given a client makes a deposit of 1000 on 10-01-2012
+        And a withdrawal of 500 on 12-01-2012
+        When she prints her only deposit statement
+        Then she would see
+        """
+        date       ||   credit ||  balance
+        10-01-2012 ||  1000.00 ||  1000.00
+        """

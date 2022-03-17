@@ -6,12 +6,22 @@ namespace Banking
 {
     public class Printer
     {
-        private const string header = "date       ||   credit ||    debit ||  balance";
         private const string separator = " || ";
 
         public static string PrintAccountBankStatement(Statement statement)
         {
-            var result = header;
+            string header = "date       ||";
+            if (statement.Transactions.Where(transaction => transaction is Deposite).Any())
+            {
+                header = header + "   credit" + separator;
+            }
+            if (statement.Transactions.Where(transaction => transaction is Withdrawal).Any())
+            {
+                header = header + "   debit" + separator;
+            }
+
+            var result = header + " balance";
+
             foreach (var transaction in statement.Transactions.OrderByDescending(t => t.Date))
             {
                 if (transaction is Withdrawal)

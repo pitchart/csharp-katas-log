@@ -51,5 +51,12 @@ namespace Banking.Tests.Acceptance.Steps
         {
             _account.WithDraw(p0, p1);
         }
+
+        [When(@"she prints her only deposit statement")]
+        public void WhenShePrintsOnlyDepositStatement()
+        {
+            var statement = _account.GetDepositeStatement();
+            printedBankStatement = Printer.PrintAccountBankStatement(statement);
+        }
     }
 }

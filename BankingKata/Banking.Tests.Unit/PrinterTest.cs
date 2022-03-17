@@ -13,7 +13,7 @@ namespace Banking.Tests.Unit
             var account = new Account();
             var statement = account.GetStatement();
             var printedBankStatement = Printer.PrintAccountBankStatement(statement);
-            string header = "date       ||   credit ||    debit ||  balance";
+            string header = "date       ||  balance";
             Assert.Equal(header, printedBankStatement);
         }
 

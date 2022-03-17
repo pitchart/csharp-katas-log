@@ -27,5 +27,10 @@ namespace Banking
         {
             Transactions.Add(new Withdrawal(date, amount, GetBalance()));
         }
+
+        public Statement GetDepositeStatement()
+        {
+            return new Statement(Transactions.Where(transaction => transaction is Deposite).ToList());
+        }
     }
 }
