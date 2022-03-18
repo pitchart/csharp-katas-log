@@ -1,4 +1,6 @@
-﻿namespace OrderShipping.Domain
+﻿using OrderShipping.UseCase;
+
+namespace OrderShipping.Domain
 {
     public class Order
     {
@@ -9,24 +11,29 @@
         public OrderStatus Status { get; set; }
         public int Id { get; set; }
 
-        public void Approve()
+        private void StatusCanBeChanged(OrderApprovalRequest request)
         {
-            if (order.Status == OrderStatus.Shipped)
+            if (this.Status == OrderStatus.Shipped)
             {
                 throw new ShippedOrdersCannotBeChangedException();
             }
 
-            if (request.Approved && order.Status == OrderStatus.Rejected)
+            if (request.Approved && this.Status == OrderStatus.Rejected)
             {
                 throw new RejectedOrderCannotBeApprovedException();
             }
 
-            if (!request.Approved && order.Status == OrderStatus.Approved)
+            if (!request.Approved && this.Status == OrderStatus.Approved)
             {
                 throw new ApprovedOrderCannotBeRejectedException();
             }
+        }
 
-            order.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
+        public void ChangeStatus(OrderApprovalRequest request)
+        {
+            StatusCanBeChanged(request);
+
+            this.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
         }
     }
 }

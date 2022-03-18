@@ -14,6 +14,8 @@ namespace OrderShipping.UseCase
         public void Run(OrderApprovalRequest request)
         {
             var order = _orderRepository.GetById(request.OrderId);
+
+            order.ChangeStatus(request);
             
             _orderRepository.Save(order);
         }
