@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata", "language-ext-kata\language-ext-kata.csproj", "{ED446BB3-BD80-4C11-B02C-5EB8EBFDA5F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata-tests", "language-ext-kata-tests\language-ext-kata-tests.csproj", "{A07820EF-5B91-47A9-9D94-EC82D58880BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED446BB3-BD80-4C11-B02C-5EB8EBFDA5F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED446BB3-BD80-4C11-B02C-5EB8EBFDA5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED446BB3-BD80-4C11-B02C-5EB8EBFDA5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED446BB3-BD80-4C11-B02C-5EB8EBFDA5F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A07820EF-5B91-47A9-9D94-EC82D58880BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A07820EF-5B91-47A9-9D94-EC82D58880BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A07820EF-5B91-47A9-9D94-EC82D58880BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A07820EF-5B91-47A9-9D94-EC82D58880BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
