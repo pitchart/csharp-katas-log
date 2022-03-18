@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Bowling
@@ -7,15 +6,47 @@ namespace Bowling
 	public class Bowling
 	{
 		private const int MAX_NON_BONUS_ROUNDS_PER_MATCH = 10;
-        private readonly List<Round> _rounds;
+        private readonly Rounds _rounds;
 
         public Bowling ()
 		{
-            _rounds = new List<Round>();
+            _rounds = new Rounds(MAX_NON_BONUS_ROUNDS_PER_MATCH);
 		}
 
         public void Roll(int pins)
         {
+			_rounds.AddRound(pins);
+        }
+
+        public int GetScore()
+        {
+            int total = 0;
+			while(!_rounds.IsEndOfGame())
+			{
+                total += _rounds.GetCurrentRound().GetScore(_rounds.GetNextRound(), _rounds.GetNextNextRound());
+				_rounds.AdvanceNextRound();
+            }
+
+            return total;
+        }
+	}
+
+	public class Rounds
+	{
+		private List<Round> _rounds;
+		private int _currentRound;
+		private int _maxRounds;
+
+		public Rounds(int maxRounds)
+		{
+			_rounds = new List<Round>();
+			_currentRound = 0;
+			_maxRounds = maxRounds;
+
+		}
+
+		public void AddRound(int pins)
+		{
 			if (!_rounds.LastOrDefault()?.SecondRoll.HasValue == true && !_rounds.LastOrDefault()?.IsStrike == true)
 			{
 				_rounds.Last().SecondRoll = pins;
@@ -27,24 +58,38 @@ namespace Bowling
                     FirstRoll = pins
                 });
 			}
-        }
+		}
 
-        public int GetScore()
-        {
-            int total = 0;
-            for (int currentRoundIndex = 0; currentRoundIndex < MAX_NON_BONUS_ROUNDS_PER_MATCH; currentRoundIndex += 1)
-            {
-                Round currentRound = _rounds.ElementAt(currentRoundIndex);
-                Round nextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 1);
-                Round nextNextRound = _rounds.ElementAtOrDefault(currentRoundIndex + 2);
+		private Round GetRound(int index)
+		{
+			return _rounds.ElementAtOrDefault(index);
+		}
 
-                int scoreRound = currentRound.GetScore(nextRound, nextNextRound);
+		public Round GetCurrentRound()
+		{
+			return GetRound(_currentRound);
+		}
 
-                total += scoreRound;
-            }
+		public Round GetNextRound()
+		{
+			return GetRound(_currentRound + 1);
+		}
 
-            return total;
-        }
+		public Round GetNextNextRound()
+		{
+			return GetRound(_currentRound + 2);
+		}
+
+		public void AdvanceNextRound()
+		{
+			_currentRound++;
+		}
+
+		public bool IsEndOfGame()
+		{
+			return _currentRound >= _maxRounds;
+		}
+
 	}
 
 	public class Round
