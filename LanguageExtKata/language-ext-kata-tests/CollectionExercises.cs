@@ -15,7 +15,7 @@ namespace language_ext.kata.tests
         public void GetFirstNamesOfAllPeople()
         {
             // Replace it, with a transformation method on people.
-            Seq<string> firstNames = people.Map(person => person.FirstName);
+            Seq<string> firstNames = Seq<string>();
             Seq<string> expectedFirstNames = Seq("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John");
 
             firstNames.Should().BeEquivalentTo(expectedFirstNames);
@@ -27,7 +27,7 @@ namespace language_ext.kata.tests
             var person = GetPersonNamed("Mary Smith");
 
             // Replace it, with a transformation method on people.
-            Seq<string> names = person.Pets.Map(pet => pet.Name);
+            Seq<string> names = Seq<string>();
 
             names.Single()
                 .Should()
@@ -38,7 +38,7 @@ namespace language_ext.kata.tests
         public void GetPeopleWithCats()
         {
             // Replace it, with a positive filtering method on people.
-            Seq<Person> peopleWithCats = people.Filter(person => person.HasPetType(Cat));
+            Seq<string> peopleWithCats = Seq<string>();
 
             peopleWithCats.Should().HaveCount(2);
         }
@@ -56,17 +56,15 @@ namespace language_ext.kata.tests
         public void DoAnyPeopleHaveCats()
         {
             //replace null with a Predicate lambda which checks for PetType.CAT
-            var doAnyPeopleHaveCats = people.Any(person => person.HasPetType(Cat));
-            var doAnyPeopleHaveCatsAlter = people.Find(person => person.HasPetType(Cat));
+            var doAnyPeopleHaveCats = false;
 
             doAnyPeopleHaveCats.Should().BeTrue();
-            doAnyPeopleHaveCatsAlter.IsSome.Should().BeTrue();
         }
 
         [Fact]
         public void DoAllPeopleHavePets()
         {
-            Func<Person, bool> predicate = p => true;
+            Func<Person, bool> predicate = p => p.IsPetPerson();
             // OR use local functions -> static bool predicate(Person p) => p.IsPetPerson();
             // replace with a method call send to this.people that checks if all people have pets
             var result = people.ForAll(predicate);
@@ -103,7 +101,7 @@ namespace language_ext.kata.tests
         [Fact]
         public void GetAllPetTypesOfAllPeople()
         {
-            Seq<PetType> petTypes = Seq<PetType>();
+            Seq<PetType> petTypes = people.Bind(p => p.Pets.Map(pet => pet.Type)).Distinct();
 
             petTypes.Should()
                 .BeEquivalentTo(Seq(Cat, Dog, Snake, Bird, Turtle, Hamster));
@@ -119,7 +117,10 @@ namespace language_ext.kata.tests
         [Fact]
         public void PetsNameSorted()
         {
-            string sortedPetNames = null;
+            var sortedPetNames = people.Bind(p => p.Pets.Map(pet => pet.Name))
+                .OrderBy(p => p)
+                .ToSeq()
+                .ToFullString();
 
             sortedPetNames.Should()
                 .Be("Dolly, Fuzzy, Serpy, Speedy, Spike, Spot, Tabby, Tweety, Wuzzy");
