@@ -6,12 +6,12 @@ using Xunit;
 
 namespace Diamond.Tests
 {
-   
+
     public class DiamondTest
     {
         private Diamond diamond = new Diamond();
-       [Fact]
-       public void Should_Draw_A()
+        [Fact]
+        public void Should_Draw_A()
         {
             char c = 'A';
 
@@ -26,7 +26,7 @@ namespace Diamond.Tests
             Assert.Throws<ArgumentException>(() => diamond.Draw(number));
         }
 
-        [Property(Arbitrary = new [] {typeof(NotALetterGenerator)})]
+        [Property(Arbitrary = new[] { typeof(NotALetterGenerator) })]
         public Property ThrowException_WhenNotLetter(char c)
         {
             var result = Record.Exception(() => diamond.Draw(c));
@@ -35,7 +35,7 @@ namespace Diamond.Tests
         }
 
 
-        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
         public Property IsHorizontallySymetric(char c)
         {
             var result = diamond.Draw(c);
@@ -44,7 +44,7 @@ namespace Diamond.Tests
             return (string.Join(Environment.NewLine, lines.Reverse()) == result).ToProperty();
         }
 
-        [Property(Arbitrary = new[] { typeof(ALetterGenerator) })]
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
         public Property FirstLineAndLastLineEqualA(char c)
         {
             var result = diamond.Draw(c);
@@ -53,7 +53,31 @@ namespace Diamond.Tests
             return (lines.FirstOrDefault().Contains('A') && lines.LastOrDefault().Contains('A')).ToProperty();
         }
 
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
+        public Property EachLineMustContainsTwoLettersExceptFirstAndLast(char c)
+        {
+            var result = diamond.Draw(c);
+            var lines = result.Split(Environment.NewLine);
+            lines = lines.Skip(1).SkipLast(1).ToArray();
+            return (lines.Count(l => l.Length == 2) == lines.Length).ToProperty();
+        }
 
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
+        public Property EachLineMustContainsTwoLettersExceptFirstAndLastWithSpace(char c)
+        {
+            //var result = diamond.Draw(c);
+            //var lines = result.Split(Environment.NewLine);
+            //var space = " ";
+            //lines.Select(l => l.Equals(space)).Count();
+            //lines = lines.Skip(1).SkipLast(1).ToArray();
+            //return (lines.Count(l => l.Length == 2) == lines.Length).ToProperty();
+
+            var result = diamond.Draw(c);
+            var lines = result.Split(Environment.NewLine);
+            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
+            var spaces = lines.Select(s => s.TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+            return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
     }
 
     internal static class NotALetterGenerator
@@ -64,11 +88,11 @@ namespace Diamond.Tests
         }
     }
 
-    internal static class ALetterGenerator
+    internal static class AUpperLetterGenerator
     {
         public static Arbitrary<char> Generate()
         {
-            return Arb.Default.Char().Filter(c => char.IsLetter(c));
+            return Arb.Default.Char().Filter(c => char.IsLetter(c) && char.IsUpper(c));
         }
     }
 }

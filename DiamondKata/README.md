@@ -63,3 +63,17 @@ BB
 CC
 BB
 A
+
+//2 letters with spaces
+**A**
+*BB*
+CC
+*BB*
+**A**
+
+//2 letters with formated spaces
+**A**
+*B*B*
+C***C
+*B*B*
+**A**

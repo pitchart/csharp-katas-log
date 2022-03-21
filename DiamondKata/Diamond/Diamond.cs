@@ -16,20 +16,24 @@ namespace Diamond
                 throw new ArgumentException();
             }
 
-            string result = "";
             List<string> lines = new List<string>();
 
             char letter = startChar;
 
             while (letter.CompareTo(c) <= 0)
             {
-                lines.Add(letter.ToString());
+                string tempLetter = letter.ToString();
+                if (!letter.Equals(startChar))
+                {
+                    tempLetter += letter.ToString();
+                }
+                lines.Add(tempLetter);
                 letter++;
             }
 
             lines = lines.Concat(lines.ToArray().Reverse().Skip(1)).ToList();
             
-            return String.Join(Environment.NewLine, lines);
+            return string.Join(Environment.NewLine, lines);
         }
     }
 
