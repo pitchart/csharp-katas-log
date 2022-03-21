@@ -15,7 +15,7 @@ namespace language_ext.kata.tests
         public void GetFirstNamesOfAllPeople()
         {
             // Replace it, with a transformation method on people.
-            Seq<string> firstNames = Seq<string>();
+            Seq<string> firstNames = people.Map(person => person.FirstName);
             Seq<string> expectedFirstNames = Seq("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John");
 
             firstNames.Should().BeEquivalentTo(expectedFirstNames);
@@ -27,7 +27,7 @@ namespace language_ext.kata.tests
             var person = GetPersonNamed("Mary Smith");
 
             // Replace it, with a transformation method on people.
-            Seq<string> names = Seq<string>();
+            Seq<string> names = person.Pets.Map(pet => pet.Name);
 
             names.Single()
                 .Should()
@@ -38,7 +38,7 @@ namespace language_ext.kata.tests
         public void GetPeopleWithCats()
         {
             // Replace it, with a positive filtering method on people.
-            Seq<string> peopleWithCats = Seq<string>();
+            Seq<Person> peopleWithCats = people.Filter(person => person.HasPetType(Cat));
 
             peopleWithCats.Should().HaveCount(2);
         }
@@ -56,9 +56,11 @@ namespace language_ext.kata.tests
         public void DoAnyPeopleHaveCats()
         {
             //replace null with a Predicate lambda which checks for PetType.CAT
-            var doAnyPeopleHaveCats = false;
+            var doAnyPeopleHaveCats = people.Any(person => person.HasPetType(Cat));
+            var doAnyPeopleHaveCatsAlter = people.Find(person => person.HasPetType(Cat));
 
             doAnyPeopleHaveCats.Should().BeTrue();
+            doAnyPeopleHaveCatsAlter.IsSome.Should().BeTrue();
         }
 
         [Fact]
