@@ -1,0 +1,41 @@
+﻿[
+  {
+    birthCity: Brooklyn,
+    birthDate: 1899-01-25,
+    documents: [
+      {
+        documentType: ID CARD,
+        expirationDate: 2000-01-05,
+        number: 89898*3234
+      }
+    ],
+    firstName: Al,
+    gender: Male,
+    lastName: Capone,
+    middleName: ,
+    pepMep: false,
+    title: Mr.
+  },
+  {
+    birthCity: Clichy,
+    birthDate: 1936-12-28,
+    documents: [
+      {
+        documentType: ID CARD,
+        expirationDate: 2020-09-30,
+        number: 89AJQND8579
+      },
+      {
+        documentType: FAKE PASSPORT,
+        expirationDate: 1990-12-23,
+        number: Not a number
+      }
+    ],
+    firstName: Jacques,
+    gender: Male,
+    lastName: Mesrine,
+    middleName: ,
+    pepMep: true,
+    title: Mr.
+  }
+]
