@@ -37,7 +37,7 @@ namespace OrderShipping.UseCase
                 }
                 else
                 {
-                    decimal unitaryTax = TaxeCalculator(product);
+                    decimal unitaryTax = product.TaxeCalculator();
                     var unitaryTaxedAmount = Round(product.Price + unitaryTax);
                     var taxedAmount = Round(unitaryTaxedAmount * itemRequest.Quantity);
                     var taxAmount = Round(unitaryTax * itemRequest.Quantity);
@@ -56,16 +56,11 @@ namespace OrderShipping.UseCase
             }
 
             _orderRepository.Save(order);
-
-            static decimal TaxeCalculator(Product product)
-            {
-                return Round((product.Price / 100m) * product.Category.TaxPercentage);
-            }
         }
-
         private static decimal Round(decimal amount)
         {
             return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
         }
     }
+
 }
