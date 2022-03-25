@@ -37,20 +37,16 @@ namespace OrderShipping.UseCase
                 }
                 else
                 {
-                    decimal unitaryTax = product.TaxeCalculator();
-                    var unitaryTaxedAmount = Round(product.Price + unitaryTax);
-                    var taxedAmount = Round(unitaryTaxedAmount * itemRequest.Quantity);
-                    var taxAmount = Round(unitaryTax * itemRequest.Quantity);
+                    var taxAmount = Round(product.GetTax() * itemRequest.Quantity);
 
                     var orderItem = new OrderItem
                     {
                         Product = product,
                         Quantity = itemRequest.Quantity,
                         Tax = taxAmount,
-                        TaxedAmount = taxedAmount
                     };
                     order.Items.Add(orderItem);
-                    order.Total += taxedAmount;
+                    order.Total += orderItem.TaxedAmount;
                     order.Tax += taxAmount;
                 }
             }
