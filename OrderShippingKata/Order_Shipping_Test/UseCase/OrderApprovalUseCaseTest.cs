@@ -31,7 +31,7 @@ public class OrderApprovalUseCaseTest
         var request = new OrderApprovalRequest
         {
             OrderId = 1,
-            Approved = true
+            IsApproved = true
         };
 
         _useCase.Run(request);
@@ -53,7 +53,7 @@ public class OrderApprovalUseCaseTest
         var request = new OrderApprovalRequest
         {
             OrderId = 1,
-            Approved = false
+            IsApproved = false
         };
 
         _useCase.Run(request);
@@ -76,7 +76,7 @@ public class OrderApprovalUseCaseTest
         var request = new OrderApprovalRequest
         {
             OrderId = 1,
-            Approved = true
+            IsApproved = true
         };
 
 
@@ -99,7 +99,7 @@ public class OrderApprovalUseCaseTest
         var request = new OrderApprovalRequest
         {
             OrderId = 1,
-            Approved = false
+            IsApproved = false
         };
 
 
@@ -122,7 +122,7 @@ public class OrderApprovalUseCaseTest
         var request = new OrderApprovalRequest
         {
             OrderId = 1,
-            Approved = false
+            IsApproved = false
         };
 
 
