@@ -1,6 +1,4 @@
-﻿using OrderShipping.UseCase;
-
-namespace OrderShipping.Domain
+﻿namespace OrderShipping.Domain
 {
     public class Order
     {

@@ -1,4 +1,4 @@
-﻿namespace OrderShipping.UseCase
+﻿namespace OrderShipping.Domain
 {
     public class RejectedOrderCannotBeApprovedException : ApplicationException
     {

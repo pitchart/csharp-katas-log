@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;

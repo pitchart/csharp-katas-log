@@ -1,7 +1,7 @@
-﻿using System;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;

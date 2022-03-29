@@ -1,7 +1,7 @@
-﻿namespace OrderShipping.UseCase
+﻿namespace OrderShipping.Domain
 {
     public class OrderCannotBeShippedTwiceException : ApplicationException
     {
-    
+
     }
 }
