@@ -50,5 +50,22 @@ namespace OrderShipping.Domain
 
             Status = isApproved ? OrderStatus.Approved : OrderStatus.Rejected;
         }
+
+        public void Ship(Action<Order> onShippable)
+        {
+            Status = Status switch
+            {
+                OrderStatus.Created or OrderStatus.Rejected => throw new OrderCannotBeShippedException(),
+                OrderStatus.Shipped => throw new OrderCannotBeShippedTwiceException(),
+                _ => DoShip(onShippable)
+            };
+        }
+
+        private OrderStatus DoShip(Action<Order> onShippable)
+        {
+            onShippable(this);
+
+            return OrderStatus.Shipped;
+        }
     }
 }
