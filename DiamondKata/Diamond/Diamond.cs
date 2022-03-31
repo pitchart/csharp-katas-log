@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Diamond
 {
-
     public class Diamond
     {
         private char startChar = 'A';
@@ -19,16 +18,22 @@ namespace Diamond
             List<string> lines = new List<string>();
 
             char letter = startChar;
-
+            int lineIndex = startChar;
+            string outer;
+            string inner = " ";
             while (letter.CompareTo(c) <= 0)
             {
-                string tempLetter = letter.ToString();
+                outer = string.Empty.PadRight(c - lineIndex);
+                string tempLetter = outer + letter;
                 if (!letter.Equals(startChar))
                 {
-                    tempLetter += letter.ToString();
+                    tempLetter += inner + letter;
+                    inner += "  ";
                 }
+                tempLetter += outer;
                 lines.Add(tempLetter);
                 letter++;
+                lineIndex++;
             }
 
             lines = lines.Concat(lines.ToArray().Reverse().Skip(1)).ToList();
@@ -36,5 +41,4 @@ namespace Diamond
             return string.Join(Environment.NewLine, lines);
         }
     }
-
 }

@@ -1,12 +1,12 @@
 using FsCheck;
 using FsCheck.Xunit;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace Diamond.Tests
 {
-
     public class DiamondTest
     {
         private Diamond diamond = new Diamond();
@@ -58,25 +58,36 @@ namespace Diamond.Tests
         {
             var result = diamond.Draw(c);
             var lines = result.Split(Environment.NewLine);
-            lines = lines.Skip(1).SkipLast(1).ToArray();
+            lines = lines.Skip(1).SkipLast(1).Select(s => s.Replace(" ", string.Empty)).ToArray();
             return (lines.Count(l => l.Length == 2) == lines.Length).ToProperty();
         }
 
         [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
-        public Property EachLineMustContainsTwoLettersExceptFirstAndLastWithSpace(char c)
+        public Property CheckLeftSpacesOfDiamond(char c)
         {
-            //var result = diamond.Draw(c);
-            //var lines = result.Split(Environment.NewLine);
-            //var space = " ";
-            //lines.Select(l => l.Equals(space)).Count();
-            //lines = lines.Skip(1).SkipLast(1).ToArray();
-            //return (lines.Count(l => l.Length == 2) == lines.Length).ToProperty();
-
             var result = diamond.Draw(c);
             var lines = result.Split(Environment.NewLine);
             lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
             var spaces = lines.Select(s => s.TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
             return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
+
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
+        public Property CheckRightSpacesOfDiamond(char c)
+        {
+            var result = diamond.Draw(c);
+            var lines = result.Split(Environment.NewLine);
+            lines = lines.Take(char.ToUpper(c) - 'A' + 1).ToArray();
+            var spaces = lines.Select(s => s.Reverse().TakeWhile(cc => cc.Equals(' '))).Select(s => s.Count());
+            return spaces.SequenceEqual(Enumerable.Range(0, lines.Length).Reverse()).ToProperty();
+        }
+
+        [Property(Arbitrary = new[] { typeof(AUpperLetterGenerator) })]
+        public Property DiamondIsSquare(char c)
+        {
+            var result = diamond.Draw(c);
+            var lines = result.Split(Environment.NewLine);
+            return lines.All(line => line.Length.Equals(lines.Length)).ToProperty();
         }
     }
 

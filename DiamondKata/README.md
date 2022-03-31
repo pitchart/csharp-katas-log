@@ -64,14 +64,21 @@ CC
 BB
 A
 
-//2 letters with spaces
-**A**
-*BB*
+//2 letters with spaces left
+**A
+*BB
 CC
-*BB*
-**A**
+*BB
+**A
 
-//2 letters with formated spaces
+//2 letters with spaces right
+A**
+BB*
+CC
+BB*
+A**
+
+//Diamond is square
 **A**
 *B*B*
 C***C
