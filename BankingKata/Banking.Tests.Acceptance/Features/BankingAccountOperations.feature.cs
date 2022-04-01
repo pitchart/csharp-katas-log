@@ -129,6 +129,58 @@ namespace Banking.Tests.Acceptance.Features
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Printing statement after deposits and withDifferent amount size")]
+        [Xunit.TraitAttribute("FeatureTitle", "Complete account statement")]
+        [Xunit.TraitAttribute("Description", "Printing statement after deposits and withDifferent amount size")]
+        public virtual void PrintingStatementAfterDepositsAndWithDifferentAmountSize()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Printing statement after deposits and withDifferent amount size", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 16
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 17
+        testRunner.Given("a client makes a deposit of 1000 on 10-01-2012", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 18
+        testRunner.And("a deposit of 10000.50 on 13-01-2012", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 19
+        testRunner.And("a withdrawal of 500 on 14-01-2012", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+        testRunner.And("a withdrawal of 8 on 15-01-2012", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+        testRunner.When("she prints her bank statement", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 22
+        testRunner.Then("she would see", "date       ||   credit ||    debit ||  balance\r\n15-01-2012 ||          ||     8.0" +
+                        "0 || 10492.50\r\n14-01-2012 ||          ||   500.00 || 10500.50\r\n13-01-2012 || 100" +
+                        "00.50 ||          || 11000.50\r\n10-01-2012 ||  1000.00 ||          ||  1000.00", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

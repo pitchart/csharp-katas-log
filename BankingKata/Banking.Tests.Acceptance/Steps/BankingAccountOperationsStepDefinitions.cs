@@ -1,5 +1,8 @@
 ﻿using System;
 using TechTalk.SpecFlow;
+using Xunit;
+using Banking;
+using System.Globalization;
 
 namespace Banking.Tests.Acceptance.Steps
 {
@@ -10,35 +13,43 @@ namespace Banking.Tests.Acceptance.Steps
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
         private readonly ScenarioContext _scenarioContext;
-
+        private readonly Account _account = new Account();
+        private string printedBankStatement = string.Empty;
         public BankingAccountOperationsStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
+        [StepArgumentTransformation(@"(\d{2}-\d{2}-\d{4})")]
+        public DateTime InXDaysTransform(string date)
+        {
+            return DateTime.ParseExact(date, "dd-mm-yyyy", CultureInfo.CurrentCulture);
+        }
+
         [Given(@"a client makes a deposit of (.*) on (.*)")]
         [Given(@"a deposit of (.*) on (.*)")]
-        public void GivenAClientMakesADepositOfOn(int p0, DateTime p1)
+        public void GivenAClientMakesADepositOfOn(decimal p0, DateTime p1)
         {
-            ScenarioContext.StepIsPending();
+            _account.Deposite(p0,  p1);
         }
 
         [When(@"she prints her bank statement")]
         public void WhenShePrintsHerBankStatement()
         {
-            ScenarioContext.StepIsPending();
+            var statement = _account.GetStatement();
+            printedBankStatement = Printer.PrintAccountBankStatement(statement);
         }
 
         [Then(@"she would see")]
         public void ThenSheWouldSee(string multilineText)
         {
-            ScenarioContext.StepIsPending();
+            Assert.Equal(multilineText, printedBankStatement);
         }
 
         [Given(@"a withdrawal of (.*) on (.*)")]
-        public void GivenAWithdrawalOfOn(int p0, string p1)
+        public void GivenAWithdrawalOfOn(decimal p0, DateTime p1)
         {
-            ScenarioContext.StepIsPending();
+            _account.WithDraw(p0, p1);
         }
     }
 }
