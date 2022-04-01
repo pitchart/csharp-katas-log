@@ -4,12 +4,16 @@ namespace OrderShipping.Domain
 {
     public class Order
     {
+        private const string CURRENCY_EUR = "EUR";
+
         public decimal Total { get; set; }
         public string Currency { get; set; }
         public IList<OrderItem> Items { get; set; }
         public decimal Tax { get; set; }
         public OrderStatus Status { get; set; }
         public int Id { get; set; }
+
+
 
         private void StatusCanBeChanged(OrderApprovalRequest request)
         {
@@ -27,6 +31,18 @@ namespace OrderShipping.Domain
             {
                 throw new ApprovedOrderCannotBeRejectedException();
             }
+        }
+
+        internal static Order CreateOrder()
+        {
+            return new Order
+            {
+                Status = OrderStatus.Created,
+                Items = new List<OrderItem>(),
+                Currency = CURRENCY_EUR,
+                Total = 0m,
+                Tax = 0m
+            };
         }
 
         public void ChangeStatus(OrderApprovalRequest request)
