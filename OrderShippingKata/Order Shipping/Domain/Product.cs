@@ -6,14 +6,20 @@
         public decimal Price { get; set; }
         public Category Category { get; set; }
 
-        public decimal GetTax()
+        public decimal Tax
         {
-            return Round((Price / 100m) * Category.TaxPercentage);
+            get
+            {
+                return Round((Price / 100m) * Category.TaxPercentage);
+            }
         }
 
-        public decimal GetTaxedAmount()
+        public decimal TaxedAmount
         {
-            return Round(Price + GetTax());
+            get
+            {
+                return Round(Price + Tax);
+            }
         }
 
         private static decimal Round(decimal amount)

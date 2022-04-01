@@ -40,12 +40,7 @@ namespace OrderShipping.Domain
         {
             this.Items.Add(orderItem);
             this.Total += orderItem.TaxedAmount;
-            this.Tax += Round(orderItem.Product.GetTax() * orderItem.Quantity);
-        }
-
-        private static decimal Round(decimal amount)
-        {
-            return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
+            this.Tax += orderItem.Tax;
         }
     }
 }
