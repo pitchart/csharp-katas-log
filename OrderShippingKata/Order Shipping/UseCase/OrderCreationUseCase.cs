@@ -37,13 +37,10 @@ namespace OrderShipping.UseCase
                 }
                 else
                 {
-                    var taxAmount = Round(product.GetTax() * itemRequest.Quantity);
-
                     var orderItem = new OrderItem
                     {
                         Product = product,
-                        Quantity = itemRequest.Quantity,
-                        Tax = taxAmount,
+                        Quantity = itemRequest.Quantity
                     };
                     order.AddOrderItem(orderItem);
                 }
@@ -51,10 +48,7 @@ namespace OrderShipping.UseCase
 
             _orderRepository.Save(order);
         }
-        private static decimal Round(decimal amount)
-        {
-            return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
-        }
+
     }
 
 }
