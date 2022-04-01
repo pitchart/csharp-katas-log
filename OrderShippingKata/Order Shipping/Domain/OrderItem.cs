@@ -18,5 +18,14 @@
                 return Product.Tax * Quantity;
             }
         }
+
+        internal static OrderItem CreateOrderItem(Product product, int quantity)
+        {
+            return new OrderItem
+            {
+                Product = product,
+                Quantity = quantity
+            };
+        }
     }
 }

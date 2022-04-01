@@ -24,24 +24,12 @@ namespace OrderShipping.UseCase
             {
                 var product = _productCatalog.GetByName(itemRequest.ProductName);
 
-                if (product == null)
-                {
-                    throw new UnknownProductException();
-                }
-                else
-                {
-                    var orderItem = new OrderItem
-                    {
-                        Product = product,
-                        Quantity = itemRequest.Quantity
-                    };
-                    order.AddOrderItem(orderItem);
-                }
+                OrderItem orderItem = OrderItem.CreateOrderItem(product, itemRequest.Quantity);
+                order.AddOrderItem(orderItem);
             }
 
             _orderRepository.Save(order);
         }
-
     }
 
 }
