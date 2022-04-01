@@ -45,9 +45,7 @@ namespace OrderShipping.UseCase
                         Quantity = itemRequest.Quantity,
                         Tax = taxAmount,
                     };
-                    order.Items.Add(orderItem);
-                    order.Total += orderItem.TaxedAmount;
-                    order.Tax += taxAmount;
+                    order.AddOrderItem(orderItem);
                 }
             }
 
