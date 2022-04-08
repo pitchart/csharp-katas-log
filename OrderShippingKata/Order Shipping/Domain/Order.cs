@@ -1,4 +1,5 @@
-﻿using OrderShipping.UseCase;
+﻿using OrderShipping.Service;
+using OrderShipping.UseCase;
 
 namespace OrderShipping.Domain
 {
@@ -33,7 +34,7 @@ namespace OrderShipping.Domain
             }
         }
 
-        public void CanBeShipped()
+        private void CanBeShipped()
         {
             if (this.Status == OrderStatus.Created || this.Status == OrderStatus.Rejected)
             {
@@ -46,8 +47,10 @@ namespace OrderShipping.Domain
             }
         }
 
-        public void Ship()
+        public void Ship(IShipmentService service)
         {
+            this.CanBeShipped();
+            service.Ship(this);
             this.Status = OrderStatus.Shipped;
         }
 

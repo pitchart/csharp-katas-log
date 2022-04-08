@@ -21,9 +21,7 @@ namespace OrderShipping.UseCase
         {
             var order = _orderRepository.GetById(request.OrderId);
 
-            order.CanBeShipped();
-            _shipmentService.Ship(order);
-            order.Ship();
+            order.Ship(_shipmentService);
 
             _orderRepository.Save(order);
         }
