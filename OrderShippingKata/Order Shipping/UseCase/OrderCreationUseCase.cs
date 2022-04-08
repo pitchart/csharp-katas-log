@@ -23,9 +23,7 @@ namespace OrderShipping.UseCase
             foreach (var itemRequest in request.Requests)
             {
                 var product = _productCatalog.GetByName(itemRequest.ProductName);
-
-                OrderItem orderItem = OrderItem.CreateOrderItem(product, itemRequest.Quantity);
-                order.AddOrderItem(orderItem);
+                order.AddOrderItem(OrderItem.CreateOrderItem(product, itemRequest.Quantity));
             }
 
             _orderRepository.Save(order);
