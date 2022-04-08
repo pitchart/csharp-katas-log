@@ -21,19 +21,10 @@ namespace OrderShipping.UseCase
         {
             var order = _orderRepository.GetById(request.OrderId);
 
-            if (order.Status == OrderStatus.Created || order.Status == OrderStatus.Rejected)
-            {
-                throw new OrderCannotBeShippedException();
-            }
-
-            if (order.Status == OrderStatus.Shipped)
-            {
-                throw new OrderCannotBeShippedTwiceException();
-            }
-
+            order.CanBeShipped();
             _shipmentService.Ship(order);
+            order.Ship();
 
-            order.Status = OrderStatus.Shipped;
             _orderRepository.Save(order);
         }
     }

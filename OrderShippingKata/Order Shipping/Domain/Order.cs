@@ -33,6 +33,24 @@ namespace OrderShipping.Domain
             }
         }
 
+        public void CanBeShipped()
+        {
+            if (this.Status == OrderStatus.Created || this.Status == OrderStatus.Rejected)
+            {
+                throw new OrderCannotBeShippedException();
+            }
+
+            if (this.Status == OrderStatus.Shipped)
+            {
+                throw new OrderCannotBeShippedTwiceException();
+            }
+        }
+
+        public void Ship()
+        {
+            this.Status = OrderStatus.Shipped;
+        }
+
         internal static Order CreateOrder()
         {
             return new Order
