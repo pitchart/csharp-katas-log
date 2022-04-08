@@ -50,6 +50,7 @@ namespace OrderShipping.Domain
         public void Ship(IShipmentService service)
         {
             this.CanBeShipped();
+            // Voir l'ADR "exception-pure-domain.md"
             service.Ship(this);
             this.Status = OrderStatus.Shipped;
         }
