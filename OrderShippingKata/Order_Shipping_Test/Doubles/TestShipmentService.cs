@@ -1,5 +1,5 @@
 ﻿using OrderShipping.Domain;
-using OrderShipping.Service;
+using OrderShipping.Domain.Services;
 
 namespace OrderShippingTest.Doubles
 {

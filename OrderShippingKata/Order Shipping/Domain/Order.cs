@@ -1,5 +1,5 @@
-﻿using OrderShipping.Service;
-using OrderShipping.UseCase;
+﻿using OrderShipping.Domain.Exceptions;
+using OrderShipping.Domain.Services;
 
 namespace OrderShipping.Domain
 {
@@ -15,20 +15,19 @@ namespace OrderShipping.Domain
         public int Id { get; set; }
 
 
-
-        private void StatusCanBeChanged(OrderApprovalRequest request)
+        private void StatusCanBeChanged(bool approved)
         {
             if (this.Status == OrderStatus.Shipped)
             {
                 throw new ShippedOrdersCannotBeChangedException();
             }
 
-            if (request.Approved && this.Status == OrderStatus.Rejected)
+            if (approved && this.Status == OrderStatus.Rejected)
             {
                 throw new RejectedOrderCannotBeApprovedException();
             }
 
-            if (!request.Approved && this.Status == OrderStatus.Approved)
+            if (!approved && this.Status == OrderStatus.Approved)
             {
                 throw new ApprovedOrderCannotBeRejectedException();
             }
@@ -67,11 +66,11 @@ namespace OrderShipping.Domain
             };
         }
 
-        public void ChangeStatus(OrderApprovalRequest request)
+        public void ChangeStatus(bool approved)
         {
-            StatusCanBeChanged(request);
+            StatusCanBeChanged(approved);
 
-            this.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
+            this.Status = approved ? OrderStatus.Approved : OrderStatus.Rejected;
         }
 
         internal void AddOrderItem(OrderItem orderItem)
