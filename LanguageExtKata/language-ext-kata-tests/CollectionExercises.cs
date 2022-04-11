@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using FluentAssertions.LanguageExt;
 using language_ext.kata.Persons;
 using LanguageExt;
 using Xunit;
@@ -60,7 +61,7 @@ namespace language_ext.kata.tests
             var doAnyPeopleHaveCatsAlter = people.Find(person => person.HasPetType(Cat));
 
             doAnyPeopleHaveCats.Should().BeTrue();
-            doAnyPeopleHaveCatsAlter.IsSome.Should().BeTrue();
+            doAnyPeopleHaveCatsAlter.Should().BeSome();
         }
 
         [Fact]
@@ -197,7 +198,9 @@ namespace language_ext.kata.tests
         public void GetListOfPossibleParksForAWalkPerPerson()
         {
             // For each person described as "firstName lastName" returns the list of names possible parks to go for a walk
-            Dictionary<string, Seq<string>> possibleParksForAWalkPerPerson = null;
+            Dictionary<string, Seq<string>> possibleParksForAWalkPerPerson =
+                people.ToDictionary(p => p.FirstName + " " + p.LastName,
+                    p => FilterParksFor(p.Pets.Map(pet => pet.Type)));
 
             possibleParksForAWalkPerPerson["John Doe"]
                 .Should()
@@ -207,5 +210,9 @@ namespace language_ext.kata.tests
                 .Should()
                 .BeEquivalentTo(Seq("Jurassic", "Hippy"));
         }
+
+        private Seq<string> FilterParksFor(Seq<PetType> petTypes)
+            => parks.Filter(park => petTypes.Except(park.AuthorizedPetTypes).ToSeq().Count == 0)
+                .Map(park => park.Name);
     }
 }
