@@ -103,7 +103,7 @@ namespace language_ext.kata.tests
         [Fact]
         public void GetAllPetTypesOfAllPeople()
         {
-            Seq<PetType> petTypes = Seq<PetType>();
+            Seq<PetType> petTypes = people.Bind(p => p.Pets.Map(pet => pet.Type)).Distinct();
 
             petTypes.Should()
                 .BeEquivalentTo(Seq(Cat, Dog, Snake, Bird, Turtle, Hamster));
@@ -119,7 +119,10 @@ namespace language_ext.kata.tests
         [Fact]
         public void PetsNameSorted()
         {
-            string sortedPetNames = null;
+            string sortedPetNames = people.Bind(p => p.Pets.Map(pet => pet.Name))
+                .OrderBy(p => p)
+                .ToSeq()
+                .ToFullString();
 
             sortedPetNames.Should()
                 .Be("Dolly, Fuzzy, Serpy, Speedy, Spike, Spot, Tabby, Tweety, Wuzzy");
