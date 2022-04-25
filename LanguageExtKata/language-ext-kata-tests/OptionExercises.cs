@@ -48,17 +48,17 @@ namespace language_ext.kata.tests
         }
 
         [Fact]
-        public void FindPersonOrDieTryin()
+        public void FindPersonOrDieTrying()
         {
             // Find a person matching firstName and lastName, throws an ArgumentException if not found
             var firstName = "Rick";
             var lastName = "Sanchez";
 
-            Func<Person> findPersonOrDieTryin = () => people
+            Func<Person> findPersonOrDieTrying = () => people
                 .Find(person => person.Named($"{firstName} {lastName}"))
-                .Value
+                .Match(p => p, () => throw new ArgumentException());
 
-            findPersonOrDieTryin.Should().Throw<ArgumentException>();
+            findPersonOrDieTrying.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -69,10 +69,20 @@ namespace language_ext.kata.tests
             double start = 500d;
             StringBuilder resultBuilder = new StringBuilder();
 
-            Option<double> result = Option<double>.Some(0);
+            Option<double> result = Option<double>
+                .Some(start);
+            for (int i = 0; i < 4; i++)
+            {
+                result = result.Bind(Half)
+                    .Bind(d =>
+                    {
+                        resultBuilder.Append(d.ToString());
+                        return Option<double>.Some(d);
+                    });
+            }
 
             result.IsNone.Should().BeTrue();
-            resultBuilder.Should().Be("250125");
+            resultBuilder.ToString().Should().Be("250125");
         }
 
         private Option<double> Half(double x)
