@@ -3,6 +3,7 @@ using System.Text;
 using FluentAssertions;
 using language_ext.kata.Persons;
 using LanguageExt;
+using LanguageExt.UnsafeValueAccess;
 using Xunit;
 using static LanguageExt.Prelude;
 
@@ -16,7 +17,7 @@ namespace language_ext.kata.tests
             // Filter this list with only defined persons
             var persons = Seq(None, Some(new Person("John", "Doe")), Some(new Person("Mary", "Smith")), None);
 
-            Seq<Person> definedPersons = Seq<Person>();
+            Seq<Person> definedPersons = persons.Filter(option => option.IsSome).Map(option => option.ValueUnsafe());
 
             definedPersons.Should().HaveCount(2);
         }
@@ -28,8 +29,8 @@ namespace language_ext.kata.tests
             // map it to an Upper case function
             // then it must return the string "Ich bin empty" if empty
             var iamAnOption = Option<string>.None;
-            string optionValue = null;
-
+            string optionValue = iamAnOption.Map(s1 => s1.ToUpper()).IfNone("Ich bin empty");
+            
             iamAnOption.IsNone.Should().BeTrue();
             optionValue.Should().Be("Ich bin empty");
         }
@@ -38,7 +39,10 @@ namespace language_ext.kata.tests
         public void FindKaradoc()
         {
             // Find Karadoc in the people List or returns Perceval
-            var foundPersonLastName = "found";
+            var foundPersonLastName = people
+                .Find(person => person.LastName.Equals("Karadoc"))
+                .Map(option => option.LastName)
+                .IfNone("Perceval");
 
             foundPersonLastName.Should().Be("Perceval");
         }
@@ -50,7 +54,9 @@ namespace language_ext.kata.tests
             var firstName = "Rick";
             var lastName = "Sanchez";
 
-            Func<Person> findPersonOrDieTryin = () => null;
+            Func<Person> findPersonOrDieTryin = () => people
+                .Find(person => person.Named($"{firstName} {lastName}"))
+                .Value
 
             findPersonOrDieTryin.Should().Throw<ArgumentException>();
         }
