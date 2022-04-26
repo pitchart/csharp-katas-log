@@ -69,7 +69,7 @@ public class ElectionsTests
         return Verify(results);
     }
 
-    [Fact]
+    [Fact(Skip ="Feature doesn't exist anymore")]
     public void Should_run_with_districts_and_ignore_elector_vote_in_another_district()
     {
         var list = new Dictionary<string, List<string>>
