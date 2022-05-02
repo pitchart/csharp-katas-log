@@ -14,7 +14,7 @@ public class EitherExercises
     {
         // Divide x = 9 by y = 2
         var eitherResult = Divide(9, 2);
-        int result = 0;
+        int result = eitherResult.IfLeft(0);
 
         result.Should().Be(4);
         eitherResult.IsRight.Should().BeTrue();
@@ -26,7 +26,9 @@ public class EitherExercises
     {
         // Divide x = 9 by y = 2 and add z to the result
         int z = 3;
-        int result = 0;
+        int result = Divide(9, 2)
+            .Map(x => x + z)
+            .IfLeft(0);
 
         result.Should().Be(7);
     }
@@ -35,7 +37,7 @@ public class EitherExercises
     public void DivideByZeroIsAlwaysAGoodIdea()
     {
         // Divide x by 0 and get the result
-        Func<Either<Error, int>> call = null;
+        Func<Either<Error, int>> call = ()=> Divide(7,0);
         var result = call.Invoke();
 
         result.IsLeft.Should().BeTrue();
@@ -47,7 +49,7 @@ public class EitherExercises
     {
         // Divide x by 0, on exception returns 0
         int x = 1;
-        int result = -1;
+        int result = Divide(x,0).IfLeft(0);
 
         result.Should().Be(0);
     }

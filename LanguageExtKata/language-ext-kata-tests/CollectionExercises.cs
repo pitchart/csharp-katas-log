@@ -67,7 +67,7 @@ namespace language_ext.kata.tests
         [Fact]
         public void DoAllPeopleHavePets()
         {
-            Func<Person, bool> predicate = p => true;
+            Func<Person, bool> predicate = p => p.IsPetPerson();
             // OR use local functions -> static bool predicate(Person p) => p.IsPetPerson();
             // replace with a method call send to this.people that checks if all people have pets
             var result = people.ForAll(predicate);
