@@ -3,12 +3,20 @@ using FluentAssertions;
 using LanguageExt;
 using LanguageExt.Common;
 using Xunit;
+using Xunit.Abstractions;
 using static LanguageExt.Prelude;
 
 namespace language_ext.kata.tests;
 
 public class EitherExercises
 {
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EitherExercises(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
     [Fact]
     public void GetTheResultOfDivide()
     {
@@ -60,7 +68,12 @@ public class EitherExercises
         // Divide x by 0, log the failure message to the console and get 0
         int x = 1;
 
-        int result = -1;
+        int result = Divide(x, 0)
+            .IfLeft(e =>
+            {
+                _testOutputHelper.WriteLine(e.Message);
+                return 0;
+            });
 
         result.Should().Be(0);
     }
@@ -74,13 +87,23 @@ public class EitherExercises
         // Log your success to the console
         // Get the result or 0 if exception
         int x = 27;
-        int y = 3;
+        int y =3;
 
-        int result = -1;
+        int result = Divide(x,y)
+            .Bind(result=>Divide(result,y))
+            .Bind(result=>Divide(result,y))
+            .BindLeft<Error>(e =>
+            {
+                _testOutputHelper.WriteLine(e.Message);
+                return e;
+            })
+            .IfLeft(0);
 
-        result.Should().Be(1);
+        result.Should().Be(0);
     }
 
     private static Either<Error, int> Divide(int x, int y)
         => y == 0 ? Left(Error.New("Dude, can't divide by 0")) : Right(x / y);
+
+
 }
