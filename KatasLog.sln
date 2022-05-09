@@ -58,6 +58,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShipping", "OrderShipp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShippingTest", "OrderShippingKata\Order_Shipping_Test\OrderShippingTest.csproj", "{A6B18B20-7514-4D99-A742-2E10C2BB4469}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInvoicing", "TestDataBuilders\BookInvoicing\BookInvoicing.csproj", "{8B244D0D-72ED-454A-912B-3B8DA0B5DBC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInvoicing.Tests", "TestDataBuilders\BookInvoicing.Tests\BookInvoicing.Tests.csproj", "{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,5 +184,13 @@ Global
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B244D0D-72ED-454A-912B-3B8DA0B5DBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B244D0D-72ED-454A-912B-3B8DA0B5DBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B244D0D-72ED-454A-912B-3B8DA0B5DBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B244D0D-72ED-454A-912B-3B8DA0B5DBC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
