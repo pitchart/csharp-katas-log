@@ -3,12 +3,13 @@ using BookInvoicing.Domain.Country;
 using BookInvoicing.Purchase;
 using BookInvoicing.Report;
 using BookInvoicing.Tests.Storage;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
 namespace BookInvoicing.Tests
 {
-    public class ReportGeneratorTests
+    public partial class ReportGeneratorTests
     {
         [Fact]
         public void ShouldComputeTotalAmount_WithoutDiscount_WithoutTaxExchange()
@@ -26,10 +27,14 @@ namespace BookInvoicing.Tests
                 .WithCountry(usa)
                 .Build();
 
-            var book = new EducationalBook(
-                "Clean Code", 25, author,
-                Language.English, Category.Computer
-            );
+            EducationalBook book = EducationalBookBuilder
+                .Create()
+                .WithName("Clean Code")
+                .WithPrice(25)
+                .WithAuthor(author)
+                .WithLanguage(Language.English)
+                .WithCategory(Category.Computer)
+                .Build();
 
             var purchasedBook = new PurchasedBook(book, 2);
 
@@ -91,79 +96,54 @@ namespace BookInvoicing.Tests
         {
             MainRepository.Reset();
         }
-
-        public class AuthorBuilder
-        {
-            private string _name = "";
-            private Country _country = CountryBuilder.Usa();
-
-            public static AuthorBuilder Create()
-            {
-                return new AuthorBuilder();
-            }
-
-            public AuthorBuilder WithName(string name)
-            {
-                _name = name;
-                return this;
-            }
-
-            public AuthorBuilder WithCountry(Country country)
-            {
-                _country = country;
-                return this;
-            }
-
-            public Author Build()
-            {
-                return new Author(_name, _country);
-            }
-        }
     }
 
-    public class CountryBuilder
+    public class EducationalBookBuilder
     {
-        private string _name = "";
+        public string _name;
+        private int _price;
+        private Author _author;
+        private Language _language;
+        private Category _category;
 
-        private Currency _currency = Currency.Euro;
-
-        private Language _language = Language.English;
-
-        public static CountryBuilder Create()
+        public static EducationalBookBuilder Create()
         {
-            return new CountryBuilder();
+            return new EducationalBookBuilder();
         }
 
-        public CountryBuilder Named(string name)
+        public EducationalBookBuilder WithName(string name)
         {
             _name = name;
-
             return this;
         }
 
-        public CountryBuilder WithCurrency(Currency currency)
+        public EducationalBookBuilder WithAuthor(Author author)
         {
-            _currency = currency;
-
+            _author = author;
             return this;
         }
 
-        public CountryBuilder Speaking(Language language)
+        public EducationalBookBuilder WithPrice(int price)
+        {
+            _price = price;
+            return this;
+        }
+
+        public EducationalBookBuilder WithLanguage(Language language)
         {
             _language = language;
-
             return this;
         }
 
-        public Country Build()
+        public EducationalBookBuilder WithCategory(Category category)
         {
-            return new Country(_name, _currency, _language);
+            _category = category;
+            return this;
         }
 
-        public static Country Usa()
+        public EducationalBook Build()
         {
-            return new Country("Usa", Currency.UsDollar, Language.English);
+            return new EducationalBook(_name, _price, _author, _language, _category);
         }
     }
-
 }
