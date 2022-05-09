@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using BookInvoicing.Domain.Book;
+﻿using BookInvoicing.Domain.Book;
 using BookInvoicing.Domain.Country;
 using BookInvoicing.Purchase;
 using BookInvoicing.Report;
 using BookInvoicing.Tests.Storage;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BookInvoicing.Tests
@@ -18,15 +18,16 @@ namespace BookInvoicing.Tests
 
             ReportGenerator generator = new ReportGenerator();
 
-            Country usa = CountryBuilder.Create()
-                .WithCurrency(Currency.UsDollar)
-                .Speaking(Language.English)
+            Country usa = CountryBuilder.Usa();
+
+            Author author = AuthorBuilder
+                .Create()
+                .WithName("Uncle Bob")
+                .WithCountry(usa)
                 .Build();
 
             var book = new EducationalBook(
-                "Clean Code", 25, new Author(
-                    "Uncle Bob", usa
-                    ),
+                "Clean Code", 25, author,
                 Language.English, Category.Computer
             );
 
@@ -58,7 +59,7 @@ namespace BookInvoicing.Tests
                         "France", Currency.Euro, Language.French
                         )
                     ),
-                Language.English, new List<Genre> {Genre.Mystery, Genre.AdventureFiction }
+                Language.English, new List<Genre> { Genre.Mystery, Genre.AdventureFiction }
             );
 
             var purchasedBook = new PurchasedBook(book, 3);
@@ -89,6 +90,34 @@ namespace BookInvoicing.Tests
         private void ResetTestsRepository()
         {
             MainRepository.Reset();
+        }
+
+        public class AuthorBuilder
+        {
+            private string _name = "";
+            private Country _country = CountryBuilder.Usa();
+
+            public static AuthorBuilder Create()
+            {
+                return new AuthorBuilder();
+            }
+
+            public AuthorBuilder WithName(string name)
+            {
+                _name = name;
+                return this;
+            }
+
+            public AuthorBuilder WithCountry(Country country)
+            {
+                _country = country;
+                return this;
+            }
+
+            public Author Build()
+            {
+                return new Author(_name, _country);
+            }
         }
     }
 
@@ -129,6 +158,11 @@ namespace BookInvoicing.Tests
         public Country Build()
         {
             return new Country(_name, _currency, _language);
+        }
+
+        public static Country Usa()
+        {
+            return new Country("Usa", Currency.UsDollar, Language.English);
         }
     }
 
