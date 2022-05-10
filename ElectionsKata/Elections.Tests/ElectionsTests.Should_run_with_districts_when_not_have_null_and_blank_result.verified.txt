@@ -1,8 +1,8 @@
 ﻿{
-  Abstention: 0,00%,
-  Blank: 22,22%,
+  Abstention: 44,44%,
+  Blank: 0,00%,
   Jerry: 66,67%,
   Johnny: 33,33%,
   Michel: 0,00%,
-  Null: 22,22%
+  Null: 0,00%
 }
