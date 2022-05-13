@@ -53,6 +53,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 ### Other katas
 - [Approval Kata](ApprovalKata/README.md)
 - [Order Shipping (Tell don't ask) Kata](OrderShippingKata/README.md)
+- [OneOf - Discriminated Unions](OneOf/README.md)
 - [Functional Programming in C# Kata](LanguageExtKata/README.md)
 - [Test && Commit || Revert](TcrKata/README.md) : aka TDD on steroids
 - Other [refactoring katas](https://kata-log.rocks/refactoring)
