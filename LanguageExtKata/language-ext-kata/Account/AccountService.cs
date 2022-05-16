@@ -23,7 +23,8 @@ public class AccountService
 
     public string Register(Guid id)
     {
-        Try<string> result = Try(() => TweetForNewUser(id));
+
+        Try<string> result = FindUser(id).Bind(u => Try(()=>TweetForNewUser(u)) );
 
         return result.IfFail(ex =>
         {
@@ -33,12 +34,8 @@ public class AccountService
         });
     }
 
-    private string TweetForNewUser(Guid id)
+    private string TweetForNewUser(User user)
     {
-        var user = _userService.FindById(id);
-
-        if (user == null) return null;
-
         var accountId = _twitterService.Register(user.Email, user.Name);
 
         if (accountId == null) return null;
@@ -51,9 +48,14 @@ public class AccountService
 
         if (tweetUrl == null) return null;
 
-        _userService.UpdateTwitterAccountId(id, accountId);
-        _businessLogger.LogSuccessRegister(id);
+        _userService.UpdateTwitterAccountId(user.Id, accountId);
+        _businessLogger.LogSuccessRegister(user.Id);
 
         return tweetUrl;
+    }
+
+    private Try<User> FindUser(Guid id)
+    {
+       return Try(()=> _userService.FindById(id));
     }
 }
