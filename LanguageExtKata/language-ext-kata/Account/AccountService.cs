@@ -24,7 +24,9 @@ public class AccountService
     public string Register(Guid id)
     {
 
-        Try<string> result = FindUser(id).Bind(u => Try(()=>TweetForNewUser(u)) );
+        Try<string> result = FindUser(id)
+            .Bind(RegisterAndUpdateAccount)
+            .Bind(u => Try(() => TweetForNewUser(u)));
 
         return result.IfFail(ex =>
         {
@@ -36,10 +38,6 @@ public class AccountService
 
     private string TweetForNewUser(User user)
     {
-        var accountId = _twitterService.Register(user.Email, user.Name);
-
-        if (accountId == null) return null;
-
         var twitterToken = _twitterService.Authenticate(user.Email, user.Password);
 
         if (twitterToken == null) return null;
@@ -48,7 +46,6 @@ public class AccountService
 
         if (tweetUrl == null) return null;
 
-        _userService.UpdateTwitterAccountId(user.Id, accountId);
         _businessLogger.LogSuccessRegister(user.Id);
 
         return tweetUrl;
@@ -56,6 +53,20 @@ public class AccountService
 
     private Try<User> FindUser(Guid id)
     {
-       return Try(()=> _userService.FindById(id));
+        return Try(() => _userService.FindById(id));
+    }
+
+    private Try<User> RegisterAndUpdateAccount(User user)
+    {
+        return Try(() =>
+        {
+            return Some(_twitterService.Register(user.Email, user.Name))
+            .Bind(accountId =>
+            {
+                _userService.UpdateTwitterAccountId(user.Id, accountId);
+                return Some(user);
+            })
+            .IfNone(default(User));
+        });
     }
 }
