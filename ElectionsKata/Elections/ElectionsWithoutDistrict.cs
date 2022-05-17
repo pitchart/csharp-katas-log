@@ -30,11 +30,6 @@ namespace Elections
             _urne.Add(candidate);
         }
 
-        private void VoteForUnknownCandidate(string candidate)
-        {
-            voteByCandidate.Add(candidate, 1);
-        }
-
         private void VoteForExistingCandidate(string candidate)
         {
             voteByCandidate[candidate] += 1;
@@ -68,36 +63,33 @@ namespace Elections
         {
             var results = new Dictionary<string, string>();
             var nbVotes = _urne.Count;
-            var nullVotes = 0;
-            var blankVotes = 0;
+            var nullVotes = _urne.Count(vote => !vote.Equals(string.Empty) && !_officialCandidates.Contains(vote));
+            var blankVotes = _urne.Count(vote => vote.Equals(string.Empty));
             var nbValidVotes = _urne.Count(vote => _officialCandidates.Contains(vote));
-            
+
+            /*
+             * on prend tout les bulletins valide
+             * on groupe par candidat
+             * on les comptes
+             */
             foreach (var vote in _urne)
             {
                 if (voteByCandidate.ContainsKey(vote))
                 {
                     VoteForExistingCandidate(vote);
                 }
-                else
-                {
-                    VoteForUnknownCandidate(vote);
-                }
             }
 
+            /*
+             * on calcule le pourcentage de vote
+             * on formate le pourcentage
+             */
             foreach (var candidateVotes in voteByCandidate)
             {
-                var candidateResult = candidateVotes.Value * 100 / nbValidVotes;
-                if (_officialCandidates.Contains(candidateVotes.Key))
-                {
-                    results[candidateVotes.Key] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
-                }
-                else
-                {
-                    if (candidateVotes.Key == string.Empty)
-                        blankVotes += candidateVotes.Value;
-                    else
-                        nullVotes += candidateVotes.Value;
-                }
+                int nbVote = candidateVotes.Value;
+                var precent = nbVote * 100 / nbValidVotes;
+                string candidateName = candidateVotes.Key;
+                results[candidateName] = string.Format(cultureInfo, "{0:0.00}%", precent);
             }
 
             return (results, nbVotes, nullVotes, blankVotes, nbValidVotes);
