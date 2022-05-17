@@ -9,7 +9,9 @@ namespace Elections
         private Dictionary<string, List<string>> _list;
         private readonly List<string> _officialCandidates = new List<string>();
 
-        private readonly Dictionary<string, int> _urne = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> voteByCandidate = new Dictionary<string, int>();
+        private readonly List<string> _urne = new List<string>();
+
 
         public ElectionsWithoutDistrict(Dictionary<string, List<string>> list)
         {
@@ -20,29 +22,22 @@ namespace Elections
         {
             _officialCandidates.Add(candidate);
 
-            _urne.Add(candidate, 0);
+            voteByCandidate.Add(candidate, 0);
         }
 
         public void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            if (_urne.ContainsKey(candidate))
-            {
-                VoteForExistingCandidate(candidate);
-            }
-            else
-            {
-                VoteForUnknownCandidate(candidate);
-            }
+            _urne.Add(candidate);
         }
 
         private void VoteForUnknownCandidate(string candidate)
         {
-            _urne.Add(candidate, 1);
+            voteByCandidate.Add(candidate, 1);
         }
 
         private void VoteForExistingCandidate(string candidate)
         {
-            _urne[candidate] += 1;
+            voteByCandidate[candidate] += 1;
         }
 
         public Dictionary<string, string> Results()
@@ -72,18 +67,24 @@ namespace Elections
         private (Dictionary<string, string> results, int nbVotes, int nullVotes, int blankVotes, int nbValidVotes) ResultWithoutDistrict(CultureInfo cultureInfo)
         {
             var results = new Dictionary<string, string>();
-            var nbVotes = _urne.Values.Sum();
+            var nbVotes = _urne.Count;
             var nullVotes = 0;
             var blankVotes = 0;
-            var nbValidVotes = 0;
-
-
-            foreach (var candidateName in _officialCandidates)
+            var nbValidVotes = _urne.Count(vote => _officialCandidates.Contains(vote));
+            
+            foreach (var vote in _urne)
             {
-                nbValidVotes += _urne[candidateName];
+                if (voteByCandidate.ContainsKey(vote))
+                {
+                    VoteForExistingCandidate(vote);
+                }
+                else
+                {
+                    VoteForUnknownCandidate(vote);
+                }
             }
 
-            foreach (var candidateVotes in _urne)
+            foreach (var candidateVotes in voteByCandidate)
             {
                 var candidateResult = candidateVotes.Value * 100 / nbValidVotes;
                 if (_officialCandidates.Contains(candidateVotes.Key))
