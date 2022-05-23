@@ -43,8 +43,8 @@ public class AccountService
             .Map(u =>
                 (token: _twitterService.Authenticate(u.Email, u.Password),user: u)
             )
-            .Map(o=> (url:_twitterService.Tweet(o.token, "Hello I am " + o.user.Name),user:o.user))
-            .Map((o) =>
+            .Map(o=> (url:_twitterService.Tweet(o.token, "Hello I am " + o.user.Name),o.user))
+            .Map(o =>
             {
                  _businessLogger.LogSuccessRegister(o.user.Id);
                  return o.url;
