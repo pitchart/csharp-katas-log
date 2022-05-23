@@ -24,9 +24,7 @@ public class AccountService
 
     public string Register(Guid id)
     {
-
         Try<string> result = FindUser(id)
-            .Bind(RegisterAndUpdateAccount)
             .Bind(u => Try(() => TweetForNewUser(u)));
 
         return result.IfFail(ex =>
@@ -40,16 +38,35 @@ public class AccountService
     private string TweetForNewUser(Option<User> user)
     {
         return user
-            .Map(u =>
-                (token: _twitterService.Authenticate(u.Email, u.Password),user: u)
-            )
-            .Map(o=> (url:_twitterService.Tweet(o.token, "Hello I am " + o.user.Name),o.user))
+            .Map(u => (accountId: _twitterService.Register(u.Email, u.Name), user: u))
             .Map(o =>
-            {
-                 _businessLogger.LogSuccessRegister(o.user.Id);
-                 return o.url;
-            })
+             {
+               _userService.UpdateTwitterAccountId(o.user.Id, o.accountId);
+               return o.user;
+             })
+            .Map(Authenticate())
+            .Map(Tweet())
+            .Map(Log())
             .IfNone(default(string));
+    }
+
+    private Func<(string url, User user), string> Log()
+    {
+        return o =>
+        {
+            _businessLogger.LogSuccessRegister(o.user.Id);
+            return o.url;
+        };
+    }
+
+    private Func<(string token, User user), (string url, User user)> Tweet()
+    {
+        return o => (url: _twitterService.Tweet(o.token, "Hello I am " + o.user.Name), o.user);
+    }
+
+    private Func<User, (string token, User user)> Authenticate()
+    {
+        return u => (token: _twitterService.Authenticate(u.Email, u.Password), user: u);
     }
 
     private Try<User> FindUser(Guid id)
@@ -57,16 +74,4 @@ public class AccountService
         return Try(() => _userService.FindById(id));
     }
 
-    private Try<Option<User>> RegisterAndUpdateAccount(User user)
-    {
-        return Try(() =>
-        {
-            return Some(_twitterService.Register(user.Email, user.Name))
-            .Bind(accountId =>
-            {
-                _userService.UpdateTwitterAccountId(user.Id, accountId);
-                return Some(user);
-            });
-        });
-    }
 }
