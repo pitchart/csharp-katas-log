@@ -1,5 +1,6 @@
 ﻿using System;
 using LanguageExt;
+using System.ComponentModel.DataAnnotations;
 using static LanguageExt.Prelude;
 
 
@@ -36,19 +37,19 @@ public class AccountService
         });
     }
 
-    private string TweetForNewUser(User user)
+    private string TweetForNewUser(Option<User> user)
     {
-        var twitterToken = _twitterService.Authenticate(user.Email, user.Password);
-
-        if (twitterToken == null) return null;
-
-        var tweetUrl = _twitterService.Tweet(twitterToken, "Hello I am " + user.Name);
-
-        if (tweetUrl == null) return null;
-
-        _businessLogger.LogSuccessRegister(user.Id);
-
-        return tweetUrl;
+        return user
+            .Map(u =>
+                (token: _twitterService.Authenticate(u.Email, u.Password),user: u)
+            )
+            .Map(o=> (url:_twitterService.Tweet(o.token, "Hello I am " + o.user.Name),user:o.user))
+            .Map((o) =>
+            {
+                 _businessLogger.LogSuccessRegister(o.user.Id);
+                 return o.url;
+            })
+            .IfNone(default(string));
     }
 
     private Try<User> FindUser(Guid id)
@@ -56,7 +57,7 @@ public class AccountService
         return Try(() => _userService.FindById(id));
     }
 
-    private Try<User> RegisterAndUpdateAccount(User user)
+    private Try<Option<User>> RegisterAndUpdateAccount(User user)
     {
         return Try(() =>
         {
@@ -65,8 +66,7 @@ public class AccountService
             {
                 _userService.UpdateTwitterAccountId(user.Id, accountId);
                 return Some(user);
-            })
-            .IfNone(default(User));
+            });
         });
     }
 }
