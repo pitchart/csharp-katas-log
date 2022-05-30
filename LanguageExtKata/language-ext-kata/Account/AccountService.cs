@@ -24,30 +24,21 @@ public class AccountService
 
     public string Register(Guid id)
     {
-        Try<string> result = FindUser(id)
-            .Bind(u => Try(() => TweetForNewUser(u)));
-
-        return result.IfFail(ex =>
-        {
-            _businessLogger.LogFailureRegister(id, ex);
-
-            return null;
-        });
-    }
-
-    private string TweetForNewUser(Option<User> user)
-    {
-        return user
+        return FindUser(id)
             .Map(u => (accountId: _twitterService.Register(u.Email, u.Name), user: u))
             .Map(o =>
-             {
-               _userService.UpdateTwitterAccountId(o.user.Id, o.accountId);
-               return o.user;
-             })
+            {
+                _userService.UpdateTwitterAccountId(o.user.Id, o.accountId);
+                return o.user;
+            })
             .Map(Authenticate())
             .Map(Tweet())
             .Map(Log())
-            .IfNone(default(string));
+            .IfFail(ex =>
+                {
+                    _businessLogger.LogFailureRegister(id, ex);
+                    return null;
+                });
     }
 
     private Func<(string url, User user), string> Log()
