@@ -1,6 +1,5 @@
-﻿using System;
-using LanguageExt;
-using System.ComponentModel.DataAnnotations;
+﻿using LanguageExt;
+using System;
 using static LanguageExt.Prelude;
 
 
@@ -25,15 +24,11 @@ public class AccountService
     public string Register(Guid id)
     {
         return FindUser(id)
-            .Map(u => (accountId: _twitterService.Register(u.Email, u.Name), user: u))
-            .Map(o =>
-            {
-                _userService.UpdateTwitterAccountId(o.user.Id, o.accountId);
-                return o.user;
-            })
-            .Map(Authenticate())
-            .Map(Tweet())
-            .Map(Log())
+            .Map(Register)
+            .Map(UpdateTwitterAccount)
+            .Map(Authenticate)
+            .Map(Tweet)
+            .Map(LogSuccess)
             .IfFail(ex =>
                 {
                     _businessLogger.LogFailureRegister(id, ex);
@@ -41,24 +36,25 @@ public class AccountService
                 });
     }
 
-    private Func<(string url, User user), string> Log()
+    private Context UpdateTwitterAccount(Context o)
     {
-        return o =>
-        {
-            _businessLogger.LogSuccessRegister(o.user.Id);
-            return o.url;
-        };
+        _userService.UpdateTwitterAccountId(o.user.Id, o.accountId);
+        return o;
     }
 
-    private Func<(string token, User user), (string url, User user)> Tweet()
+    private Context Register(User u) => new Context(_twitterService.Register(u.Email, u.Name), u, null, null);
+
+    private string LogSuccess(Context context)
     {
-        return o => (url: _twitterService.Tweet(o.token, "Hello I am " + o.user.Name), o.user);
+        _businessLogger.LogSuccessRegister(context.user.Id);
+        return context.url;
     }
 
-    private Func<User, (string token, User user)> Authenticate()
-    {
-        return u => (token: _twitterService.Authenticate(u.Email, u.Password), user: u);
-    }
+    private Context Tweet(Context context) => new(context.accountId, context.user,
+        context.token, _twitterService.Tweet(context.token, "Hello I am " + context.user.Name));
+
+    private Context Authenticate(Context context) => new(context.accountId, context.user,
+        _twitterService.Authenticate(context.user.Email, context.user.Password), null);
 
     private Try<User> FindUser(Guid id)
     {
