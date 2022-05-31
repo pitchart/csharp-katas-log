@@ -6,6 +6,8 @@ using BookInvoicing.Tests.Storage;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using static BookInvoicing.Tests.ReportGeneratorTests;
+using static BookInvoicing.Tests.EducationalBookBuilder;
 
 namespace BookInvoicing.Tests
 {
@@ -19,21 +21,8 @@ namespace BookInvoicing.Tests
 
             ReportGenerator generator = new ReportGenerator();
 
-            Country usa = CountryBuilder.Usa();
-
-            Author author = AuthorBuilder
-                .Create()
-                .WithName("Uncle Bob")
-                .WithCountry(usa)
-                .Build();
-
-            EducationalBook book = EducationalBookBuilder
-                .Create()
-                .WithName("Clean Code")
+            EducationalBook book = AnEducationalBook()
                 .WithPrice(25)
-                .WithAuthor(author)
-                .WithLanguage(Language.English)
-                .WithCategory(Category.Computer)
                 .Build();
 
             var purchasedBook = new PurchasedBook(book, 2);
@@ -100,27 +89,11 @@ namespace BookInvoicing.Tests
 
     public class EducationalBookBuilder
     {
-        public string _name;
         private int _price;
-        private Author _author;
-        private Language _language;
-        private Category _category;
 
-        public static EducationalBookBuilder Create()
+        public static EducationalBookBuilder AnEducationalBook()
         {
             return new EducationalBookBuilder();
-        }
-
-        public EducationalBookBuilder WithName(string name)
-        {
-            _name = name;
-            return this;
-        }
-
-        public EducationalBookBuilder WithAuthor(Author author)
-        {
-            _author = author;
-            return this;
         }
 
         public EducationalBookBuilder WithPrice(int price)
@@ -129,21 +102,9 @@ namespace BookInvoicing.Tests
             return this;
         }
 
-        public EducationalBookBuilder WithLanguage(Language language)
-        {
-            _language = language;
-            return this;
-        }
-
-        public EducationalBookBuilder WithCategory(Category category)
-        {
-            _category = category;
-            return this;
-        }
-
         public EducationalBook Build()
         {
-            return new EducationalBook(_name, _price, _author, _language, _category);
+            return new EducationalBook("Test  Book", _price, AuthorBuilder.Create().Build(), Language.English, Category.Computer);
         }
     }
 }
