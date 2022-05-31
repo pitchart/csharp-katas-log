@@ -27,7 +27,11 @@ namespace BookInvoicing.Tests
 
             var purchasedBook = new PurchasedBook(book, 2);
 
-            Invoice invoice = new Invoice("John Doe", new Country("USA", Currency.UsDollar, Language.English));
+            Invoice invoice = InvoiceBuilder
+                .AnInvoice()
+                .InUSA()
+                .Build();
+                
             invoice.AddPurchasedBooks(new List<PurchasedBook> { purchasedBook });
 
             // Act
@@ -84,6 +88,35 @@ namespace BookInvoicing.Tests
         private void ResetTestsRepository()
         {
             MainRepository.Reset();
+        }
+    }
+
+    internal class InvoiceBuilder
+    {
+        private string _customerName= "John Doe";
+        private Country _country;
+
+        internal static InvoiceBuilder AnInvoice()
+        {
+            return new InvoiceBuilder();
+        }
+
+        internal Invoice Build()
+        {
+            return new Invoice(_customerName,_country);
+        }
+
+        internal InvoiceBuilder InUSA()
+        {
+             _country= CountryBuilder.Usa();
+
+           return this;
+        }
+
+        internal InvoiceBuilder PurchasedBy(string customerName)
+        {
+            _customerName = customerName;
+            return this;
         }
     }
 
