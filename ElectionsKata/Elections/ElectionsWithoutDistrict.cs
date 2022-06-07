@@ -52,7 +52,7 @@ namespace Elections
         private (Dictionary<string, string> results, int nbVotes, int nullVotes, int blankVotes, int nbValidVotes) ResultWithoutDistrict(CultureInfo cultureInfo)
         {
             var nbVotes = _urne.Count;
-            var nullVotes = _urne.Count(vote => !vote.Equals(string.Empty) && !_officialCandidates.Contains(vote));
+            var nullVotes = _urne.Count(IsNull);
             var blankVotes = _urne.Count(vote => vote.Equals(string.Empty));
             var nbValidVotes = _urne.Count(vote => _officialCandidates.Contains(vote));
 
@@ -64,6 +64,11 @@ namespace Elections
             });
 
             return (results, nbVotes, nullVotes, blankVotes, nbValidVotes);
+        }
+
+        private bool IsNull(string vote)
+        {
+            return !vote.Equals(string.Empty) && !_officialCandidates.Contains(vote);
         }
     }
 }
