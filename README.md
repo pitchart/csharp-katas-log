@@ -16,6 +16,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 - [No primitive constraint](docs/contraints/NoPrimitive.md)
 - [Tell! Don't Ask constraint](docs/contraints/TellDontAsk.md)
 - [CQS constraint](docs/contraints/CQS.md)
+- [Xtrem TDD - Money Kata](XtremTDDMoneyKata/README.md)
 
 ### Refactoring fresh code
 - Continue design katas on 2 or more sessions
@@ -40,7 +41,6 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 - Anagrams
 - [Cyclomatic Complexity One constraint](docs/contraints/CyclomaticComplexityOne.md)
 - [Object Calisthenics constraint](docs/contraints/ObjectCalisthenics.md)
-
 
 ### Legacy code refactoring katas
 
