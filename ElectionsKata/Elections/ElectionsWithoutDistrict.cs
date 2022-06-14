@@ -27,27 +27,24 @@ namespace Elections
 
         public Dictionary<string, string> Results()
         {
-            var cultureInfo = new CultureInfo("fr-fr");
-
             var nbVotes = _urne.Count;
             var nbValidVotes = _urne.Count(IsValid);
 
             var results = _officialCandidates.ToDictionary(candidat => candidat, candidat =>
             {
-                var nbVote = _urne.Count(vote => vote.Equals(candidat));
-                var percent = nbVote * 100 / nbValidVotes;
-                return FormatResult(cultureInfo, percent);
+                var percent = ComputePercentage(nbValidVotes, vote => vote.Equals(candidat));
+                return FormatResult(percent);
             });
 
             var blankResult = ComputePercentage(nbVotes, IsBlank);
-            results["Blank"] = FormatResult(cultureInfo, blankResult);
+            results["Blank"] = FormatResult(blankResult);
 
             var nullResult = ComputePercentage(nbVotes, IsNull);
-            results["Null"] = FormatResult(cultureInfo, nullResult);
+            results["Null"] = FormatResult(nullResult);
 
             var nbElectors = _electorsByDistrict.Sum(kv => kv.Value.Count);
             var abstentionResult = 100 - (float)nbVotes * 100 / nbElectors;
-            results["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", abstentionResult);
+            results["Abstention"] = FormatResult(abstentionResult);
 
             return results;
         }
@@ -57,9 +54,9 @@ namespace Elections
             return (float)_urne.Count(filter) * 100 / nbVotes;
         }
 
-        private static string FormatResult(CultureInfo cultureInfo, float result)
+        private static string FormatResult(float result)
         {
-            return string.Format(cultureInfo, "{0:0.00}%", result);
+            return string.Format(new CultureInfo("fr-fr"), "{0:0.00}%", result);
         }
 
         private bool IsValid(string vote)
