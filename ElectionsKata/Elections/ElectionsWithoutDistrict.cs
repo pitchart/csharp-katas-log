@@ -32,14 +32,14 @@ namespace Elections
 
             var results = _officialCandidates.ToDictionary(candidat => candidat, candidat =>
             {
-                var percent = ComputePercentage(nbValidVotes, vote => vote.Equals(candidat));
+                var percent = ComputePercentage(vote => vote.Equals(candidat), nbValidVotes);
                 return FormatResult(percent);
             });
 
-            var blankResult = ComputePercentage(nbVotes, IsBlank);
+            var blankResult = ComputePercentage(IsBlank, nbVotes);
             results["Blank"] = FormatResult(blankResult);
 
-            var nullResult = ComputePercentage(nbVotes, IsNull);
+            var nullResult = ComputePercentage(IsNull, nbVotes);
             results["Null"] = FormatResult(nullResult);
 
             var nbElectors = _electorsByDistrict.Sum(kv => kv.Value.Count);
@@ -49,7 +49,7 @@ namespace Elections
             return results;
         }
 
-        private float ComputePercentage(int nbVotes, Func<string, bool> filter)
+        private float ComputePercentage(Func<string, bool> filter, int nbVotes)
         {
             return (float)_urne.Count(filter) * 100 / nbVotes;
         }
