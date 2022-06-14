@@ -46,6 +46,7 @@ This repository contains kata starter projects to learn TDD toward refactoring l
 
 - [Sing A Song](SingASongKata/README.md)
 - [Task List](TaskListKata/README.md)
+- [Supermarket Receipt](SupermarketReceipt-Refactoring-Kata-main/README.md)
 - Gilded Rose
 - Race Car Katas
 - Ugly trivia game
