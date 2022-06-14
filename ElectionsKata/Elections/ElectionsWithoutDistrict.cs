@@ -30,11 +30,10 @@ namespace Elections
             var nbVotes = _urne.Count;
             var nbValidVotes = _urne.Count(IsValid);
 
-            var results = _officialCandidates.ToDictionary(candidat => candidat, candidat =>
-            {
-                var percent = ComputePercentage(vote => vote.Equals(candidat), nbValidVotes);
-                return FormatResult(percent);
-            });
+            var results =_officialCandidates
+                .ToDictionary(candidate => candidate, candidate => (float)_urne.Count(vote => vote.Equals(candidate)))
+                .ToDictionary(kv => kv.Key, kv => kv.Value * 100 / nbValidVotes)
+                .ToDictionary(kv => kv.Key, kv => FormatResult(kv.Value));
 
             var blankResult = ComputePercentage(IsBlank, nbVotes);
             results["Blank"] = FormatResult(blankResult);
