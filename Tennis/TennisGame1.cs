@@ -1,5 +1,11 @@
 namespace Tennis
 {
+    
+    //TODO:
+    // - Rationnaliser le lien entre le score et le joueur (DataClumps)
+    // - Multiple responsabilités de score dans la méthode GetScore qui renvoie et le score actuel et le résultat du jeu
+    // - Refactoriser le switch des égalités
+    // - Expliciter et faire ressortir des méthodes pour les cas des avantages et du jeu courant
     class TennisGame1 : ITennisGame
     {
         private int m_score1 = 0;
@@ -25,25 +31,15 @@ namespace Tennis
         {
             string score = "";
             var tempScore = 0;
-            if (m_score1 == m_score2)
-            {
-                switch (m_score1)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
 
-                }
+            var isScoreEquality = m_score1 == m_score2;
+            
+            if (isScoreEquality)
+            {
+                score = HandleEqualityCase();
             }
+            
+            //Cas des avantages
             else if (m_score1 >= 4 || m_score2 >= 4)
             {
                 var minusResult = m_score1 - m_score2;
@@ -52,6 +48,7 @@ namespace Tennis
                 else if (minusResult >= 2) score = "Win for player1";
                 else score = "Win for player2";
             }
+            //Jeu courant (inégalité)
             else
             {
                 for (var i = 1; i < 3; i++)
@@ -76,6 +73,17 @@ namespace Tennis
                 }
             }
             return score;
+        }
+
+        private string HandleEqualityCase()
+        {
+            return m_score1 switch
+            {
+                0 => "Love-All",
+                1 => "Fifteen-All",
+                2 => "Thirty-All",
+                _ => "Deuce"
+            };
         }
     }
 }
