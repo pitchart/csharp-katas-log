@@ -31,9 +31,8 @@ namespace Elections
             var nbValidVotes = _urne.Count(IsValid);
 
             var results =_officialCandidates
-                .ToDictionary(candidate => candidate, candidate => (float)_urne.Count(vote => vote.Equals(candidate)))
-                .ToDictionary(kv => kv.Key, kv => kv.Value * 100 / nbValidVotes)
-                .ToDictionary(kv => kv.Key, kv => FormatResult(kv.Value));
+                .Map(candidate => (candidate, ComputePercentage(vote => vote.Equals(candidate), nbValidVotes)))
+                .ToDictionary(kv => kv.Item1, kv => FormatResult(kv.Item2));
 
             var blankResult = ComputePercentage(IsBlank, nbVotes);
             results["Blank"] = FormatResult(blankResult);
@@ -58,19 +57,10 @@ namespace Elections
             return string.Format(new CultureInfo("fr-fr"), "{0:0.00}%", result);
         }
 
-        private bool IsValid(string vote)
-        {
-            return _officialCandidates.Contains(vote);
-        }
+        private bool IsValid(string vote) => _officialCandidates.Contains(vote);
 
-        private static bool IsBlank(string vote)
-        {
-            return vote.Equals(string.Empty);
-        }
+        private static bool IsBlank(string vote) => vote.Equals(string.Empty);
 
-        private bool IsNull(string vote)
-        {
-            return !vote.Equals(string.Empty) && !_officialCandidates.Contains(vote);
-        }
+        private bool IsNull(string vote) => !IsBlank(vote) && !IsValid(vote);
     }
 }
