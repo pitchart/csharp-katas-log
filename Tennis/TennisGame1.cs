@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     
@@ -40,38 +42,39 @@ namespace Tennis
             }
             
             //Cas des avantages
-            else if (m_score1 >= 4 || m_score2 >= 4)
-            {
-                var minusResult = m_score1 - m_score2;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
-            }
-            //Jeu courant (inégalité)
+            
+            
+            
             else
             {
-                for (var i = 1; i < 3; i++)
+                var isAdvantage = m_score1 >= 4 || m_score2 >= 4;
+                
+                if (isAdvantage)
                 {
-                    if (i == 1) tempScore = m_score1;
-                    else { score += "-"; tempScore = m_score2; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
+                    score = GetAdvantageOrWinScore();
+                }
+                //Jeu courant (inégalité)
+                else
+                {
+                    score = $"{(ScoreLabel) m_score1}-{(ScoreLabel) m_score2}";
                 }
             }
+
+            return score;
+        }
+        
+        private string GetAdvantageOrWinScore()
+        {
+            string score;
+            var minusResult = m_score1 - m_score2;
+            score = minusResult switch
+            {
+                1 => "Advantage player1",
+                -1 => "Advantage player2",
+                >= 2 => "Win for player1",
+                _ => "Win for player2"
+            };
+
             return score;
         }
 
@@ -86,5 +89,6 @@ namespace Tennis
             };
         }
     }
+
 }
 
