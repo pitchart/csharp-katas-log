@@ -1,5 +1,3 @@
-using System;
-
 namespace Tennis
 {
     
@@ -32,7 +30,6 @@ namespace Tennis
         public string GetScore()
         {
             string score = "";
-            var tempScore = 0;
 
             var isScoreEquality = m_score1 == m_score2;
             
@@ -40,27 +37,26 @@ namespace Tennis
             {
                 score = HandleEqualityCase();
             }
-            
-            //Cas des avantages
-            
-            
-            
             else
             {
-                var isAdvantage = m_score1 >= 4 || m_score2 >= 4;
                 
-                if (isAdvantage)
+                if (IsAdvantage())
                 {
                     score = GetAdvantageOrWinScore();
                 }
                 //Jeu courant (inégalité)
                 else
                 {
-                    score = GetScoreLabel(m_score1) + "-" + GetScoreLabel(m_score2);
+                    score = $"{(ScoreLabel)m_score1}-{(ScoreLabel)m_score2}";
                 }
             }
 
             return score;
+        }
+
+        private bool IsAdvantage()
+        {
+            return m_score1 >= 4 || m_score2 >= 4;
         }
 
         private string GetAdvantageOrWinScore()
@@ -89,6 +85,5 @@ namespace Tennis
             };
         }
     }
-
 }
 
