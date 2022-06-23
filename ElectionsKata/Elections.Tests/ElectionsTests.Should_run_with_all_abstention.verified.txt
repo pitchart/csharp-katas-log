@@ -1,0 +1,8 @@
+﻿{
+  Abstention: 100,00%,
+  Blank: NaN%,
+  Jerry: NaN%,
+  Johnny: NaN%,
+  Michel: NaN%,
+  Null: NaN%
+}
