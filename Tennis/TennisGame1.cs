@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     
@@ -40,38 +42,63 @@ namespace Tennis
             }
             
             //Cas des avantages
-            else if (m_score1 >= 4 || m_score2 >= 4)
-            {
-                var minusResult = m_score1 - m_score2;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
-            }
-            //Jeu courant (inégalité)
+            
+            
+            
             else
             {
-                for (var i = 1; i < 3; i++)
+                var isAdvantage = m_score1 >= 4 || m_score2 >= 4;
+                
+                if (isAdvantage)
                 {
-                    if (i == 1) tempScore = m_score1;
-                    else { score += "-"; tempScore = m_score2; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
+                    score = GetAdvantageOrWinScore();
+                }
+                //Jeu courant (inégalité)
+                else
+                {
+                    score = GetScoreLabel(m_score1) + "-" + GetScoreLabel(m_score2);
+
+                    // for (var i = 1; i < 3; i++)
+                    // {
+                    //     if (i == 1) tempScore = m_score1;
+                    //     else
+                    //     {
+                    //         score += "-";
+                    //         tempScore = m_score2;
+                    //     }
+                    //
+                    //     score = GetScoreLabel(tempScore);
+                    // }
                 }
             }
+
+            return score;
+        }
+
+        private static string GetScoreLabel(int tempScore)
+        {
+            return tempScore switch
+            {
+                0 => "Love",
+                1 => "Fifteen",
+                2 => "Thirty",
+                3 => "Forty",
+                _ => throw new ArgumentException($"{nameof(tempScore)} must be between 0 and 3")
+            };
+        }
+
+        private string GetAdvantageOrWinScore()
+        {
+            string score;
+            var minusResult = m_score1 - m_score2;
+            score = minusResult switch
+            {
+                1 => "Advantage player1",
+                -1 => "Advantage player2",
+                >= 2 => "Win for player1",
+                _ => "Win for player2"
+            };
+
             return score;
         }
 
