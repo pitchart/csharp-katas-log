@@ -56,13 +56,13 @@ namespace Tennis
                 //Jeu courant (inégalité)
                 else
                 {
-                    score = $"{(ScoreLabel) m_score1}-{(ScoreLabel) m_score2}";
+                    score = GetScoreLabel(m_score1) + "-" + GetScoreLabel(m_score2);
                 }
             }
 
             return score;
         }
-        
+
         private string GetAdvantageOrWinScore()
         {
             string score;
