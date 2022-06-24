@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Xunit;
+using Newtonsoft.Json;
 
 namespace Elections.Tests;
 
@@ -8,18 +7,21 @@ public class ElectionsTests
 {
     public ElectionsTests()
     {
-        VerifierSettings..ModifySerialization(settings =>
-            settings.AddExtraSettings(serializerSettings =>
-                serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
+        VerifierSettings.AddExtraSettings(serializerSettings =>
+                serializerSettings.DefaultValueHandling = DefaultValueHandling.Include);
     }
+    
     [Fact]
     public Task Should_run_without_districts()
         {
             var list = new Dictionary<string, List<string>>
             {
-                ["District 1"] = new List<string> {"Bob", "Anna", "Jess", "July"},
-                ["District 2"] = new List<string> {"Jerry", "Simon"},
-                ["District 3"] = new List<string> {"Johnny", "Matt", "Carole"}
+                ["District 1"] = new()
+                    {"Bob", "Anna", "Jess", "July"},
+                ["District 2"] = new()
+                    {"Jerry", "Simon"},
+                ["District 3"] = new()
+                    {"Johnny", "Matt", "Carole"}
             };
 
             var elections = new Elections(list, false);
@@ -43,13 +45,16 @@ public class ElectionsTests
         }
 
         [Fact]
-        public void Should_run_with_districts()
+        public Task Should_run_with_districts()
         {
             var list = new Dictionary<string, List<string>>
             {
-                ["District 1"] = new List<string> {"Bob", "Anna", "Jess", "July"},
-                ["District 2"] = new List<string> {"Jerry", "Simon"},
-                ["District 3"] = new List<string> {"Johnny", "Matt", "Carole"}
+                ["District 1"] = new()
+                    {"Bob", "Anna", "Jess", "July"},
+                ["District 2"] = new()
+                    {"Jerry", "Simon"},
+                ["District 3"] = new()
+                    {"Johnny", "Matt", "Carole"}
             };
             var elections = new Elections(list, true);
             elections.AddCandidate("Michel");
@@ -69,5 +74,6 @@ public class ElectionsTests
             var results = elections.Results();
 
             // Add approval tests here
+            return Verify(results);
         }
 }
