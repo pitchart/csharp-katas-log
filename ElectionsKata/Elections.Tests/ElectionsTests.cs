@@ -3,10 +3,17 @@ using Xunit;
 
 namespace Elections.Tests;
 
+[UsesVerify]
 public class ElectionsTests
 {
+    public ElectionsTests()
+    {
+        VerifierSettings..ModifySerialization(settings =>
+            settings.AddExtraSettings(serializerSettings =>
+                serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
+    }
     [Fact]
-    public void Should_run_without_districts()
+    public Task Should_run_without_districts()
         {
             var list = new Dictionary<string, List<string>>
             {
@@ -31,9 +38,8 @@ public class ElectionsTests
 
             var results = elections.Results();
 
-
             // Add approval tests here
-
+            return Verify(results);
         }
 
         [Fact]
