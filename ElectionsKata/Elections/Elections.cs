@@ -5,15 +5,15 @@ namespace Elections;
 public class Elections
 {
     private readonly List<string> _candidates = new List<string>();
-    private readonly Dictionary<string, List<string>> _list;
+    private readonly Dictionary<string, List<string>> _electorList;
     private readonly List<string> _officialCandidates = new List<string>();
     private readonly Dictionary<string, List<int>> _votesWithDistricts;
     private readonly List<int> _votesWithoutDistricts = new List<int>();
     private readonly bool _withDistrict;
 
-    public Elections(Dictionary<string, List<string>> list, bool withDistrict)
+    public Elections(Dictionary<string, List<string>> electorList, bool withDistrict)
     {
-        _list = list;
+        _electorList = electorList;
         _withDistrict = withDistrict;
 
         _votesWithDistricts = new Dictionary<string, List<int>>
@@ -24,7 +24,7 @@ public class Elections
         };
     }
 
-    public void AddCandidate(string candidate)
+    public void AddOfficialCandidate(string candidate)
     {
         _officialCandidates.Add(candidate);
         _candidates.Add(candidate);
@@ -51,7 +51,8 @@ public class Elections
         }
         else
         {
-            if (!_votesWithDistricts.ContainsKey(electorDistrict))
+            bool districtDoesNotExist = !_votesWithDistricts.ContainsKey(electorDistrict);
+            if (districtDoesNotExist)
                 return;
             var districtVotes = _votesWithDistricts[electorDistrict];
             if (_candidates.Contains(candidate))
@@ -165,7 +166,7 @@ public class Elections
         var nullResult = (float) nullVotes * 100 / nbVotes;
         results["Null"] = string.Format(cultureInfo, "{0:0.00}%", nullResult);
 
-        var nbElectors = _list.Sum(kv => kv.Value.Count);
+        var nbElectors = _electorList.Sum(kv => kv.Value.Count);
         var abstentionResult = 100 - (float) nbVotes * 100 / nbElectors;
         results["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", abstentionResult);
 

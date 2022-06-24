@@ -25,9 +25,9 @@ public class ElectionsTests
             };
 
             var elections = new Elections(list, false);
-            elections.AddCandidate("Michel");
-            elections.AddCandidate("Jerry");
-            elections.AddCandidate("Johnny");
+            elections.AddOfficialCandidate("Michel");
+            elections.AddOfficialCandidate("Jerry");
+            elections.AddOfficialCandidate("Johnny");
 
             elections.VoteFor("Bob", "Jerry", "District 1");
             elections.VoteFor("Jerry", "Jerry", "District 2");
@@ -57,9 +57,9 @@ public class ElectionsTests
                     {"Johnny", "Matt", "Carole"}
             };
             var elections = new Elections(list, true);
-            elections.AddCandidate("Michel");
-            elections.AddCandidate("Jerry");
-            elections.AddCandidate("Johnny");
+            elections.AddOfficialCandidate("Michel");
+            elections.AddOfficialCandidate("Jerry");
+            elections.AddOfficialCandidate("Johnny");
 
             elections.VoteFor("Bob", "Jerry", "District 1");
             elections.VoteFor("Jerry", "Jerry", "District 2");
