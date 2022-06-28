@@ -48,7 +48,7 @@ namespace Elections.Tests
         }
 
         [Fact]
-        public void Abstention_should_be_33_when_third_does_not_vote()
+        public void Abstention_should_be_33_when_one_third_of_electoral_list_does_not_vote()
         {
             _elections.VoteFor("Jerry", "Michel", "District 1");
             _elections.VoteFor("Simon", "Michel", "District 1");
@@ -57,5 +57,28 @@ namespace Elections.Tests
 
             Assert.Equal("33,33%", results["Abstention"]);
         }
+
+        [Fact]
+        public void Blank_should_be_50_when_one_of_the_two_votes_is_empty_string()
+        {
+            _elections.VoteFor("Jerry", "Michel", "District 1");
+            _elections.VoteFor("Simon", "", "District 1");
+
+            var results = _elections.Results();
+
+            Assert.Equal("50,00%", results["Blank"]);
+        }
+
+        [Fact]
+        public void Blank_should_be_0_when_the_two_votes_are_not_an_empty_string()
+        {
+            _elections.VoteFor("Jerry", "Michel", "District 1");
+            _elections.VoteFor("Simon", "Michel", "District 1");
+
+            var results = _elections.Results();
+
+            Assert.Equal("0,00%", results["Blank"]);
+        }
+
     }
 }
