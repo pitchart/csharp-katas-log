@@ -76,7 +76,6 @@ namespace Elections
             var nullVotes = 0;
             var blankVotes = 0;
             var nbValidVotes = 0;
-            var cultureInfo = new CultureInfo("fr-fr");
 
             if (!_withDistrict)
             {
@@ -94,7 +93,7 @@ namespace Elections
 
                     if (_officialCandidates.Contains(candidate))
                     {
-                        results[candidate] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
+                        results[candidate] = FormatResult(candidateResult);
                     }
                     else
                     {
@@ -158,23 +157,28 @@ namespace Elections
 
                 for (var i = 0; i < officialCandidatesResult.Count; i++)
                 {
-                    var ratioCandidate = (float) officialCandidatesResult[_candidates[i]] /
+                    var ratioCandidate = (float)officialCandidatesResult[_candidates[i]] /
                         officialCandidatesResult.Count * 100;
-                    results[_candidates[i]] = string.Format(cultureInfo, "{0:0.00}%", ratioCandidate);
+                    results[_candidates[i]] = FormatResult(ratioCandidate);
                 }
             }
 
             var blankResult = (float) blankVotes * 100 / nbVotes;
-            results["Blank"] = string.Format(cultureInfo, "{0:0.00}%", blankResult);
+            results["Blank"] = FormatResult(blankResult);
 
             var nullResult = (float) nullVotes * 100 / nbVotes;
-            results["Null"] = string.Format(cultureInfo, "{0:0.00}%", nullResult);
+            results["Null"] = FormatResult(nullResult);
 
             var nbElectors = _list.Sum(kv => kv.Value.Count);
             var abstentionResult = 100 - (float) nbVotes * 100 / nbElectors;
-            results["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", abstentionResult);
+            results["Abstention"] = FormatResult(abstentionResult);
 
             return results;
+        }
+
+        private static string FormatResult(float resultToFormat)
+        {
+            return string.Format(new CultureInfo("fr-fr"), "{0:0.00}%", resultToFormat);
         }
     }
 }
