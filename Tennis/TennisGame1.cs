@@ -79,9 +79,14 @@ namespace Tennis
 
         private bool IsWin()
         {
-            var minusResult = m_score1 - m_score2;
-            return (m_score1 >= MinScoreToWin || m_score2 >= MinScoreToWin) && Math.Abs(minusResult) >= 2;
+            return (PlayerOneHasTheMinimumScoreToWin() || PlayerTwoHasTheMinimumScoreToWin()) && IsPointDifferenceReached();
         }
+
+        private bool IsPointDifferenceReached() => Math.Abs(m_score1 - m_score2) >= 2;
+
+        private bool PlayerTwoHasTheMinimumScoreToWin() => m_score2 >= MinScoreToWin;
+
+        private bool PlayerOneHasTheMinimumScoreToWin() => m_score1 >= MinScoreToWin;
 
         private string HandleAdvantage()
         {
