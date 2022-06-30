@@ -25,9 +25,9 @@ public class ElectionsTests
         elections.VoteFor("Jerry", "Jerry", "District 2");
         elections.VoteFor("Anna", "Johnny", "District 1");
         elections.VoteFor("Johnny", "Johnny", "District 3");
-        elections.VoteFor("Matt", "Donald", "District 3");
-        elections.VoteFor("Jess", "Joe", "District 1");
-        elections.VoteFor("Simon", "", "District 2");
+        elections.VoteFor("Matt", "NotCandidate", "District 3");
+        elections.VoteFor("Jess", "NotCandidate", "District 1");
+        elections.VoteFor("Simon", "NotCandidate", "District 2");
         elections.VoteFor("Carole", "", "District 3");
 
         var results = elections.Results();
@@ -55,10 +55,10 @@ public class ElectionsTests
         elections.VoteFor("Jerry", "Jerry", "District 2");
         elections.VoteFor("Anna", "Johnny", "District 1");
         elections.VoteFor("Johnny", "Johnny", "District 3");
-        elections.VoteFor("Matt", "Donald", "District 3");
-        elections.VoteFor("Jess", "Joe", "District 1");
+        elections.VoteFor("Matt", "NotCandidate", "District 3");
+        elections.VoteFor("Jess", "NotCandidate", "District 1");
         elections.VoteFor("July", "Jerry", "District 1");
-        elections.VoteFor("Simon", "", "District 2");
+        elections.VoteFor("Simon", "NotCandidate", "District 2");
         elections.VoteFor("Carole", "", "District 3");
 
         var results = elections.Results();

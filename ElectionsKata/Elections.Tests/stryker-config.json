@@ -1,0 +1,10 @@
+{
+  "stryker-config": {
+    "reporters": [
+      "progress",
+      "html"
+    ],
+    "ignore-methods": [ "ConfigureAwait" ],
+    "project": "Elections.csproj"
+  }
+}
