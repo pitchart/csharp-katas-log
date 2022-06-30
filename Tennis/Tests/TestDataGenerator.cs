@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Tennis.Tests
 {
-
     public class TestDataGenerator : IEnumerable<object[]>
     {
         private readonly List<object[]> _data = new List<object[]>

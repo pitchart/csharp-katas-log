@@ -1,6 +1,8 @@
+using System;
+
 namespace Tennis
 {
-    
+
     //TODO:
     // - Rationnaliser le lien entre le score et le joueur (DataClumps)
     // - Multiple responsabilités de score dans la méthode GetScore qui renvoie et le score actuel et le résultat du jeu
@@ -8,9 +10,14 @@ namespace Tennis
     // - Expliciter et faire ressortir des méthodes pour les cas des avantages et du jeu courant
     class TennisGame1 : ITennisGame
     {
+        private const int MinScoreToWin = 4;
+
         private int m_score1 = 0;
+
         private int m_score2 = 0;
+
         private string player1Name;
+
         private string player2Name;
 
         public TennisGame1(string player1Name, string player2Name)
@@ -32,19 +39,22 @@ namespace Tennis
             string score = "";
 
             var isScoreEquality = m_score1 == m_score2;
-            
+
             if (isScoreEquality)
             {
                 score = HandleEqualityCase();
             }
             else
             {
-                //TODO: Split Win and advantage cases
-                if (IsAdvantage())
+                // TODO: Split Win and advantage cases
+                if (IsWin())
                 {
-                    score = GetAdvantageOrWinScore();
+                    score = HandleWin();
                 }
-                //Jeu courant (inégalité)
+                else if (IsAdvantage())
+                {
+                    score = HandleAdvantage();
+                }
                 else
                 {
                     score = $"{(ScoreLabel)m_score1}-{(ScoreLabel)m_score2}";
@@ -54,9 +64,43 @@ namespace Tennis
             return score;
         }
 
+        private string HandleWin()
+        {
+            string score;
+            var minusResult = m_score1 - m_score2;
+            score = minusResult switch
+            {
+                >= 2 => "Win for player1",
+                _ => "Win for player2"
+            };
+
+            return score;
+        }
+
+        private bool IsWin()
+        {
+            var minusResult = m_score1 - m_score2;
+            return (m_score1 >= MinScoreToWin || m_score2 >= MinScoreToWin) && Math.Abs(minusResult) >= 2;
+        }
+
+        private string HandleAdvantage()
+        {
+            string score;
+            var minusResult = m_score1 - m_score2;
+
+            score = minusResult switch
+            {
+                1 => "Advantage player1",
+                _ => "Advantage player2",
+            };
+
+            return score;
+        }
+
         private bool IsAdvantage()
         {
-            return m_score1 >= 4 || m_score2 >= 4;
+            var minusResult = m_score1 - m_score2;
+            return (m_score1 >= MinScoreToWin || m_score2 >= MinScoreToWin) && Math.Abs(minusResult) == 1;
         }
 
         private string GetAdvantageOrWinScore()
@@ -85,5 +129,5 @@ namespace Tennis
             };
         }
     }
-}
 
+}
