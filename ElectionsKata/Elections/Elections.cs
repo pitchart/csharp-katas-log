@@ -5,7 +5,7 @@ namespace Elections
     public class Elections
     {
         private readonly List<string> _candidates = new List<string>();
-        private readonly Dictionary<string, List<string>> _list;
+        private readonly Dictionary<string, List<string>> _electorsByDistricts;
         private readonly List<string> _officialCandidates = new List<string>();
         private readonly Dictionary<string, List<int>> _votesWithDistricts;
         private readonly List<int> _votesWithoutDistricts = new List<int>();
@@ -13,7 +13,7 @@ namespace Elections
 
         public Elections(Dictionary<string, List<string>> list, bool withDistrict)
         {
-            _list = list;
+            _electorsByDistricts = list;
             _withDistrict = withDistrict;
 
             _votesWithDistricts = new Dictionary<string, List<int>>
@@ -168,7 +168,7 @@ namespace Elections
             var nullResult = GetPercent(nullVotes, nbVotes);
             results["Null"] = FormatResult(nullResult);
 
-            var nbElectors = _list.Sum(kv => kv.Value.Count);
+            var nbElectors = _electorsByDistricts.Sum(disctrict => disctrict.Value.Count);
             var abstentionResult = 100 - GetPercent(nbVotes, nbElectors); ;
             results["Abstention"] = FormatResult(abstentionResult);
 
