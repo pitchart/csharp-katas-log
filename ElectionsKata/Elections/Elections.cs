@@ -2,7 +2,7 @@
 
 namespace Elections
 {
-    public class Elections
+    public abstract class Elections
     {
         private readonly List<string> _candidates = new List<string>();
         private readonly Dictionary<string, List<string>> _electorsByDistricts;

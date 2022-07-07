@@ -16,7 +16,7 @@ public class ElectionsTests
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
 
-        var elections = new Elections(list, false);
+        var elections = new ElectionsWithoutDistrict(list);
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
@@ -46,7 +46,7 @@ public class ElectionsTests
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
 
-        var elections = new Elections(list, true);
+        var elections = new ElectionsWithDistrict(list);
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
@@ -78,7 +78,7 @@ public class ElectionsTests
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
 
-        var elections = new Elections(list, false);
+        var elections = new ElectionsWithoutDistrict(list);
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
@@ -110,7 +110,7 @@ public class ElectionsTests
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
 
-        var elections = new Elections(list, false);
+        var elections = new ElectionsWithoutDistrict(list);
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
