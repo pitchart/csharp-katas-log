@@ -1,0 +1,6 @@
+﻿{
+  Abstention: 0,00%,
+  Blank: 0,00%,
+  Michel: 300,00%,
+  Null: 0,00%
+}

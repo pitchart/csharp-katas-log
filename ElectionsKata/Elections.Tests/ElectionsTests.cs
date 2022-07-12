@@ -226,4 +226,26 @@ public class ElectionsTests
         Assert.True(results.ContainsKey("Null"));
         Assert.Equal("100,00%", results["Null"]);
     }
+
+    [Fact]
+    public Task Michel_should_be_100_when_all_votes_for_Michel()
+    {
+        var electors = new Dictionary<string, List<string>>
+        {
+            ["District 1"] = new List<string> { "Jerry", "Simon" },
+            ["District 2"] = new List<string> { "Johnny", "Matt" }
+        };
+
+        var _elections = new ElectionsWithDistrict(electors);
+        _elections.AddCandidate("Michel");
+
+        _elections.VoteFor("Jerry", "Michel", "District 1");
+        _elections.VoteFor("Simon", "Michel", "District 1");
+        _elections.VoteFor("Johnny", "Michel", "District 2");
+        _elections.VoteFor("Matt", "Michel", "District 2");
+
+        var results = _elections.Results();
+
+        return Verify(results);
+    }
 }
