@@ -7,9 +7,9 @@ namespace Elections
     public class ElectionsWithDistrict : IElections
     {
         private Dictionary<string, List<string>> _list;
-        private readonly List<string> _candidates = new List<string>();
-        private readonly Dictionary<string, List<int>> _votes = new Dictionary<string, List<int>>();
-        private readonly List<string> _officialCandidates = new List<string>();
+        private readonly List<string> _candidates = new();
+        private readonly Dictionary<string, List<int>> _votes;
+        private readonly List<string> _officialCandidates = new();
 
         public ElectionsWithDistrict(Dictionary<string, List<string>> list)
         {
@@ -51,21 +51,21 @@ namespace Elections
         {
             _candidates.Add(candidate);
             foreach (var (_, votes) in _votes) votes.Add(0);
-            districtVotes[_candidates.Count - 1] = districtVotes[_candidates.Count - 1] + 1;
+            districtVotes[_candidates.Count - 1] += 1;
         }
 
         private void VoteForExistingCandidate(string candidate, List<int> districtVotes)
         {
             var index = _candidates.IndexOf(candidate);
-            districtVotes[index] = districtVotes[index] + 1;
+            districtVotes[index] += 1;
         }
 
         public Dictionary<string, string> Results()
         {
             var results = new Dictionary<string, string>();
-            var nbVotes = 0;
-            var nullVotes = 0;
-            var blankVotes = 0;
+            int nbVotes;
+            int nullVotes;
+            int blankVotes;
             var nbValidVotes = 0;
             var cultureInfo = new CultureInfo("fr-fr");
 
@@ -133,8 +133,7 @@ namespace Elections
                 for (var i = 1; i < districtResult.Count; i++)
                     if (districtResult[districtWinnerIndex] < districtResult[i])
                         districtWinnerIndex = i;
-                officialCandidatesResult[_candidates[districtWinnerIndex]] =
-                    officialCandidatesResult[_candidates[districtWinnerIndex]] + 1;
+                officialCandidatesResult[_candidates[districtWinnerIndex]] += 1;
             }
 
             for (var i = 0; i < officialCandidatesResult.Count; i++)
