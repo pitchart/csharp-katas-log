@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using FsCheck;
@@ -27,8 +28,7 @@ namespace Diamond.Tests
             var result = Diamond.Display(letter);
 
             //Assert
-            var lines = result.Split(Environment.NewLine);
-            var middleLine = lines[lines.Length / 2];
+            var middleLine = SplitLines(result).TakeWhile(line => !line.Contains(letter)).Last(); //TODO : take while more explicit
             middleLine.Should().Contain(letter.ToString());
         }
 
@@ -39,8 +39,7 @@ namespace Diamond.Tests
             var result = Diamond.Display(letter);
 
             //Assert
-            var lines = result.Split(Environment.NewLine);
-            var firstLine = lines[0];
+            var firstLine = SplitLines(result).First();
             firstLine.Should().Contain("A");
         }
 
@@ -51,30 +50,62 @@ namespace Diamond.Tests
             var result = Diamond.Display(letter);
 
             //Assert
-            var lines = result
-                .Split(Environment.NewLine)
-                .Select(s => s.Trim(' '))
-                .Select(s => s[0]);
+            var lines = SplitLines(result).Select(FirstLetter);
 
-            var expected = Enumerable.Range((int)'A', (int)letter - 'A' + 1).Select(i => (char)i);
-            expected = expected.Concat(expected.Reverse().Skip(1));
+            var expected = ListLettersUntil(letter);
+            expected = AddLowerLettersTo(expected);
             lines.Should().BeEquivalentTo(expected);
         }
 
         [Property(Arbitrary = new[] { typeof(LetterGenerator) })]
-        public void Should_have_a_decreasing_number_of_outer_spaces(char letter)
+        public void Should_have_a_decreasing_number_of_left_outer_spaces(char letter)
         {
             //Act
             var result = Diamond.Display(letter);
 
             //Assert
-            var lines = result
-                .Split(Environment.NewLine)
+            var lines = SplitLines(result)
                 .TakeWhile(line => !line.Contains(letter))
                 .Select(x => x.ToCharArray().TakeWhile(c => c == ' ').Count());
 
             var expected = Enumerable.Range(1, (int)letter - 'A').Reverse();
             lines.Should().BeEquivalentTo(expected);
+        }
+
+        [Property(Arbitrary = new[] { typeof(LetterGenerator) })]
+        public void Should_have_a_decreasing_number_of_right_outer_spaces(char letter)
+        {
+            //Act
+            var result = Diamond.Display(letter);
+
+            //Assert
+            var lines = SplitLines(result)
+                .Select(l => l.Reverse())
+                .TakeWhile(line => !line.Contains(letter))
+                .Select(x => x.TakeWhile(c => c == ' ').Count());
+
+            var expected = Enumerable.Range(1, (int)letter - 'A').Reverse();
+            lines.Should().BeEquivalentTo(expected);
+        }
+
+        private static char FirstLetter(string s)
+        {
+            return s.Trim(' ').First();
+        }
+
+        private static string[] SplitLines(string result)
+        {
+            return result.Split(Environment.NewLine);
+        }
+
+        private static IEnumerable<char> AddLowerLettersTo(IEnumerable<char> expected)
+        {
+            return expected.Concat(expected.Reverse().Skip(1));
+        }
+
+        private static IEnumerable<char> ListLettersUntil(char letter)
+        {
+            return Enumerable.Range((int)'A', (int)letter - 'A' + 1).Select(i => (char)i);
         }
     }
 
