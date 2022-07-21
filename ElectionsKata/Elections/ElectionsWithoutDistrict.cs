@@ -2,10 +2,15 @@
 {
     public class ElectionsWithoutDistrict : Elections
     {
+        protected readonly List<int> _votesWithoutDistricts = new List<int>();
         public ElectionsWithoutDistrict(Dictionary<string, List<string>> list) : base(list)
         {
         }
-
+        public override void AddCandidate(string candidate)
+        {
+            base.AddCandidate(candidate);
+            _votesWithoutDistricts.Add(0);
+        }
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
             if (_candidates.Contains(candidate))

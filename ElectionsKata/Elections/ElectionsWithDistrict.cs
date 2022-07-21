@@ -2,11 +2,24 @@
 {
     public class ElectionsWithDistrict : Elections
     {
+        protected readonly Dictionary<string, List<int>> _votesWithDistricts;
         public ElectionsWithDistrict(Dictionary<string, List<string>> list) : base(list)
         {
-
+            _votesWithDistricts = new Dictionary<string, List<int>>
+            {
+                {"District 1", new List<int>()},
+                {"District 2", new List<int>()},
+                {"District 3", new List<int>()}
+            };
         }
 
+        public override void AddCandidate(string candidate)
+        {
+            base.AddCandidate(candidate);
+            _votesWithDistricts["District 1"].Add(0);
+            _votesWithDistricts["District 2"].Add(0);
+            _votesWithDistricts["District 3"].Add(0);
+        }
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
             if (_votesWithDistricts.ContainsKey(electorDistrict))
