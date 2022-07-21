@@ -1,8 +1,12 @@
-﻿namespace Elections
+﻿using System.Linq;
+
+namespace Elections
 {
     public class ElectionsWithoutDistrict : Elections
     {
         protected readonly List<int> _votesWithoutDistricts = new List<int>();
+        protected readonly List<string> _urne = new List<string>();
+
         public ElectionsWithoutDistrict(Dictionary<string, List<string>> list) : base(list)
         {
         }
@@ -13,6 +17,7 @@
         }
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
+            _urne.Add(candidate);
             if (_candidates.Contains(candidate))
             {
                 var index = _candidates.IndexOf(candidate);
@@ -28,12 +33,11 @@
         public override Dictionary<string, string> Results()
         {
             var results = new Dictionary<string, string>();
-            var nbVotes = 0;
-            var nullVotes = 0;
-            var blankVotes = 0;
+            var nbVotes = _urne.Count();
+            var nullVotes = _urne.Count(vote => IsVoteNull(vote));
+            var blankVotes = _urne.Count(vote => vote.Equals(string.Empty));
             var nbValidVotes = 0;
 
-            nbVotes = _votesWithoutDistricts.Select(i => i).Sum();
             for (var i = 0; i < _officialCandidates.Count; i++)
             {
                 var index = _candidates.IndexOf(_officialCandidates[i]);
@@ -49,13 +53,6 @@
                 {
                     results[candidate] = FormatResult(candidateResult);
                 }
-                else
-                {
-                    if (_candidates[i] == string.Empty)
-                        blankVotes += _votesWithoutDistricts[i];
-                    else
-                        nullVotes += _votesWithoutDistricts[i];
-                }
             }
 
             var blankResult = GetPercent(blankVotes, nbVotes);
@@ -69,6 +66,11 @@
             results["Abstention"] = FormatResult(abstentionResult);
 
             return results;
+        }
+
+        private bool IsVoteNull(string vote)
+        {
+            return !(vote.Equals(string.Empty) || _officialCandidates.Contains(vote));
         }
     }
 }
