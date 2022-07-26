@@ -16,23 +16,28 @@ namespace Diamond
         private static IEnumerable<string> Pyramid(char letter)
         {
             var outerSpaceNumber = (int)letter - (int)'A';
-            
+            var innerSpaceNumber = 0;
             IEnumerable<int> upperLetters = Enumerable.Range((int)'A', (int)letter - (int)'A' + 1);
 
             var lines = new List<string>();
             foreach(var upperLetter in upperLetters)
             {
-                var line = BuildLine(outerSpaceNumber, upperLetter);
+                var line = BuildLine(outerSpaceNumber, upperLetter, innerSpaceNumber) ;
                 lines.Add(line);
                 outerSpaceNumber = --outerSpaceNumber;
+                innerSpaceNumber = innerSpaceNumber == 0 ? innerSpaceNumber = 1 : innerSpaceNumber+2;
             }
             return lines;
         }
 
-        private static string BuildLine(int outerSpaceNumber, int upperLetter)
+        private static string BuildLine(int outerSpaceNumber, int upperLetter, int innerSpaceNumber)
         {
             string outerSpaces = string.Empty.PadLeft(outerSpaceNumber);
-            return outerSpaces + ((char)upperLetter).ToString() + outerSpaces;
+            string innerSpaces = string.Empty.PadLeft(innerSpaceNumber);
+
+            if (innerSpaceNumber == 0) return outerSpaces + ((char)upperLetter).ToString() + outerSpaces;
+            //TODO : Refacto
+            return outerSpaces + ((char)upperLetter).ToString() + innerSpaces + ((char)upperLetter).ToString() + outerSpaces;
         }
     }
 }

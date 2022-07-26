@@ -28,7 +28,8 @@ namespace Diamond.Tests
             var result = Diamond.Display(letter);
 
             //Assert
-            var middleLine = SplitLines(result).TakeWhile(line => !line.Contains(letter)).Last(); //TODO : take while more explicit
+            var lines = SplitLines(result);
+            var middleLine = lines[lines.Length / 2];
             middleLine.Should().Contain(letter.ToString());
         }
 
@@ -86,6 +87,31 @@ namespace Diamond.Tests
 
             var expected = Enumerable.Range(1, (int)letter - 'A').Reverse();
             lines.Should().BeEquivalentTo(expected);
+        }
+
+        [Property(Arbitrary = new[] { typeof(LetterGenerator) })]
+        public void Should_have_an_increasing_number_of_inner_spaces(char letter)
+        {
+            //Act
+            var result = Diamond.Display(letter);
+
+            //Assert
+            var lineInnerSpaces = SplitLines(result)
+                .Reverse()
+                .SkipWhile(line => !line.Contains(letter))
+                .Reverse()
+                .Select(line => line.Trim())
+                .Select(line => line.Skip(1))
+                .Select(line => line.SkipLast(1))
+                .Select(line => line.Count());
+
+
+            var expected = new List<int>() {0};
+            for(var i = 0; i < lineInnerSpaces.Count()-1; i++)
+            {
+                expected.Add(i*2+1);
+            }
+            lineInnerSpaces.Should().BeEquivalentTo(expected);
         }
 
         private static char FirstLetter(string s)
