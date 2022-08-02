@@ -100,11 +100,7 @@ namespace Diamond.Tests
                 .Reverse()
                 .SkipWhile(line => !line.Contains(letter))
                 .Reverse()
-                .Select(line => line.Trim())
-                .Select(line => line.Skip(1))
-                .Select(line => line.SkipLast(1))
-                .Select(line => line.Count());
-
+                .Select(line => line.Trim().Skip(1).SkipLast(1).Count());
 
             var expected = new List<int>() {0};
             for(var i = 0; i < lineInnerSpaces.Count()-1; i++)
