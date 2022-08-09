@@ -15,7 +15,7 @@ namespace language_ext.kata.tests
         public void GetFirstNamesOfAllPeople()
         {
             // Replace it, with a transformation method on people.
-            Seq<string> firstNames = Seq<string>();
+            Seq<string> firstNames = people.Map(person => person.FirstName);
             Seq<string> expectedFirstNames = Seq("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John");
 
             firstNames.Should().BeEquivalentTo(expectedFirstNames);
@@ -27,7 +27,7 @@ namespace language_ext.kata.tests
             var person = GetPersonNamed("Mary Smith");
 
             // Replace it, with a transformation method on people.
-            Seq<string> names = Seq<string>();
+            Seq<string> names = person.Pets.Map(pet => pet.Name);
 
             names.Single()
                 .Should()
@@ -38,7 +38,9 @@ namespace language_ext.kata.tests
         public void GetPeopleWithCats()
         {
             // Replace it, with a positive filtering method on people.
-            Seq<string> peopleWithCats = Seq<string>();
+            Seq<string> peopleWithCats = people
+                .Filter(person => person.Pets.Any(pet => pet.Type == PetType.Cat))
+                .Map(person => person.FirstName);
 
             peopleWithCats.Should().HaveCount(2);
         }
@@ -47,7 +49,9 @@ namespace language_ext.kata.tests
         public void GetPeopleWithoutCats()
         {
             // Replace it, with a negative filtering method on Seq.
-            Seq<string> peopleWithoutCats = Seq<string>();
+            Seq<string> peopleWithoutCats = people
+                .Filter(person => person.Pets.All(pet => pet.Type != PetType.Cat))
+                .Map(person => person.FirstName);
 
             peopleWithoutCats.Should().HaveCount(6);
         }
@@ -56,7 +60,8 @@ namespace language_ext.kata.tests
         public void DoAnyPeopleHaveCats()
         {
             //replace null with a Predicate lambda which checks for PetType.CAT
-            var doAnyPeopleHaveCats = false;
+            var doAnyPeopleHaveCats = people
+                .Exists(person => person.Pets.Exists(pet => pet.Type == PetType.Cat));
 
             doAnyPeopleHaveCats.Should().BeTrue();
         }
@@ -64,7 +69,7 @@ namespace language_ext.kata.tests
         [Fact]
         public void DoAllPeopleHavePets()
         {
-            Func<Person, bool> predicate = p => true;
+            Func<Person, bool> predicate = person => !person.Pets.IsEmpty;
             // OR use local functions -> static bool predicate(Person p) => p.IsPetPerson();
             // replace with a method call send to this.people that checks if all people have pets
             var result = people.ForAll(predicate);
@@ -76,14 +81,15 @@ namespace language_ext.kata.tests
         public void HowManyPeopleHaveCats()
         {
             // replace 0 with the correct answer
-            var count = 0;
+            var count = people
+                .Count(person => person.Pets.Any(pet => pet.Type == PetType.Cat));
             count.Should().Be(2);
         }
 
         [Fact]
         public void FindMarySmith()
         {
-            Person result = null;
+            Person result = people.Filter(person => person.Named("Mary Smith")).FirstOrDefault();
 
             result.FirstName.Should().Be("Mary");
             result.LastName.Should().Be("Smith");
@@ -93,7 +99,7 @@ namespace language_ext.kata.tests
         public void GetPeopleWithPets()
         {
             // replace with only the pets owners
-            Seq<Person> petPeople = Seq<Person>();
+            Seq<Person> petPeople = people.Filter(person => person.Pets.Any());
 
             petPeople.Should().HaveCount(7);
         }
@@ -101,7 +107,9 @@ namespace language_ext.kata.tests
         [Fact]
         public void GetAllPetTypesOfAllPeople()
         {
-            Seq<PetType> petTypes = Seq<PetType>();
+            Seq<PetType> petTypes = people
+                .Fold(Seq<PetType>(),(accumulator,person) => accumulator.Concat(person.Pets.Map(pet => pet.Type)))
+                .Distinct();
 
             petTypes.Should()
                 .BeEquivalentTo(Seq(Cat, Dog, Snake, Bird, Turtle, Hamster));
@@ -110,15 +118,15 @@ namespace language_ext.kata.tests
         [Fact]
         public void TotalPetAge()
         {
-            var totalAge = 0L;
+            long totalAge = people.Sum(person => person.Pets.Sum(pet => pet.Age));
             totalAge.Should().Be(17L);
         }
 
         [Fact]
         public void PetsNameSorted()
         {
-            string sortedPetNames = null;
-
+            string sortedPetNames = string
+                .Join(", ", people.Fold(Seq<string>(), (accumulator, person) => accumulator.Concat(person.Pets.Map(pet => pet.Name))).OrderBy(name => name));
             sortedPetNames.Should()
                 .Be("Dolly, Fuzzy, Serpy, Speedy, Spike, Spot, Tabby, Tweety, Wuzzy");
         }
