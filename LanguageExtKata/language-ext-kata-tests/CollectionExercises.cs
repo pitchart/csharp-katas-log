@@ -126,7 +126,10 @@ namespace language_ext.kata.tests
         public void PetsNameSorted()
         {
             string sortedPetNames = string
-                .Join(", ", people.Fold(Seq<string>(), (accumulator, person) => accumulator.Concat(person.Pets.Map(pet => pet.Name))).OrderBy(name => name));
+                .Join(", ", people
+                .Fold(Seq<string>(), (accumulator, person) => accumulator.Concat(person.Pets.Map(pet => pet.Name)))
+                .OrderBy(name => name));
+
             sortedPetNames.Should()
                 .Be("Dolly, Fuzzy, Serpy, Speedy, Spike, Spot, Tabby, Tweety, Wuzzy");
         }
