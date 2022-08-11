@@ -2,20 +2,19 @@
 {
     public class Urne
     {
-        /// <summary>Gets or sets the list.</summary>
-        /// <value>The list.</value>
-        public List<string> List { get;} = new List<string>();
+        private List<string> ListVotes = new List<string>();
 
-        internal void Vote(string candidate) => List.Add(candidate);
+        internal void Vote(string candidate) => ListVotes.Add(candidate);
 
-        internal int GetTotalVote() => List.Count();
+        internal int GetTotalVote() => ListVotes.Count();
 
-        internal int GetNumberBlankVotes() => List.Count(vote => vote.Equals(string.Empty));
+        internal int GetNumberBlankVotes() => ListVotes.Count(vote => vote.Equals(string.Empty));
 
         internal int GetNumberNullVotes(List<string> officialCandidates)
         {
-            return List.Count(vote => !(vote.Equals(string.Empty) || officialCandidates.Contains(vote)));
+            return ListVotes.Count(vote => !(vote.Equals(string.Empty) || officialCandidates.Contains(vote)));
         }
-        internal int GetNumberValidVotes(List<string> officialCandidates) => List.Count(vote => officialCandidates.Contains(vote));
+        internal int GetNumberValidVotes(List<string> officialCandidates) => ListVotes.Count(vote => officialCandidates.Contains(vote));
+        internal int GetNumberVotesFor(string candidate) => ListVotes.Count(vote => vote.Equals(candidate));
     }
 }

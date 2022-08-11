@@ -26,7 +26,7 @@ namespace Elections
 
             foreach (var candidate in _officialCandidates)
             {
-                var nombreVote = _urne.List.Count(vote => vote.Equals(candidate));
+                var nombreVote = _urne.GetNumberVotesFor(candidate);
                 float candidateResult = GetPercent(nombreVote, nbValidVotes);
                 results[candidate] = FormatResult(candidateResult);
             }
