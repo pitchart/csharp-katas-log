@@ -4,7 +4,7 @@ namespace Elections
 {
     public class NationalElections : Elections
     {
-        protected readonly List<string> _urne = new List<string>();
+        protected readonly Urne _urne = new Urne();
 
         public NationalElections(Dictionary<string, List<string>> list) : base(list)
         {
@@ -12,21 +12,21 @@ namespace Elections
 
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            _urne.Add(candidate);
+            _urne.Vote(candidate);
         }
 
         public override Dictionary<string, string> Results()
         {
             var results = new Dictionary<string, string>();
-            var nbVotes = _urne.Count();
-            var nullVotes = _urne.Count(vote => IsVoteNull(vote));
-            var blankVotes = _urne.Count(vote => vote.Equals(string.Empty));
-            var nbValidVotes = _urne.Count(vote => _officialCandidates.Contains(vote));
+            var nbVotes = _urne.GetTotalVote();
+            var nullVotes = _urne.GetNumberNullVotes(_officialCandidates);
+            var blankVotes = _urne.GetNumberBlankVotes();
+            var nbValidVotes = _urne.GetNumberValidVotes(_officialCandidates);
 
-            
+
             foreach (var candidate in _officialCandidates)
             {
-                var nombreVote = _urne.Count(vote => vote.Equals(candidate));
+                var nombreVote = _urne.List.Count(vote => vote.Equals(candidate));
                 float candidateResult = GetPercent(nombreVote, nbValidVotes);
                 results[candidate] = FormatResult(candidateResult);
             }
@@ -44,9 +44,5 @@ namespace Elections
             return results;
         }
 
-        private bool IsVoteNull(string vote)
-        {
-            return !(vote.Equals(string.Empty) || _officialCandidates.Contains(vote));
-        }
     }
 }
