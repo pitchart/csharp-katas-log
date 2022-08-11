@@ -1,9 +1,9 @@
 ﻿namespace Elections
 {
-    public class ElectionsWithDistrict : Elections
+    public class LocalElections : Elections
     {
         protected readonly Dictionary<string, List<int>> _votesWithDistricts;
-        public ElectionsWithDistrict(Dictionary<string, List<string>> list) : base(list)
+        public LocalElections(Dictionary<string, List<string>> list) : base(list)
         {
             _votesWithDistricts = new Dictionary<string, List<int>>
             {

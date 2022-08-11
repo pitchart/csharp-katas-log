@@ -2,11 +2,11 @@
 
 namespace Elections
 {
-    public class ElectionsWithoutDistrict : Elections
+    public class NationalElections : Elections
     {
         protected readonly List<string> _urne = new List<string>();
 
-        public ElectionsWithoutDistrict(Dictionary<string, List<string>> list) : base(list)
+        public NationalElections(Dictionary<string, List<string>> list) : base(list)
         {
         }
 
