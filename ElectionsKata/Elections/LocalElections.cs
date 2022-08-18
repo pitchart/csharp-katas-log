@@ -98,7 +98,7 @@
 
             for (var i = 0; i < officialCandidatesResult.Count; i++)
             {
-                var ratioCandidate = GetPercent(officialCandidatesResult[_officialCandidates[i]], officialCandidatesResult.Count); ;
+                var ratioCandidate = GetPercent(officialCandidatesResult[_officialCandidates[i]], officialCandidatesResult.Count);
                 results[_candidates[i]] = FormatResult(ratioCandidate);
             }
 

@@ -120,4 +120,46 @@ public class ElectionsTests
         // Add approval tests here
         return Verify(results);
     }
+
+    [Fact]
+    public Task Should_run_with_elector_in_another_districts()
+    {
+        var list = new Dictionary<string, List<string>>
+        {
+            ["District 1"] = new List<string> { "Bob", "Anna", "Jess", "July" },
+            ["District 2"] = new List<string> { "Jerry", "Simon" },
+            ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" },
+            ["District 4"] = new List<string> { "Firas" }
+        };
+
+
+
+        var elections = new LocalElections(list);
+        elections.AddCandidate("Michel");
+        elections.AddCandidate("Jerry");
+        elections.AddCandidate("Johnny");
+
+
+
+        elections.VoteFor("Bob", "Jerry", "District 1");
+        elections.VoteFor("Jerry", "Jerry", "District 2");
+        elections.VoteFor("Anna", "Johnny", "District 1");
+        elections.VoteFor("Johnny", "Johnny", "District 3");
+        elections.VoteFor("Matt", "NotCandidate", "District 3");
+        elections.VoteFor("Jess", "NotCandidate", "District 1");
+        elections.VoteFor("July", "Jerry", "District 1");
+        elections.VoteFor("Simon", "NotCandidate", "District 2");
+        elections.VoteFor("Carole", "", "District 3");
+        elections.VoteFor("Firas", "Johnny", "District 4");
+
+
+
+        var results = elections.Results();
+
+
+
+        // Add approval tests here
+        //Assert.Equal(expected.ToString(), results.ToString());
+        return Verify(results);
+    }
 }
