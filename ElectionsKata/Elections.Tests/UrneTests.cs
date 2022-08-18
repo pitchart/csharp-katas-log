@@ -29,5 +29,52 @@ namespace Elections.Tests
 
             Assert.Equal(1, urne.GetNumberBlankVotes());
         }
+
+        [Fact]
+        public void Should_return_number_of_votes_for_specific_candidate()
+        {
+            var urne = new Urne();
+            urne.Vote("SpecificCandidate");
+            urne.Vote("AnotherCandidate");
+            urne.Vote("SpecificCandidate");
+            urne.Vote("SpecificCandidate");
+            urne.Vote("AnotherCandidate");
+            urne.Vote("SpecificCandidate");
+
+            Assert.Equal(4, urne.GetNumberVotesFor("SpecificCandidate"));
+            Assert.Equal(2, urne.GetNumberVotesFor("AnotherCandidate"));
+        }
+
+        [Fact]
+        public void Should_Return_number_of_null_votes()
+        {
+            List<string> officialCandidates = new List<string> { "SpecificCandidate", "AnotherCandidate" };
+
+            var urne = new Urne();
+            urne.Vote("");
+            urne.Vote("NullVote");
+            urne.Vote(officialCandidates[0]);
+            urne.Vote(officialCandidates[1]);
+            urne.Vote(officialCandidates[1]);
+            urne.Vote("AnotherNullVote");
+
+            Assert.Equal(2, urne.GetNumberNullVotes(officialCandidates));
+        }
+
+        [Fact]
+        public void Should_Return_number_of_valid_votes()
+        {
+            List<string> officialCandidates = new List<string> { "SpecificCandidate", "AnotherCandidate" };
+
+            var urne = new Urne();
+            urne.Vote("");
+            urne.Vote("NullVote");
+            urne.Vote(officialCandidates[0]);
+            urne.Vote(officialCandidates[1]);
+            urne.Vote(officialCandidates[1]);
+            urne.Vote("AnotherNullVote");
+
+            Assert.Equal(3, urne.GetNumberValidVotes(officialCandidates));
+        }
     }
 }
