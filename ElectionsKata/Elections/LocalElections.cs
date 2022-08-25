@@ -11,8 +11,7 @@
             {
                 {"District 1", new Urne()},
                 {"District 2", new Urne()},
-                {"District 3", new Urne()},
-                {"District 4", new Urne()}
+                {"District 3", new Urne()}
             };
             _votesWithDistricts = new Dictionary<string, List<int>>
             {
@@ -31,14 +30,15 @@
         }
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            _urnePerDistricts[electorDistrict].Vote(candidate);
+            if (_urnePerDistricts.ContainsKey(electorDistrict))
+                _urnePerDistricts[electorDistrict].Vote(candidate);
         }
 
         public override Dictionary<string, string> Results()
         {
-            foreach(var district in _urnePerDistricts.Keys)
+            foreach (var district in _urnePerDistricts.Keys)
             {
-                foreach(var vote in _urnePerDistricts[district].ListVotes)
+                foreach (var vote in _urnePerDistricts[district].ListVotes)
                 {
                     if (_votesWithDistricts.ContainsKey(district))
                     {
@@ -61,16 +61,13 @@
 
 
             var results = new Dictionary<string, string>();
-            var nbVotes = 0;
             var nullVotes = 0;
             var blankVotes = 0;
             var nbValidVotes = 0;
 
-            foreach (var entry in _votesWithDistricts)
-            {
-                var districtVotes = entry.Value;
-                nbVotes += districtVotes.Select(i => i).Sum();
-            }
+            var nbVotes = _urnePerDistricts.Values.Sum(u => u.GetTotalVote());
+
+
 
             for (var i = 0; i < _officialCandidates.Count; i++)
             {
