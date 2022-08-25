@@ -62,7 +62,7 @@
 
             var results = new Dictionary<string, string>();
             var nullVotes = _urnePerDistricts.Values.Sum(u => u.GetNumberNullVotes(_officialCandidates));
-            var blankVotes = 0;
+            var blankVotes = _urnePerDistricts.Values.Sum(u => u.GetNumberBlankVotes());
             var nbValidVotes = 0;
 
             var nbVotes = _urnePerDistricts.Values.Sum(u => u.GetTotalVote());
@@ -95,12 +95,7 @@
                     {
                         districtResult.Add(candidateResult);
                     }
-                    else
-                    {
-                        if (_candidates[i] == string.Empty)
-                            blankVotes += districtVotes[i];
-                    }
-                }
+                                   }
 
                 var districtWinnerIndex = 0;
                 for (var i = 1; i < districtResult.Count; i++)
