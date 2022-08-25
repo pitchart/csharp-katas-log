@@ -3,8 +3,17 @@
     public class LocalElections : Elections
     {
         protected readonly Dictionary<string, List<int>> _votesWithDistricts;
+        protected readonly Dictionary<string, Urne> _urnePerDistricts;
+
         public LocalElections(Dictionary<string, List<string>> list) : base(list)
         {
+            _urnePerDistricts = new Dictionary<string, Urne>
+            {
+                {"District 1", new Urne()},
+                {"District 2", new Urne()},
+                {"District 3", new Urne()},
+                {"District 4", new Urne()}
+            };
             _votesWithDistricts = new Dictionary<string, List<int>>
             {
                 {"District 1", new List<int>()},
@@ -22,25 +31,35 @@
         }
         public override void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            if (_votesWithDistricts.ContainsKey(electorDistrict))
-            {
-                var districtVotes = _votesWithDistricts[electorDistrict];
-                if (_candidates.Contains(candidate))
-                {
-                    var index = _candidates.IndexOf(candidate);
-                    districtVotes[index] = districtVotes[index] + 1;
-                }
-                else
-                {
-                    _candidates.Add(candidate);
-                    foreach (var (_, votes) in _votesWithDistricts) votes.Add(0);
-                    districtVotes[_candidates.Count - 1] = districtVotes[_candidates.Count - 1] + 1;
-                }
-            }
+            _urnePerDistricts[electorDistrict].Vote(candidate);
         }
 
         public override Dictionary<string, string> Results()
         {
+            foreach(var district in _urnePerDistricts.Keys)
+            {
+                foreach(var vote in _urnePerDistricts[district].ListVotes)
+                {
+                    if (_votesWithDistricts.ContainsKey(district))
+                    {
+                        var districtVotes = _votesWithDistricts[district];
+                        if (_candidates.Contains(vote))
+                        {
+                            var index = _candidates.IndexOf(vote);
+                            districtVotes[index] = districtVotes[index] + 1;
+                        }
+                        else
+                        {
+                            _candidates.Add(vote);
+                            foreach (var (_, votes) in _votesWithDistricts) votes.Add(0);
+                            districtVotes[_candidates.Count - 1] = districtVotes[_candidates.Count - 1] + 1;
+                        }
+                    }
+                }
+
+            }
+
+
             var results = new Dictionary<string, string>();
             var nbVotes = 0;
             var nullVotes = 0;

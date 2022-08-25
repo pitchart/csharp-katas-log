@@ -2,7 +2,7 @@
 {
     public class Urne
     {
-        private List<string> ListVotes = new List<string>();
+        public List<string> ListVotes = new List<string>();
 
         public void Vote(string candidate) => ListVotes.Add(candidate);
 
