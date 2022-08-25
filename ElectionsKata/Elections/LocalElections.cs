@@ -63,21 +63,9 @@
             var results = new Dictionary<string, string>();
             var nullVotes = _urnePerDistricts.Values.Sum(u => u.GetNumberNullVotes(_officialCandidates));
             var blankVotes = _urnePerDistricts.Values.Sum(u => u.GetNumberBlankVotes());
-            var nbValidVotes = 0;
+            var nbValidVotes = _urnePerDistricts.Values.Sum(u => u.GetNumberValidVotes(_officialCandidates)); ;
 
             var nbVotes = _urnePerDistricts.Values.Sum(u => u.GetTotalVote());
-
-
-
-            for (var i = 0; i < _officialCandidates.Count; i++)
-            {
-                var index = _candidates.IndexOf(_officialCandidates[i]);
-                foreach (var entry in _votesWithDistricts)
-                {
-                    var districtVotes = entry.Value;
-                    nbValidVotes += districtVotes[index];
-                }
-            }
 
             var officialCandidatesResult = new Dictionary<string, int>();
             for (var i = 0; i < _officialCandidates.Count; i++) officialCandidatesResult[_candidates[i]] = 0;
