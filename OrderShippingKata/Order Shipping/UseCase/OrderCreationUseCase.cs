@@ -41,8 +41,6 @@ namespace OrderShipping.UseCase
                 {
                     Product = product,
                     Quantity = itemRequest.Quantity,
-                    Tax = PriceHelper.Round(product.UnitaryTax * itemRequest.Quantity),
-                    TaxedAmount = PriceHelper.Round(product.UnitaryTaxedAmount * itemRequest.Quantity)
                 };
                 order.Items.Add(orderItem);
                 order.Total += orderItem.TaxedAmount;

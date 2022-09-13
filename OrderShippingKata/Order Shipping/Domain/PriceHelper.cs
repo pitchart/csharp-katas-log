@@ -4,7 +4,7 @@
     {
         public static decimal Round(decimal amount)
         {
-            return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
+            return decimal.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
         }
     }
 }
