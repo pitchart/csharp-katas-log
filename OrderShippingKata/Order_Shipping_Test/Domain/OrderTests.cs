@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OrderShipping.Domain;
+using Xunit;
 
 namespace OrderShippingTest.Domain
 {
     public class OrderTests
     {
-        //Tester le constructeur
+        [Fact]
+        public void Should_CreatedStatusAndEurosCurrency_WhenInitialiseOrder()
+        {
+            var order = new Order();
+
+            Assert.Equal(OrderStatus.Created, order.Status);
+            Assert.Equal("EUR", order.Currency);
+            Assert.Empty(order.Items);
+            Assert.Equal(0, order.Tax);
+            Assert.Equal(0, order.Total);
+        }
     }
 }
