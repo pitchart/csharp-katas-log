@@ -16,5 +16,30 @@ namespace OrderShippingTest.Domain
             Assert.Equal(0, order.Tax);
             Assert.Equal(0, order.Total);
         }
+
+        [Fact]
+        public void Should_SumTaxAndCalculateTotal_WhenAddOrderItems()
+        {
+            var order = new Order();
+
+            var orderItemPrice10Tax1 = new OrderItem
+            {
+                Product = new Product { Price = 10, Category = new Category { TaxPercentage = 10 } },
+                Quantity = 1
+            };
+
+            var orderItemPrice50Tax25 = new OrderItem
+            {
+                Product = new Product { Price = 50, Category = new Category { TaxPercentage = 50 } },
+                Quantity = 1
+            };
+
+            order.AddOrderItem(orderItemPrice10Tax1);
+            order.AddOrderItem(orderItemPrice50Tax25);
+
+            Assert.Equal(2, order.Items.Count);
+            Assert.Equal(26, order.Tax);
+            Assert.Equal(86, order.Total);
+        }
     }
 }
