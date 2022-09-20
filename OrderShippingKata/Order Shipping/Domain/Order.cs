@@ -2,27 +2,23 @@
 {
     public class Order
     {
-        public decimal Total { get; private set; }
-        public string Currency { get; set; }
-        public IList<OrderItem> Items { get; }
-        public decimal Tax { get; private set; }
-        public OrderStatus Status { get; set; }
         public int Id { get; set; }
+        public OrderStatus Status { get; set; }
+        public string Currency { get; }
+        public IList<OrderItem> Items { get; }
+        public decimal Tax => this.Items.Sum(item => item.Tax);
+        public decimal Total => this.Items.Sum(item => item.TaxedAmount);
 
         public Order()
         {
             this.Status = OrderStatus.Created;
             this.Items = new List<OrderItem>();
             this.Currency = "EUR";
-            this.Total = 0m;
-            this.Tax = 0m;
         }
 
         public void AddOrderItem(OrderItem orderItem)
         {
             this.Items.Add(orderItem);
-            this.Total += orderItem.TaxedAmount;
-            this.Tax += orderItem.Tax;
         }
     }
 }
