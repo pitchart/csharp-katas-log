@@ -24,18 +24,8 @@ public class OrderCreationUseCaseTest
 
         _productCatalog = new InMemoryProductCatalog(new List<Product>
             {
-                new Product
-                {
-                    Name = "salad",
-                    Price = 3.56m,
-                    Category = food
-                },
-                new Product
-                {
-                    Name = "tomato",
-                    Price = 4.65m,
-                    Category = food
-                }
+                new("salad", 3.56m, food),
+                new("tomato", 4.65m, food)
             });
 
         _orderRepository = new TestOrderRepository();

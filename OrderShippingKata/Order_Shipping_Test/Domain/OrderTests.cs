@@ -24,13 +24,13 @@ namespace OrderShippingTest.Domain
 
             var orderItemPrice10Tax1 = new OrderItem
             {
-                Product = new Product { Price = 10, Category = new Category { TaxPercentage = 10 } },
+                Product = new Product("A product", 10, new Category { TaxPercentage = 10 }),
                 Quantity = 1
             };
 
             var orderItemPrice50Tax25 = new OrderItem
             {
-                Product = new Product { Price = 50, Category = new Category { TaxPercentage = 50 } },
+                Product = new Product("A product", 50, new Category { TaxPercentage = 50 }),
                 Quantity = 1
             };
 

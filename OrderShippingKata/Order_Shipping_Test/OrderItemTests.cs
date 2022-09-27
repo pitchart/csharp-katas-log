@@ -14,7 +14,7 @@ namespace OrderShippingTest
         [Fact]
         public void Tax_should_be_unitaryTax_times_quantity()
         {
-            Product productWithUnitaryTaxOf10 = new() { Name = "salad", Price = 100m, Category = CategoryWithTaxPercentageOf10 };
+            Product productWithUnitaryTaxOf10 = new("salad", 100m, CategoryWithTaxPercentageOf10);
 
             var orderItem = new OrderItem
             {
@@ -28,9 +28,9 @@ namespace OrderShippingTest
         [Fact]
         public void TaxedAmount_should_be_unitaryTaxedAmount_times_quantity()
         {
-            
 
-            Product productWithUnitaryTaxAmountOf110 = new() { Name = "salad", Price = 100m, Category = CategoryWithTaxPercentageOf10 };
+
+            Product productWithUnitaryTaxAmountOf110 = new("salad", 100m, CategoryWithTaxPercentageOf10);
 
             var orderItem = new OrderItem
             {

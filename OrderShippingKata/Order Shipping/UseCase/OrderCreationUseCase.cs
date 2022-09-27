@@ -1,5 +1,4 @@
-﻿using Order_Shipping.Domain;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.Repository;
 
 namespace OrderShipping.UseCase
