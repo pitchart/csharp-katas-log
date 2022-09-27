@@ -9,12 +9,14 @@ namespace OrderShipping.Domain
             Name = name;
             Price = price;
             Category = category;
+            UnitaryTax = PriceHelper.Round((Price / 100m) * category.TaxPercentage);
+            UnitaryTaxedAmount = PriceHelper.Round(price + UnitaryTax);
         }
 
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public Category Category { get; set; }
-        public decimal UnitaryTax => PriceHelper.Round((Price / 100m) * Category.TaxPercentage);
-        public decimal UnitaryTaxedAmount => PriceHelper.Round(Price + UnitaryTax);
+        public string Name { get; }
+        public decimal Price { get; }
+        public Category Category { get; }
+        public decimal UnitaryTax { get; }
+        public decimal UnitaryTaxedAmount { get; }
     }
 }
