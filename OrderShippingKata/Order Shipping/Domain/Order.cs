@@ -16,9 +16,9 @@
             this.Currency = "EUR";
         }
 
-        public void AddOrderItem(OrderItem orderItem)
+        public void AddProduct(Product product, int quantity)
         {
-            this.Items.Add(orderItem);
+            this.Items.Add(new OrderItem { Product = product, Quantity = quantity });
         }
     }
 }

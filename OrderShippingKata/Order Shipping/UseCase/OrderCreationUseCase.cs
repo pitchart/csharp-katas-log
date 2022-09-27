@@ -29,13 +29,7 @@ namespace OrderShipping.UseCase
                     throw new UnknownProductException();
                 }
 
-                var orderItem = new OrderItem
-                {
-                    Product = product,
-                    Quantity = itemRequest.Quantity,
-                };
-
-                order.AddOrderItem(orderItem);
+                order.AddProduct(product, itemRequest.Quantity);
             }
 
             _orderRepository.Save(order);

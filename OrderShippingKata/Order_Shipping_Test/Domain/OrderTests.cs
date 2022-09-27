@@ -22,20 +22,8 @@ namespace OrderShippingTest.Domain
         {
             var order = new Order();
 
-            var orderItemPrice10Tax1 = new OrderItem
-            {
-                Product = new Product("A product", 10, new Category { TaxPercentage = 10 }),
-                Quantity = 1
-            };
-
-            var orderItemPrice50Tax25 = new OrderItem
-            {
-                Product = new Product("A product", 50, new Category { TaxPercentage = 50 }),
-                Quantity = 1
-            };
-
-            order.AddOrderItem(orderItemPrice10Tax1);
-            order.AddOrderItem(orderItemPrice50Tax25);
+            order.AddProduct(new Product("A product", 10, new Category { TaxPercentage = 10 }), 1);
+            order.AddProduct(new Product("A product", 50, new Category { TaxPercentage = 50 }), 1);
 
             Assert.Equal(2, order.Items.Count);
             Assert.Equal(26, order.Tax);
