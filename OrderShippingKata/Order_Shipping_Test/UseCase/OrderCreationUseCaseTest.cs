@@ -63,12 +63,12 @@ public class OrderCreationUseCaseTest
         Assert.Equal("EUR", insertedOrder.Currency);
         Assert.Equal(2, insertedOrder.Items.Count);
         Assert.Equal("salad", insertedOrder.Items[0].Product.Name);
-        Assert.Equal(3.56m, insertedOrder.Items[0].Product.Price);
+        Assert.Equal(3.56m, insertedOrder.Items[0].Product.Price.RoundedValue);
         Assert.Equal(2, insertedOrder.Items[0].Quantity);
         Assert.Equal(7.84m, insertedOrder.Items[0].TaxedAmount);
         Assert.Equal(0.72m, insertedOrder.Items[0].Tax);
         Assert.Equal("tomato", insertedOrder.Items[1].Product.Name);
-        Assert.Equal(4.65m, insertedOrder.Items[1].Product.Price);
+        Assert.Equal(4.65m, insertedOrder.Items[1].Product.Price.RoundedValue);
         Assert.Equal(3, insertedOrder.Items[1].Quantity);
         Assert.Equal(15.36m, insertedOrder.Items[1].TaxedAmount);
         Assert.Equal(1.41m, insertedOrder.Items[1].Tax);

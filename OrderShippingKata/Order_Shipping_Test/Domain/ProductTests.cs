@@ -16,7 +16,7 @@ namespace OrderShippingTest.Domain
 
             Product product = new("Salad", 100m, food);
 
-            Assert.Equal(10, product.UnitaryTax);
+            Assert.Equal(10, product.UnitaryTax.RoundedValue);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace OrderShippingTest.Domain
 
             Product product = new("Salad", 100m, food);
 
-            Assert.Equal(110, product.UnitaryTaxedAmount);
+            Assert.Equal(110, product.UnitaryTaxedAmount.RoundedValue);
         }
     }
 }

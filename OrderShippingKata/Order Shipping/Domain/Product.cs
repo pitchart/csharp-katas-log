@@ -7,16 +7,16 @@ namespace OrderShipping.Domain
         public Product(string name, decimal price, Category category)
         {
             Name = name;
-            Price = price;
             Category = category;
-            UnitaryTax = PriceHelper.Round((Price / 100m) * category.TaxPercentage);
-            UnitaryTaxedAmount = PriceHelper.Round(price + UnitaryTax);
+            Price = new Amount(price);
+            UnitaryTax = (Price / 100m) * category.TaxPercentage;
+            UnitaryTaxedAmount = Price + UnitaryTax;
         }
 
         public string Name { get; }
-        public decimal Price { get; }
         public Category Category { get; }
-        public decimal UnitaryTax { get; }
-        public decimal UnitaryTaxedAmount { get; }
+        public Amount Price { get; }
+        public Amount UnitaryTax { get; }
+        public Amount UnitaryTaxedAmount { get; }
     }
 }
