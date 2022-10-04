@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Order_Shipping.Domain;
 using Xunit;
 
-namespace OrderShippingTest
+namespace OrderShippingTest.Domain
 {
-    public class PriceTest
+    public class AmountTest
     {
         [Fact]
         public void Should_round_the_amount_with_two_digits()
@@ -29,7 +26,7 @@ namespace OrderShippingTest
         [Fact]
         public void Should_not_be_divisible_by_zero()
         {
-            Assert.Throws<DivideByZeroException>(() => new Amount(150.163m)/0);
+            Assert.Throws<DivideByZeroException>(() => new Amount(150.163m) / 0);
         }
 
         [Fact]
@@ -42,22 +39,15 @@ namespace OrderShippingTest
             var result = amount_30_25 + amount_25;
             Assert.Equal(55.25m, result.RoundedValue);
         }
-    }
 
-    public class Amount
-    {
-        private readonly decimal _amount;
-
-        public Amount(decimal amount)
+        [Fact]
+        public void Should_be_multiplyable_by_decimal_value()
         {
-            _amount = amount;
+            Amount amount_30_25 = new(30.25m);
+
+            var result = amount_30_25 * 10.10m;
+            Assert.Equal(305.53m, result.RoundedValue);
         }
-
-        public decimal RoundedValue => decimal.Round(_amount, 2, MidpointRounding.ToPositiveInfinity);
-
-        public static Amount operator /(Amount amount, decimal value) => new(amount._amount / value);
-
-        public static Amount operator +(Amount amount, Amount other) => new(amount._amount + other._amount);
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using OrderShipping.Domain;
 using Xunit;
 
-namespace OrderShippingTest
+namespace OrderShippingTest.Domain
 {
     public class ProductTests
     {
