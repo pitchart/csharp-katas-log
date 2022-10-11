@@ -6,7 +6,7 @@ namespace OrderShipping.Domain
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public decimal TaxedAmount => PriceHelper.Round(Product.UnitaryTaxedAmount.RoundedValue * Quantity);
-        public decimal Tax => PriceHelper.Round(Product.UnitaryTax.RoundedValue * Quantity);
+        public Amount TaxedAmount => Product.UnitaryTaxedAmount * Quantity;
+        public Amount Tax => Product.UnitaryTax * Quantity;
     }
 }

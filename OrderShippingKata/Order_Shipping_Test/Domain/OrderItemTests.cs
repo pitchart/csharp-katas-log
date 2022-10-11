@@ -22,7 +22,7 @@ namespace OrderShippingTest.Domain
                 Quantity = 2
             };
 
-            Assert.Equal(20, orderItem.Tax);
+            Assert.Equal(20, orderItem.Tax.RoundedValue);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace OrderShippingTest.Domain
                 Quantity = 2
             };
 
-            Assert.Equal(220, orderItem.TaxedAmount);
+            Assert.Equal(220, orderItem.TaxedAmount.RoundedValue);
         }
     }
 }

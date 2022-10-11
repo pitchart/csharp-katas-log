@@ -1,5 +1,5 @@
-﻿using System;
-using Order_Shipping.Domain;
+﻿using Order_Shipping.Domain;
+using System;
 using Xunit;
 
 namespace OrderShippingTest.Domain
@@ -47,6 +47,24 @@ namespace OrderShippingTest.Domain
 
             var result = amount_30_25 * 10.10m;
             Assert.Equal(305.53m, result.RoundedValue);
+        }
+
+        [Fact]
+        public void Should_be_equal_to_its_decimal_rounded_value()
+        {
+            Amount amount_30_253 = new(30.253m);
+
+            Assert.True(30.26m == amount_30_253);
+            Assert.True(amount_30_253 == 30.26m);
+        }
+
+        [Fact]
+        public void Should_be_equal_to_amount_of_same_rounded_value()
+        {
+            Amount amount_30_253 = new(30.253m);
+            Amount amount_30_253_V2 = new(30.253m);
+
+            Assert.Equal(amount_30_253_V2, amount_30_253);
         }
     }
 

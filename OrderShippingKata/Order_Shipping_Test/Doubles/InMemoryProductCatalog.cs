@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OrderShippingTest.Doubles
 {

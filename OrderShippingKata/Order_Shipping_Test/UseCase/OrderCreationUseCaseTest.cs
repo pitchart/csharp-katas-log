@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -58,20 +58,20 @@ public class OrderCreationUseCaseTest
 
         Order insertedOrder = _orderRepository.GetSavedOrder();
         Assert.Equal(OrderStatus.Created, insertedOrder.Status);
-        Assert.Equal(23.20m, insertedOrder.Total);
-        Assert.Equal(2.13m, insertedOrder.Tax);
+        Assert.Equal(23.19m, insertedOrder.Total);
+        Assert.Equal(2.12m, insertedOrder.Tax);
         Assert.Equal("EUR", insertedOrder.Currency);
         Assert.Equal(2, insertedOrder.Items.Count);
         Assert.Equal("salad", insertedOrder.Items[0].Product.Name);
         Assert.Equal(3.56m, insertedOrder.Items[0].Product.Price.RoundedValue);
         Assert.Equal(2, insertedOrder.Items[0].Quantity);
-        Assert.Equal(7.84m, insertedOrder.Items[0].TaxedAmount);
-        Assert.Equal(0.72m, insertedOrder.Items[0].Tax);
+        Assert.Equal(7.84m, insertedOrder.Items[0].TaxedAmount.RoundedValue);
+        Assert.Equal(0.72m, insertedOrder.Items[0].Tax.RoundedValue);
         Assert.Equal("tomato", insertedOrder.Items[1].Product.Name);
         Assert.Equal(4.65m, insertedOrder.Items[1].Product.Price.RoundedValue);
         Assert.Equal(3, insertedOrder.Items[1].Quantity);
-        Assert.Equal(15.36m, insertedOrder.Items[1].TaxedAmount);
-        Assert.Equal(1.41m, insertedOrder.Items[1].Tax);
+        Assert.Equal(15.35m, insertedOrder.Items[1].TaxedAmount.RoundedValue);
+        Assert.Equal(1.40m, insertedOrder.Items[1].Tax.RoundedValue);
     }
 
     [Fact]
