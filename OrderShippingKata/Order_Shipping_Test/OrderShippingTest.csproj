@@ -21,11 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Doubles\" />
-    <Folder Include="UseCase\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Order Shipping\OrderShipping.csproj" />
   </ItemGroup>
 

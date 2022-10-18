@@ -1,4 +1,6 @@
-﻿namespace OrderShipping.Domain
+﻿using OrderShipping.UseCase;
+
+namespace OrderShipping.Domain
 {
     public class Order
     {
@@ -19,6 +21,16 @@
         public void AddProduct(Product product, int quantity)
         {
             this.Items.Add(new OrderItem { Product = product, Quantity = quantity });
+        }
+
+        public void Approve()
+        {
+            if (Status == OrderStatus.Rejected)
+            {
+                throw new RejectedOrderCannotBeApprovedException();
+            }
+            Status = OrderStatus.Approved;
+
         }
     }
 }

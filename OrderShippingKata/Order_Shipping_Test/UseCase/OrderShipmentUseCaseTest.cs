@@ -3,6 +3,7 @@ using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
 using System;
 using Xunit;
+using static OrderShippingTest.Doubles.Builder.OrderBuilder;
 
 namespace OrderShippingTest.UseCase;
 
@@ -23,11 +24,8 @@ public class OrderShipmentUseCaseTest
     [Fact]
     public void ShipApprovedOrder()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Approved,
-            Id = 1
-        };
+        var initialOrder = AnApprovedOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest
@@ -44,11 +42,8 @@ public class OrderShipmentUseCaseTest
     [Fact]
     public void CreatedOrdersCannotBeShipped()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Created,
-            Id = 1
-        };
+        var initialOrder = ANewOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest
@@ -66,11 +61,8 @@ public class OrderShipmentUseCaseTest
     [Fact]
     public void RejectedOrdersCannotBeShipped()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Rejected,
-            Id = 1
-        };
+        var initialOrder = ARejectedOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest
@@ -88,11 +80,8 @@ public class OrderShipmentUseCaseTest
     [Fact]
     public void ShippedOrdersCannotBeShippedAgain()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Shipped,
-            Id = 1
-        };
+        var initialOrder = AShippedOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest

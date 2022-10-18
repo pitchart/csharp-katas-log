@@ -1,8 +1,11 @@
 ﻿using OrderShipping.Domain;
+using OrderShipping.UseCase;
 using Xunit;
+using static OrderShippingTest.Doubles.Builder.OrderBuilder;
 
 namespace OrderShippingTest.Domain
 {
+
     public class OrderTests
     {
         [Fact]
@@ -29,5 +32,23 @@ namespace OrderShippingTest.Domain
             Assert.Equal(26, order.Tax);
             Assert.Equal(86, order.Total);
         }
+
+        [Fact]
+        public void ShouldApproveNewOrder()
+        {
+            var newOrder = ANewOrder().Build();
+            newOrder.Approve();
+
+            Assert.Equal(OrderStatus.Approved, newOrder.Status);
+        }
+
+        [Fact]
+        public void CannotApproveRejectedOrder()
+        {
+            var rejectedOrder = ARejectedOrder().Build();
+            var action = () => rejectedOrder.Approve();
+            Assert.Throws<RejectedOrderCannotBeApprovedException>(action);
+        }
     }
+
 }

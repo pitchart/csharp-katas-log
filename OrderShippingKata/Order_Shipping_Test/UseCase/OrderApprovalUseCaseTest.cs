@@ -3,6 +3,7 @@ using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
 using System;
 using Xunit;
+using static OrderShippingTest.Doubles.Builder.OrderBuilder;
 
 namespace OrderShippingTest.UseCase;
 
@@ -17,15 +18,10 @@ public class OrderApprovalUseCaseTest
         _useCase = new OrderApprovalUseCase(_orderRepository);
     }
 
-
     [Fact]
     public void ApprovedExistingOrder()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Created,
-            Id = 1
-        };
+        var initialOrder =  ANewOrder().WithId(1).Build();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -43,11 +39,7 @@ public class OrderApprovalUseCaseTest
     [Fact]
     public void RejectedExistingOrder()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Created,
-            Id = 1
-        };
+        var initialOrder = ANewOrder().WithId(1).Build();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -66,11 +58,7 @@ public class OrderApprovalUseCaseTest
     [Fact]
     public void CannotApproveRejectedOrder()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Rejected,
-            Id = 1
-        };
+        var initialOrder = ARejectedOrder().WithId(1).Build();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -89,11 +77,8 @@ public class OrderApprovalUseCaseTest
     [Fact]
     public void CannotRejectApprovedOrder()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Approved,
-            Id = 1
-        };
+        var initialOrder = AnApprovedOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -112,11 +97,8 @@ public class OrderApprovalUseCaseTest
     [Fact]
     public void ShippedOrdersCannotBeRejected()
     {
-        var initialOrder = new Order
-        {
-            Status = OrderStatus.Shipped,
-            Id = 1
-        };
+        var initialOrder = AShippedOrder().WithId(1).Build();
+
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
