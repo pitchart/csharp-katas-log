@@ -20,7 +20,6 @@ public class OrderShipmentUseCaseTest
         _useCase = new OrderShipmentUseCase(_orderRepository, _shipmentService);
     }
 
-
     [Fact]
     public void ShipApprovedOrder()
     {

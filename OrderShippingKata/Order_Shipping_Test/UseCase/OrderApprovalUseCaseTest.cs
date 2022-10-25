@@ -21,7 +21,7 @@ public class OrderApprovalUseCaseTest
     [Fact]
     public void ApprovedExistingOrder()
     {
-        var initialOrder =  ANewOrder().WithId(1).Build();
+        var initialOrder = ANewOrder().WithId(1).Build();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest

@@ -6,6 +6,7 @@ namespace OrderShipping.UseCase
     public class OrderApprovalUseCase
     {
         private readonly IOrderRepository _orderRepository;
+
         public OrderApprovalUseCase(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
@@ -14,23 +15,22 @@ namespace OrderShipping.UseCase
         public void Run(OrderApprovalRequest request)
         {
             var order = _orderRepository.GetById(request.OrderId);
+            (Order? Success, ApplicationException? Error) result;
 
-            if (order.Status == OrderStatus.Shipped)
+            if (request.Approved)
             {
-                throw new ShippedOrdersCannotBeChangedException();
+                result = order.Approve();
+            }
+            else
+            {
+                result = order.Reject();
             }
 
-            if (request.Approved && order.Status == OrderStatus.Rejected)
+            if (result.Error is not null)
             {
-                throw new RejectedOrderCannotBeApprovedException();
+                throw result.Error;
             }
 
-            if (!request.Approved && order.Status == OrderStatus.Approved)
-            {
-                throw new ApprovedOrderCannotBeRejectedException();
-            }
-
-            order.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
             _orderRepository.Save(order);
         }
     }

@@ -23,14 +23,52 @@ namespace OrderShipping.Domain
             this.Items.Add(new OrderItem { Product = product, Quantity = quantity });
         }
 
-        public void Approve()
+        public (Order? Success, ApplicationException? Error) Approve()
         {
             if (Status == OrderStatus.Rejected)
             {
-                throw new RejectedOrderCannotBeApprovedException();
+                return (null, new RejectedOrderCannotBeApprovedException());
             }
-            Status = OrderStatus.Approved;
 
+            if (Status == OrderStatus.Shipped)
+            {
+                return (null, new ShippedOrdersCannotBeChangedException());
+            }
+
+            Status = OrderStatus.Approved;
+            return (this, null);
+        }
+
+        public (Order? Success, ApplicationException? Error) Reject()
+        {
+            if (Status == OrderStatus.Shipped)
+            {
+                return (null, new ShippedOrdersCannotBeChangedException());
+            }
+
+            if (Status == OrderStatus.Approved)
+            {
+                return (null, new ApprovedOrderCannotBeRejectedException());
+            }
+
+            Status = OrderStatus.Rejected;
+            return (this, null);
+        }
+
+        public (Order? Success, ApplicationException? Error) Ship()
+        {
+            if (Status == OrderStatus.Created || Status == OrderStatus.Rejected)
+            {
+                return (null, new OrderCannotBeShippedException());
+            }
+
+            if (Status == OrderStatus.Shipped)
+            {
+                return (null, new OrderCannotBeShippedTwiceException());
+            }
+
+            Status = OrderStatus.Shipped;
+            return (this, null);
         }
     }
 }

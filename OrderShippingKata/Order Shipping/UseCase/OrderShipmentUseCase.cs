@@ -1,5 +1,4 @@
-﻿using OrderShipping.Domain;
-using OrderShipping.Repository;
+﻿using OrderShipping.Repository;
 using OrderShipping.Service;
 
 namespace OrderShipping.UseCase
@@ -21,19 +20,15 @@ namespace OrderShipping.UseCase
         {
             var order = _orderRepository.GetById(request.OrderId);
 
-            if (order.Status == OrderStatus.Created || order.Status == OrderStatus.Rejected)
-            {
-                throw new OrderCannotBeShippedException();
-            }
+            var result = order.Ship();
 
-            if (order.Status == OrderStatus.Shipped)
+            if (result.Error is not null)
             {
-                throw new OrderCannotBeShippedTwiceException();
+                throw result.Error;
             }
 
             _shipmentService.Ship(order);
 
-            order.Status = OrderStatus.Shipped;
             _orderRepository.Save(order);
         }
     }

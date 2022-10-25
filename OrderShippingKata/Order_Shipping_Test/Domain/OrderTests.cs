@@ -46,8 +46,9 @@ namespace OrderShippingTest.Domain
         public void CannotApproveRejectedOrder()
         {
             var rejectedOrder = ARejectedOrder().Build();
-            var action = () => rejectedOrder.Approve();
-            Assert.Throws<RejectedOrderCannotBeApprovedException>(action);
+            var result = rejectedOrder.Approve();
+            Assert.NotNull(result.Error);
+            Assert.IsType<RejectedOrderCannotBeApprovedException>(result.Error);
         }
     }
 
