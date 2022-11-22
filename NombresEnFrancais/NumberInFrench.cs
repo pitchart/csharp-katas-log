@@ -23,11 +23,13 @@
                 { 14, "quatorze"},
                 { 15, "quinze"},
                 { 16, "seize"},
-                { 17, "dix-sept"},
-                { 18, "dix-huit"},
-                { 19, "dix-neuf"},
                 { 20, "vingt"}
             };
+
+            if (!numberMapping.ContainsKey(number))
+            {
+                return numberMapping[number / 10 * 10] + "-" + numberMapping[number % 10];
+            }
             return numberMapping[number];
         }
     }

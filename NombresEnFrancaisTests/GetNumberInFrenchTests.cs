@@ -67,5 +67,17 @@ namespace NombresEnFrancaisTests
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(22, "vingt-deux")]
+        [InlineData(23, "vingt-trois")]
+        [InlineData(24, "vingt-quatre")]
+        [InlineData(25, "vingt-cinq")]
+        public void Get_SecondTensInFrench_NominalCase_ReturnsAsString(int number, string expected)
+        {
+            string result = NumberInFrench.GetNumberInFrench(number);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
