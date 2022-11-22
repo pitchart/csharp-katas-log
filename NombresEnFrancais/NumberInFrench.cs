@@ -4,28 +4,20 @@
     {
         public static string GetNumberInFrench(int number)
         {
-            switch (number)
+            var numberMapping = new Dictionary<int, string>
             {
-                case 1:
-                    return "un";
-                case 2:
-                    return "deux";
-                case 3:
-                    return "trois";
-                case 4:
-                    return "quatre";
-                case 5:
-                    return "cinq";
-                case 6:
-                    return "six";
-                case 7:
-                    return "sept";
-                case 8:
-                    return "huit";
-                case 9:
-                    return "neuf";
-            }
-            return "zero";
+                { 0,  "zero"},
+                { 1,  "un"},
+                { 2,  "deux"},
+                { 3,  "trois"},
+                { 4,  "quatre"},
+                { 5,  "cinq"},
+                { 6,  "six"},
+                { 7,  "sept"},
+                { 8,  "huit"},
+                { 9,  "neuf"},
+            };
+            return numberMapping[number];
         }
     }
 }
