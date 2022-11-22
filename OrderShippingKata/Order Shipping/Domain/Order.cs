@@ -1,4 +1,5 @@
-﻿using OrderShipping.UseCase;
+﻿using LanguageExt;
+using OrderShipping.UseCase;
 
 namespace OrderShipping.Domain
 {
@@ -23,36 +24,36 @@ namespace OrderShipping.Domain
             this.Items.Add(new OrderItem { Product = product, Quantity = quantity });
         }
 
-        public (Order? Success, ApplicationException? Error) Approve()
+        public  Either<ApplicationException, Order> Approve()
         {
             if (Status == OrderStatus.Rejected)
             {
-                return (null, new RejectedOrderCannotBeApprovedException());
+                return new RejectedOrderCannotBeApprovedException();
             }
 
             if (Status == OrderStatus.Shipped)
             {
-                return (null, new ShippedOrdersCannotBeChangedException());
+                return new ShippedOrdersCannotBeChangedException();
             }
 
             Status = OrderStatus.Approved;
-            return (this, null);
+            return this;
         }
 
-        public (Order? Success, ApplicationException? Error) Reject()
+        public Either<ApplicationException, Order> Reject()
         {
             if (Status == OrderStatus.Shipped)
             {
-                return (null, new ShippedOrdersCannotBeChangedException());
+                return new ShippedOrdersCannotBeChangedException();
             }
 
             if (Status == OrderStatus.Approved)
             {
-                return (null, new ApprovedOrderCannotBeRejectedException());
+                return new ApprovedOrderCannotBeRejectedException();
             }
 
             Status = OrderStatus.Rejected;
-            return (this, null);
+            return this;
         }
 
         public (Order? Success, ApplicationException? Error) Ship()

@@ -1,4 +1,5 @@
-﻿using OrderShipping.Domain;
+﻿using LanguageExt;
+using OrderShipping.Domain;
 using OrderShipping.Repository;
 
 namespace OrderShipping.UseCase
@@ -14,24 +15,12 @@ namespace OrderShipping.UseCase
 
         public void Run(OrderApprovalRequest request)
         {
-            var order = _orderRepository.GetById(request.OrderId);
-            (Order? Success, ApplicationException? Error) result;
+            Order order = _orderRepository.GetById(request.OrderId);
+            Either<ApplicationException, Order> result = request.Approved ? order.Approve() : order.Reject();
 
-            if (request.Approved)
-            {
-                result = order.Approve();
-            }
-            else
-            {
-                result = order.Reject();
-            }
-
-            if (result.Error is not null)
-            {
-                throw result.Error;
-            }
-
-            _orderRepository.Save(order);
+            result.Match(
+                Left: ex => throw ex,
+                Right: or => _orderRepository.Save(or));
         }
     }
 }

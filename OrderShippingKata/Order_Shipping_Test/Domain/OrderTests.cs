@@ -1,6 +1,7 @@
 ﻿using OrderShipping.Domain;
 using OrderShipping.UseCase;
 using Xunit;
+using Xunit.Sdk;
 using static OrderShippingTest.Doubles.Builder.OrderBuilder;
 
 namespace OrderShippingTest.Domain
@@ -47,8 +48,11 @@ namespace OrderShippingTest.Domain
         {
             var rejectedOrder = ARejectedOrder().Build();
             var result = rejectedOrder.Approve();
-            Assert.NotNull(result.Error);
-            Assert.IsType<RejectedOrderCannotBeApprovedException>(result.Error);
+
+            result.Match(
+                Left: ex => Assert.IsType<RejectedOrderCannotBeApprovedException>(ex),
+                Right: _ => throw new XunitException("Should never return order")
+                );
         }
     }
 
