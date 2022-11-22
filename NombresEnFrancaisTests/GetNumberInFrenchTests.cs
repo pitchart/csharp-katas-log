@@ -34,7 +34,34 @@ namespace NombresEnFrancaisTests
         [InlineData(7, "sept")]
         [InlineData(8, "huit")]
         [InlineData(9, "neuf")]
-        public void GetNumberInFrench_WhenUnit_ReturnsUnitAsString(int number, string expected)
+        public void GetNumberInFrench_WhenUnit_ReturnsAsString(int number, string expected)
+        {
+            string result = NumberInFrench.GetNumberInFrench(number);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(11, "onze")]
+        [InlineData(12, "douze")]
+        [InlineData(13, "treize")]
+        [InlineData(14, "quatorze")]
+        [InlineData(15, "quinze")]
+        [InlineData(16, "seize")]
+        [InlineData(17, "dix-sept")]
+        [InlineData(18, "dix-huit")]
+        [InlineData(19, "dix-neuf")]
+        public void GetTeensNumbersInFrench_WhenTeens_ReturnsAsString(int number, string expected)
+        {
+            string result = NumberInFrench.GetNumberInFrench(number);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(10, "dix")]
+        [InlineData(20, "vingt")]
+        public void GetTensInFrench_WhenTens_ReturnsAsString(int number, string expected)
         {
             string result = NumberInFrench.GetNumberInFrench(number);
 
