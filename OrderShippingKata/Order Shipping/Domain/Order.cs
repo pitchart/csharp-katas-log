@@ -11,20 +11,11 @@
 
         internal void Add(Product product, int quantity)
         {
-            var unitaryTax = Round((product.Price / 100m) * product.Category.TaxPercentage);
-            unitaryTax = Round(product.UnitaryTax);
+            var taxedAmount = Round(Round(product.UnitaryTaxedAmount)* quantity);
+            // trop d'arrondis
+            var taxAmount = Round(Round((product.Price / 100m) * product.Category.TaxPercentage) * quantity);
+            var orderItem = new OrderItem(product, quantity);
 
-            var unitaryTaxedAmount = Round(product.Price + unitaryTax);
-            var taxedAmount = Round(unitaryTaxedAmount * quantity);
-            var taxAmount = Round(unitaryTax *quantity);
-
-            var orderItem = new OrderItem
-            {
-                Product = product,
-                Quantity =quantity,
-                Tax = taxAmount,
-                TaxedAmount = taxedAmount
-            };
             this.Items.Add(orderItem);
             this.Total += taxedAmount;
             this.Tax += taxAmount;
