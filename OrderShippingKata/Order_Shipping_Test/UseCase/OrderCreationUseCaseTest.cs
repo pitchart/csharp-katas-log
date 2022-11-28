@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -24,19 +24,9 @@ public class OrderCreationUseCaseTest
 
         _productCatalog = new InMemoryProductCatalog(new List<Product>
             {
-                new Product
-                {
-                    Name = "salad",
-                    Price = 3.56m,
-                    Category = food
-                },
-                new Product
-                {
-                    Name = "tomato",
-                    Price = 4.65m,
-                    Category = food
-                }
-            });
+                new Product("salad", 3.56m, food),
+                new Product("tomato", 4.65m,food)
+            }); ;
 
         _orderRepository = new TestOrderRepository();
 
