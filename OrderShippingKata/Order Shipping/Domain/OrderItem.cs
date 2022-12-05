@@ -4,8 +4,8 @@
     {
         public Product Product { get; }
         public int Quantity { get; }
-        public decimal TaxedAmount { get; }
-        public decimal Tax { get; }
+        public Amount TaxedAmount { get; }
+        public Amount Tax { get; }
 
         public OrderItem(Product product, int quantity)
         {

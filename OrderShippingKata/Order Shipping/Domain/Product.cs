@@ -2,11 +2,11 @@
 {
     public class Product
     {
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public Category Category { get; set; }
-        public decimal UnitaryTax => (Price / 100m) * Category.TaxPercentage;
-        public decimal UnitaryTaxedAmount => Price + UnitaryTax;
+        public string Name { get; }
+        public Amount Price { get; }
+        public Category Category { get; }
+        private Amount UnitaryTax => (Price / 100m) * Category.TaxPercentage;
+        public Amount UnitaryTaxedAmount => Price + UnitaryTax;
 
         public Product(string name, decimal price, Category category)
         {
