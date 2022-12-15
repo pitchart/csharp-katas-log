@@ -6,13 +6,38 @@ namespace GameOfLife.Test
     {
         private readonly GameOfLifeService _gameOfLifeService = new GameOfLifeService();
 
-        [Fact]
-        public void Should_Die_When_Cell_Has_Less_Than_Two_Living_Neighbors()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        public void Should_Die_When_Cell_Has_Less_Than_Two_Living_Neighbors(int aliveNeighborsNumber)
         {
             Cell aliveCell = new Cell { IsAlive = true};
-            int aliveNeighborsNumber = 1;
             
             var willBeAlive = _gameOfLifeService.WillCellBeAlive(aliveCell , aliveNeighborsNumber);
+
+            Assert.False(willBeAlive);
+        }
+
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void Should_Be_Alive_When_Cell_Has_Two_Living_Neighbors(int aliveNeighborsNumber)
+        {
+            Cell aliveCell = new Cell { IsAlive = true };
+
+            var willBeAlive = _gameOfLifeService.WillCellBeAlive(aliveCell, aliveNeighborsNumber);
+
+            Assert.True(willBeAlive);
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(200000)]
+        public void Should_Die_When_Cell_Is_Alive_And_Has_More_Than_Three_Neighbors(int aliveNeighborsNumber)
+        {
+            Cell aliveCell = new Cell { IsAlive= true };
+
+            var willBeAlive = _gameOfLifeService.WillCellBeAlive(aliveCell, aliveNeighborsNumber);
 
             Assert.False(willBeAlive);
         }

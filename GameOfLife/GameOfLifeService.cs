@@ -4,7 +4,7 @@
     {
         public bool WillCellBeAlive(Cell aliveCell, int aliveNeighborsNumber)
         {
-            return false;
+            return !(aliveNeighborsNumber < 2 || aliveNeighborsNumber > 3);
         }
     }
 }
