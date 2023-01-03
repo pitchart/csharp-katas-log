@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumeral", "RomanNumeralKata\RomanNumeral\RomanNumeral.csproj", "{762E118B-6723-4A65-BCCA-2D343F3D74D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumeralKata\RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
@@ -37,11 +40,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags", "LagsKata\Lags\Lags.csproj", "{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags.Tests", "LagsKata\Lags.Tests\Lags.Tests.csproj", "{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "Tennis\Tennis.csproj", "{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections", "ElectionsKata\Elections\Elections.csproj", "{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elections", "ElectionsKata\Elections\Elections.csproj", "{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections.Tests", "ElectionsKata\Elections.Tests\Elections.Tests.csproj", "{84C8142A-E28B-4769-B33B-6A1EACFECDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elections.Tests", "ElectionsKata\Elections.Tests\Elections.Tests.csproj", "{84C8142A-E28B-4769-B33B-6A1EACFECDA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake", "CupCakeKata\CupCake\CupCake.csproj", "{CB168723-C146-4ACA-9FAC-48EDBC2D3A35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Tests", "CupCakeKata\CupCake.Tests\CupCake.Tests.csproj", "{F70501DC-F2F5-4644-8520-8D2C02A0D8E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,7 +143,21 @@ Global
 		{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-	    {84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84C8142A-E28B-4769-B33B-6A1EACFECDA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB168723-C146-4ACA-9FAC-48EDBC2D3A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB168723-C146-4ACA-9FAC-48EDBC2D3A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB168723-C146-4ACA-9FAC-48EDBC2D3A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB168723-C146-4ACA-9FAC-48EDBC2D3A35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70501DC-F2F5-4644-8520-8D2C02A0D8E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70501DC-F2F5-4644-8520-8D2C02A0D8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70501DC-F2F5-4644-8520-8D2C02A0D8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70501DC-F2F5-4644-8520-8D2C02A0D8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {258D5D45-D6E5-438F-A657-619B25D1A5D8}
 	EndGlobalSection
 EndGlobal
