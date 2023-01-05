@@ -41,5 +41,35 @@ namespace GameOfLife.Test
 
             Assert.False(willBeAlive);
         }
+
+        [Fact]
+        public void Should_Be_Alive_When_Cell_Has_Exactly_Three_Alive_Neighbors()
+        {
+            Cell dieCell = new Cell { IsAlive = false };
+
+            var willBeAlive = _gameOfLifeService.WillCellBeAlive(dieCell, 3);
+
+            Assert.True(willBeAlive);
+        }
+
+        [Fact]
+        public void Should_Be_Die_When_Cell_Has_Up_Than_Three_Alive_Neighbors()
+        {
+            Cell dieCell = new Cell { IsAlive = false };
+
+            var willBeAlive = _gameOfLifeService.WillCellBeAlive(dieCell, 4);
+
+            Assert.False(willBeAlive);
+        }
+
+        [Fact]
+        public void Should_Be_Die_When_Cell_Has_Less_Than_Three_Alive_Neighbors()
+        {
+            Cell dieCell = new Cell { IsAlive = false };
+
+            var willBeAlive = _gameOfLifeService.WillCellBeAlive(dieCell, 2);
+
+            Assert.False(willBeAlive);
+        }
     }
 }

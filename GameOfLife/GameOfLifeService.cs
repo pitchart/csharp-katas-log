@@ -4,7 +4,18 @@
     {
         public bool WillCellBeAlive(Cell aliveCell, int aliveNeighborsNumber)
         {
-            return !(aliveNeighborsNumber < 2 || aliveNeighborsNumber > 3);
+            if (aliveNeighborsNumber == 2)
+                return aliveCell.IsAlive;
+
+            if (aliveNeighborsNumber == 3)
+                return true;
+            else
+                return false;
+        }
+
+        public Cell GenerateNextCell(Cell cell, int aliveNeighborsNumber)
+        {
+            return new DeadCell();
         }
     }
 }
