@@ -15,6 +15,8 @@ namespace OrderShipping.UseCase
         {
             var order = _orderRepository.GetById(request.OrderId);
 
+
+            // TODO : Move in Order
             if (order.Status == OrderStatus.Shipped)
             {
                 throw new ShippedOrdersCannotBeChangedException();
@@ -30,7 +32,12 @@ namespace OrderShipping.UseCase
                 throw new ApprovedOrderCannotBeRejectedException();
             }
 
-            order.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
+            if (request.Approved) {
+                order.Approve();
+            }
+            else {
+                order.Reject();
+            }
             _orderRepository.Save(order);
         }
     }

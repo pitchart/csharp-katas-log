@@ -24,9 +24,10 @@ public class AmountTest
     {
         var amount = new Amount(2);
 
-        Amount sumAmount = amount * 3;
+        var sumAmount = amount * 3;
 
-        sumAmount.Should().Be(new Amount(6));
+        sumAmount.Should().BeOfType<Amount>()
+            .And.Be(new Amount(6));
     }
     
     [Fact]

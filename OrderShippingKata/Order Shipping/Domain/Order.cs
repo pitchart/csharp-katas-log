@@ -1,18 +1,28 @@
-﻿namespace OrderShipping.Domain
+﻿using OrderShipping.UseCase;
+
+namespace OrderShipping.Domain
 {
     public class Order
     {
-        public Amount Total { get; set; }
-        public string Currency { get; set; }
-        public IList<OrderItem> Items { get; set; }
-        public Amount Tax { get; set; }
-        public OrderStatus Status { get; set; }
-        public int Id { get; set; }
+        public Order(params (int quantity, Product product)[] items)
+        {
+            foreach(var (quantity, product) in items)
+            {
+                Add(product, quantity);
+            }
+        }
+
+        public Amount Total { get; private set; } = 0m;
+        public string Currency { get; private set; } = "EUR";
+        public IList<OrderItem> Items { get; private set; } = new List<OrderItem>();
+        public Amount Tax { get; private set; } = 0m;
+        public OrderStatus Status { get; private set; } = OrderStatus.Created;
+        public int Id { get;  set; }
 
         internal void Add(Product product, int quantity)
         {
-            var taxedAmount = Round(Round(product.UnitaryTaxedAmount)* quantity);
-            var taxAmount = Round(Round((product.Price / 100m) * product.Category.TaxPercentage) * quantity);
+            var taxedAmount = (product.UnitaryTaxedAmount.Round()* quantity).Round();
+            var taxAmount = ((product.Price / 100m * product.Category.TaxPercentage).Round() * quantity).Round();
             var orderItem = new OrderItem(product, quantity);
 
             this.Items.Add(orderItem);
@@ -20,9 +30,29 @@
             this.Tax += taxAmount;
         }
 
-        private decimal Round(decimal amount)
+        public void Approve()
         {
-            return decimal.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
+           Status = OrderStatus.Approved;
+        }
+
+        public void Ship()
+        {
+            if (Status == OrderStatus.Created || Status == OrderStatus.Rejected)
+            {
+                throw new OrderCannotBeShippedException();
+            }
+
+            if (Status == OrderStatus.Shipped)
+            {
+                throw new OrderCannotBeShippedTwiceException();
+            }
+
+            Status = OrderStatus.Shipped;
+        }
+
+        public void Reject()
+        {
+            Status = OrderStatus.Rejected;
         }
     }
 }

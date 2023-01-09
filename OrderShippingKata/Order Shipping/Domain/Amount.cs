@@ -9,7 +9,13 @@ public record Amount(decimal _value)
         var value = amount1._value + amount2._value;
         return new Amount(value);
     }
-    
+
+    public static Amount operator *(Amount amount1, decimal factor)
+    {
+        var value = amount1._value * factor;
+        return new Amount(value);
+    }
+
     public static implicit operator decimal(Amount amount)
     {
         return amount._value;

@@ -11,17 +11,9 @@
         {
             Product=product;
             Quantity=quantity;
-            TaxedAmount = Round(Round(product.UnitaryTaxedAmount)* quantity);
+            TaxedAmount = (product.UnitaryTaxedAmount.Round()* quantity).Round();
             // trop d'arrondis
-            Tax = Round(Round((product.Price / 100m) * product.Category.TaxPercentage) * quantity);
-        }
-
-        public OrderItem()
-        { }
-
-        private decimal Round(decimal amount)
-        {
-            return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
+            Tax = ((product.Price / 100m * product.Category.TaxPercentage).Round() * quantity).Round();
         }
     }
 }

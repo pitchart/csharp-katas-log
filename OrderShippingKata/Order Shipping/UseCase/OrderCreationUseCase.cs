@@ -18,14 +18,7 @@ namespace OrderShipping.UseCase
 
         public void Run(SellItemsRequest request)
         {
-            var order = new Order
-            {
-                Status = OrderStatus.Created,
-                Items = new List<OrderItem>(),
-                Currency = "EUR",
-                Total = 0m,
-                Tax = 0m
-            };
+            var products = new List<(int quantity,Product product)>();
 
             foreach (var itemRequest in request.Requests)
             {
@@ -37,11 +30,10 @@ namespace OrderShipping.UseCase
                 }
                 else
                 {
-                    order.Add(product, itemRequest.Quantity);
-
-
+                    products.Add((itemRequest.Quantity, product));
                 }
             }
+            var order = new Order(products.ToArray());
 
             _orderRepository.Save(order);
         }
