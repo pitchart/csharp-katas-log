@@ -1,14 +1,8 @@
 ﻿namespace CupCake;
 
-public class Cookie
+public class Cookie : Cake, ICake
 {
-    public string GetName()
+    public Cookie() : base(2, "🍪")
     {
-        return "🍪";
-    }
-
-    public string GetPrice()
-    {
-        return "2$";
     }
 }

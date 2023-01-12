@@ -15,7 +15,7 @@
         {
             var cupCake = new Cookie();
 
-            Assert.Equal("2$", cupCake.GetPrice());
+            Assert.Equal("2$", cupCake.GetFormatedPrice());
         }
     }
 }

@@ -15,7 +15,7 @@
         {
             var cupCake = new CupCake();
 
-            Assert.Equal("1$", cupCake.GetPrice());
+            Assert.Equal("1$", cupCake.GetFormatedPrice());
         }
     }
 }

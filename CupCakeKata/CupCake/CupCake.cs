@@ -1,20 +1,8 @@
-﻿namespace CupCake
+﻿namespace CupCake;
+
+public class CupCake : Cake, ICake
 {
-    public class CupCake
+    public CupCake() : base(1, "🧁")
     {
-        public string GetName()
-        {
-            return "🧁";
-        }
-
-        public float GetUnitPrice()
-        {
-            return 1;
-        }
-
-        public string GetPrice()
-        {
-            return $"{GetUnitPrice()}$";
-        }
     }
 }
