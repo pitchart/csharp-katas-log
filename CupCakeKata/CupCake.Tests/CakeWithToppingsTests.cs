@@ -5,7 +5,7 @@
         [Fact]
         public void Check_if_have_value_when_try_to_get_name()
         {
-            var cupCake = new Chocolate(new CupCake());
+            var cupCake = new Chocolate(new CupCakeBase());
 
             Assert.Equal("🧁 with 🍫", cupCake.GetName());
         }
@@ -13,7 +13,7 @@
         [Fact]
         public void Check_if_have_value_when_try_to_get_price()
         {
-            var cupCake = new Chocolate(new CupCake());
+            var cupCake = new Chocolate(new CupCakeBase());
 
             Assert.Equal("1.1$", cupCake.GetFormatedPrice());
         }
@@ -53,7 +53,7 @@
         [Fact]
         public void Check_if_cookie_have_nuts_and_chocolate_topping()
         {
-            var cake = new Nut(new Chocolate(new Cookie()));
+            var cake = new Chocolate(new Nut(new Cookie()));
 
             Assert.Equal("🍪 with 🥜 and 🍫", cake.GetName());
         }

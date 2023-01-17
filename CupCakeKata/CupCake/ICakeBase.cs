@@ -1,6 +1,6 @@
 ﻿namespace CupCake;
 
-public interface ICake
+public interface ICakeBase
 {
     string GetName();
     string GetFormatedPrice();

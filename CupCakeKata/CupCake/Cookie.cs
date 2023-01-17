@@ -1,6 +1,6 @@
 ﻿namespace CupCake;
 
-public class Cookie : Cake, ICake
+public class Cookie : Cake, ICakeBase
 {
     public Cookie() : base(2, "🍪")
     {

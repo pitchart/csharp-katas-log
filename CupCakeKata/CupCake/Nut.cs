@@ -1,27 +1,9 @@
 ﻿namespace CupCake;
 
-public class Nut
+public class Nut : CakeWithToppings
 {
-    public readonly Chocolate Chocolate;
-
-    public Nut(Chocolate chocolate)
+    public Nut(ICakeBase cakeBase) : base ("🥜", cakeBase, 0.2f)
     {
-        Chocolate = chocolate;
-    }
-
-    public string GetName()
-    {
-        return $"{Chocolate.GetName()} and 🥜";
-    }
-
-    public float GetPrice()
-    {
-        return 0.2f + Chocolate.GetPrice();
-    }
-
-    public string GetFormatedPrice()
-    {
-        float price = GetPrice();
-        return $"{price}$".Replace(',', '.');
     }
 }
+

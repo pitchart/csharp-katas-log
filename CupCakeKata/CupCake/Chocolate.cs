@@ -1,27 +1,8 @@
 ﻿namespace CupCake;
 
-public class Chocolate
+public class Chocolate : CakeWithToppings
 {
-    public readonly ICake CakeWrapper;
-
-    public Chocolate(ICake cake)
+    public Chocolate(ICakeBase cakeBase) : base("🍫", cakeBase, 0.1f)
     {
-        CakeWrapper = cake;
-    }
-
-    public string GetName()
-    {
-        return $"{CakeWrapper.GetName()} with 🍫";
-    }
-
-    public float GetPrice()
-    {
-        return 0.1f + CakeWrapper.GetPrice();
-    }
-
-    public string GetFormatedPrice()
-    {
-        float price = GetPrice();
-        return $"{price}$".Replace(',', '.');
     }
 }
