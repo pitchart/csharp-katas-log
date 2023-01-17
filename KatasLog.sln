@@ -62,6 +62,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInvoicing", "TestDataBu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInvoicing.Tests", "TestDataBuilders\BookInvoicing.Tests\BookInvoicing.Tests.csproj", "{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind", "MastermindKata\Mastermind\Mastermind.csproj", "{8625899E-ABEC-49FC-AE07-38888CBC3580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind.Tests", "MastermindKata\Mastermind.Tests\Mastermind.Tests.csproj", "{B6423408-514E-475B-AFCB-FE4DD19D5077}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,5 +196,13 @@ Global
 		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DB8B18F-6338-4B60-A9AB-1435AD520FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8625899E-ABEC-49FC-AE07-38888CBC3580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8625899E-ABEC-49FC-AE07-38888CBC3580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8625899E-ABEC-49FC-AE07-38888CBC3580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8625899E-ABEC-49FC-AE07-38888CBC3580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6423408-514E-475B-AFCB-FE4DD19D5077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6423408-514E-475B-AFCB-FE4DD19D5077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6423408-514E-475B-AFCB-FE4DD19D5077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6423408-514E-475B-AFCB-FE4DD19D5077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
