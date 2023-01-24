@@ -51,6 +51,14 @@
         }
 
         [Fact]
+        public void Check_if_cookie_with_chocolate_nuts_and_topping_have_a_price()
+        {
+            var cake = new Chocolate(new Nut(new Cookie()));
+
+            Assert.Equal("2.3$", cake.GetFormatedPrice());
+        }
+
+        [Fact]
         public void Check_if_cookie_have_nuts_and_chocolate_topping()
         {
             var cake = new Chocolate(new Nut(new Cookie()));
