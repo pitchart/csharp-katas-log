@@ -2,21 +2,20 @@
 
 public class Bundle
 {
-    private readonly ICakeBase _cakeBase;
+    private readonly IEnumerable<ICakeBase> _cakeBaseList;
 
-    public Bundle(ICakeBase cakeBase)
+    public Bundle(ICakeBase cake, params ICakeBase[] cakeBase)
     {
-        _cakeBase = cakeBase;
+        _cakeBaseList = cakeBase.ToList().Prepend(cake);
     }
 
     public string GetName()
     {
-        return $"📦 composed of {_cakeBase.GetName()}";
+        return $"📦 composed of {string.Join(" and ", _cakeBaseList.Select(cake => cake.GetName()))}";
     }
 
     public string GetFormatedPrice()
     {
-        float price = _cakeBase.GetPrice() * 0.9f;
-        return $"{price}$".Replace(',', '.');
+        return $"{(_cakeBaseList.Sum(cake => cake.GetPrice()) * 0.9f):N1}$".Replace(',', '.');
     }
 }

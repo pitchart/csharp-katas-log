@@ -37,7 +37,7 @@
         [Fact]
         public void Check_if_cookie_have_a_chocolate_and_nuts_topping()
         {
-            var cake = new Nut(new Chocolate(new Cookie())) ;
+            var cake = new Nut(new Chocolate(new Cookie()));
 
             Assert.Equal("🍪 with 🍫 and 🥜", cake.GetName());
         }
