@@ -49,6 +49,30 @@
 
             Assert.Equal("2.7$", bundle.GetFormatedPrice());
         }
+
+        [Fact]
+        public void check_bundle_name_who_contained_two_cup_cake_and_three_cookie()
+        {
+            var bundle = new Bundle(new CupCakeBase(), new CupCakeBase(), new Cookie(), new Cookie(), new Cookie());
+
+            Assert.Equal("📦 composed of 2 🧁 and 3 🍪", bundle.GetName());
+        }
+
+        [Fact]
+        public void check_bundle_price_who_contained_two_cup_cake_and_three_cookie()
+        {
+            var bundle = new Bundle(new CupCakeBase(), new CupCakeBase(), new Cookie(), new Cookie(), new Cookie());
+
+            Assert.Equal("7.2$", bundle.GetFormatedPrice());
+        }
+
+        [Fact]
+        public void check_bundle_name_who_contained_one_bundle_and_two_cup_cake_and_one_cookie()
+        {
+            var bundle = new Bundle(new Bundle(new CupCakeBase(), new CupCakeBase()), new Cookie());
+
+            Assert.Equal("📦 composed of 1 📦 composed of 2 🧁 and 1 🍪", bundle.GetName());
+        }
     }
 
 }
