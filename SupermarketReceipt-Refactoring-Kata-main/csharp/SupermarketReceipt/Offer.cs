@@ -21,18 +21,5 @@ namespace SupermarketReceipt
 
         public SpecialOfferType OfferType { get; }
         public double Argument { get; }
-
-        public bool IsApplicable(int quantityAsInt)
-        {
-            var nbOfProductNecessaryForOffer = this.OfferType switch
-            {
-                SpecialOfferType.ThreeForTwo => 3,
-                SpecialOfferType.TwoForAmount => 2,
-                SpecialOfferType.FiveForAmount => 5,
-                _ => 1
-            };
-
-            return quantityAsInt >= nbOfProductNecessaryForOffer;
-        }
     }
 }
