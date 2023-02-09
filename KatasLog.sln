@@ -1,62 +1,93 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumeral", "RomanNumeralKata\RomanNumeral\RomanNumeral.csproj", "{762E118B-6723-4A65-BCCA-2D343F3D74D6}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanNumeral", "RomanNumeralKata\RomanNumeral\RomanNumeral.csproj", "{762E118B-6723-4A65-BCCA-2D343F3D74D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumeralKata\RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanNumerals.Test", "RomanNumeralKata\RomanNumerals.Test\RomanNumerals.Test.csproj", "{666FEE9A-220C-43E8-AEBC-BE8F0AA39291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bowling", "BowlingKata\Bowling\Bowling.csproj", "{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bowling", "BowlingKata\Bowling\Bowling.csproj", "{5DACB8A2-6049-4A90-9BEF-FF8C65863B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bowling.Test", "BowlingKata\Bowling.Test\Bowling.Test.csproj", "{DEB35960-84CB-4485-A9A3-D30147578CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bowling.Test", "BowlingKata\Bowling.Test\Bowling.Test.csproj", "{DEB35960-84CB-4485-A9A3-D30147578CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList", "TaskListKata\TaskList\TaskList.csproj", "{5AB59E7C-1561-4D05-8530-4689BAECF8DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList", "TaskListKata\TaskList\TaskList.csproj", "{5AB59E7C-1561-4D05-8530-4689BAECF8DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.Test", "TaskListKata\TaskList.Test\TaskList.Test.csproj", "{D9879E9F-29B8-4F2B-A668-457545DFF156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskList.Test", "TaskListKata\TaskList.Test\TaskList.Test.csproj", "{D9879E9F-29B8-4F2B-A668-457545DFF156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Song", "SingASongKata\Song\Song.csproj", "{49B2A502-BE2D-45FC-B4A7-C618B2D118C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Song", "SingASongKata\Song\Song.csproj", "{49B2A502-BE2D-45FC-B4A7-C618B2D118C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Song.Tests", "SingASongKata\Song.Tests\Song.Tests.csproj", "{0CD9C1AA-F608-4DAE-A870-E89EE3FBF553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Song.Tests", "SingASongKata\Song.Tests\Song.Tests.csproj", "{0CD9C1AA-F608-4DAE-A870-E89EE3FBF553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking", "BankingKata\Banking\Banking.csproj", "{14BC3597-6A6E-41C0-BB63-FE40A90FCF71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banking", "BankingKata\Banking\Banking.csproj", "{14BC3597-6A6E-41C0-BB63-FE40A90FCF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Tests.Acceptance", "BankingKata\Banking.Tests.Acceptance\Banking.Tests.Acceptance.csproj", "{7473A89D-2F51-4D13-B4B1-7AC5F8B59B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banking.Tests.Acceptance", "BankingKata\Banking.Tests.Acceptance\Banking.Tests.Acceptance.csproj", "{7473A89D-2F51-4D13-B4B1-7AC5F8B59B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Tests.Unit", "BankingKata\Banking.Tests.Unit\Banking.Tests.Unit.csproj", "{1CA0CB75-5738-4053-80D6-12F61B356C55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banking.Tests.Unit", "BankingKata\Banking.Tests.Unit\Banking.Tests.Unit.csproj", "{1CA0CB75-5738-4053-80D6-12F61B356C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover", "MarsRoverKata\MarsRover\MarsRover.csproj", "{2E07D550-CF7D-49C9-9D73-09D47DB2C60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarsRover", "MarsRoverKata\MarsRover\MarsRover.csproj", "{2E07D550-CF7D-49C9-9D73-09D47DB2C60B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Tests", "MarsRoverKata\MarsRover.Tests\MarsRover.Tests.csproj", "{4DD6CEEF-86AA-442F-8160-95E5D130AF7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarsRover.Tests", "MarsRoverKata\MarsRover.Tests\MarsRover.Tests.csproj", "{4DD6CEEF-86AA-442F-8160-95E5D130AF7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diamond", "DiamondKata\Diamond\Diamond.csproj", "{C4ABD1E6-369D-4E95-A2D5-E368D24E5916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diamond", "DiamondKata\Diamond\Diamond.csproj", "{C4ABD1E6-369D-4E95-A2D5-E368D24E5916}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diamond.Tests", "DiamondKata\Diamond.Tests\Diamond.Tests.csproj", "{BC59EB08-EFDC-453D-BF76-4A042E80F390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diamond.Tests", "DiamondKata\Diamond.Tests\Diamond.Tests.csproj", "{BC59EB08-EFDC-453D-BF76-4A042E80F390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance", "ManhattanDistanceKata\ManhattanDistance\ManhattanDistance.csproj", "{C3CBFB76-DC44-43A9-A0E8-11C9FD7AA73B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManhattanDistance", "ManhattanDistanceKata\ManhattanDistance\ManhattanDistance.csproj", "{C3CBFB76-DC44-43A9-A0E8-11C9FD7AA73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManhattanDistance.Tests", "ManhattanDistanceKata\ManhattanDistance.Tests\ManhattanDistance.Tests.csproj", "{21456D50-3A3F-4DA9-8809-24903D95FB18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManhattanDistance.Tests", "ManhattanDistanceKata\ManhattanDistance.Tests\ManhattanDistance.Tests.csproj", "{21456D50-3A3F-4DA9-8809-24903D95FB18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags", "LagsKata\Lags\Lags.csproj", "{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lags", "LagsKata\Lags\Lags.csproj", "{D0BFFED9-DA2C-4307-8431-98ABA0D49C27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lags.Tests", "LagsKata\Lags.Tests\Lags.Tests.csproj", "{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lags.Tests", "LagsKata\Lags.Tests\Lags.Tests.csproj", "{8EDE6C70-56F9-4F6A-8E8C-35FFA5522481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "Tennis\Tennis.csproj", "{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tennis", "Tennis\Tennis.csproj", "{E3AE6F15-D0B3-495D-819B-CAD95E19F41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections", "ElectionsKata\Elections\Elections.csproj", "{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elections", "ElectionsKata\Elections\Elections.csproj", "{863DCFDE-FEA6-4CBE-A1CF-BA0E78EE6AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections.Tests", "ElectionsKata\Elections.Tests\Elections.Tests.csproj", "{84C8142A-E28B-4769-B33B-6A1EACFECDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elections.Tests", "ElectionsKata\Elections.Tests\Elections.Tests.csproj", "{84C8142A-E28B-4769-B33B-6A1EACFECDA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Approval.Tests", "ApprovalKata\tests\Approval.Tests\Approval.Tests.csproj", "{BA825153-2D13-407F-B01F-CE98F42BFE18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Approval.Tests", "ApprovalKata\tests\Approval.Tests\Approval.Tests.csproj", "{BA825153-2D13-407F-B01F-CE98F42BFE18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Approval.Shared", "ApprovalKata\src\Approval.Shared\Approval.Shared.csproj", "{5BD543AE-4ABF-43D2-8A97-647A7F0530E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Approval.Shared", "ApprovalKata\src\Approval.Shared\Approval.Shared.csproj", "{5BD543AE-4ABF-43D2-8A97-647A7F0530E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Approval.Web", "ApprovalKata\src\Approval.Web\Approval.Web.csproj", "{01B90D65-7B41-4184-9A28-643699358612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Approval.Web", "ApprovalKata\src\Approval.Web\Approval.Web.csproj", "{01B90D65-7B41-4184-9A28-643699358612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata", "LanguageExtKata\language-ext-kata\language-ext-kata.csproj", "{89534450-BB7E-4928-BE35-580093A299BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "language-ext-kata", "LanguageExtKata\language-ext-kata\language-ext-kata.csproj", "{89534450-BB7E-4928-BE35-580093A299BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language-ext-kata-tests", "LanguageExtKata\language-ext-kata-tests\language-ext-kata-tests.csproj", "{EF11E146-39B1-49AE-A100-5B476E062FF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "language-ext-kata-tests", "LanguageExtKata\language-ext-kata-tests\language-ext-kata-tests.csproj", "{EF11E146-39B1-49AE-A100-5B476E062FF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShipping", "OrderShippingKata\Order Shipping\OrderShipping.csproj", "{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderShipping", "OrderShippingKata\Order Shipping\OrderShipping.csproj", "{0406AE53-37DD-4E5B-BAFB-2539E26DFC57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderShippingTest", "OrderShippingKata\Order_Shipping_Test\OrderShippingTest.csproj", "{A6B18B20-7514-4D99-A742-2E10C2BB4469}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderShippingTest", "OrderShippingKata\Order_Shipping_Test\OrderShippingTest.csproj", "{A6B18B20-7514-4D99-A742-2E10C2BB4469}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketReceipt", "SupermarketReceipt-Refactoring-Kata-main\csharp\SupermarketReceipt\SupermarketReceipt.csproj", "{B384010A-E2A8-4720-A622-DC49A1CC76D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketReceipt.Test", "SupermarketReceipt-Refactoring-Kata-main\csharp\SupermarketReceipt.Test\SupermarketReceipt.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrategyCSharp", "Design patterns\Strategy\StrategyCSharp\StrategyCSharp.csproj", "{09F2CECD-4660-4A34-9F21-852B37AA8CE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GildedRoseKata", "GildedRose\GildedRose\GildedRoseKata.csproj", "{E70C0981-61D8-4E1E-A067-65E80A784110}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GildedRoseTests", "GildedRose\GildedRoseTests\GildedRoseTests.csproj", "{8FC99147-407B-4468-959A-B37C1915F241}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "money-problem.Tests", "OneOf\money-problem.Tests\money-problem.Tests.csproj", "{A53C984E-C16A-4D90-BFAE-E4314BF953B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "money-problem.Domain", "OneOf\money-problem.Domain\money-problem.Domain.csproj", "{57503F50-187E-4592-BDA7-86264AC0001D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcrKata.Domain", "TcrKata\src\TcrKata.Domain\TcrKata.Domain.csproj", "{F80C2B25-6BE4-41DE-AF17-FD25593A5372}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcrKata.Domain.Tests", "TcrKata\tests\TcrKata.Domain.Tests\TcrKata.Domain.Tests.csproj", "{E351B6D0-699A-4BED-9773-62FFAB7207D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tcrkata.Acceptance.Tests", "TcrKata\tests\Tcrkata.Acceptance.Tests\Tcrkata.Acceptance.Tests.csproj", "{6F3EDB91-4BE4-4C2C-94D9-DAF34A9B194C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theater", "TheaterKata\Theater\Theater.csproj", "{63D31F5A-727F-4826-8ABD-8AD3ADAD5F6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theater.Test", "TheaterKata\Theater.Test\Theater.Test.csproj", "{79C21E70-B9E0-4DDB-A742-F5EF7214F432}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripServiceKata", "TripServiceKata\TripServiceKata\TripServiceKata.csproj", "{A0E5160F-9790-4C4A-8DDD-7D8DDE1948E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripServiceKata.Tests", "TripServiceKata\TripServiceKata.Tests\TripServiceKata.Tests.csproj", "{20044964-8EC9-4254-A78C-C8B13F1A0A32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,5 +211,67 @@ Global
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6B18B20-7514-4D99-A742-2E10C2BB4469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F2CECD-4660-4A34-9F21-852B37AA8CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F2CECD-4660-4A34-9F21-852B37AA8CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F2CECD-4660-4A34-9F21-852B37AA8CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F2CECD-4660-4A34-9F21-852B37AA8CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70C0981-61D8-4E1E-A067-65E80A784110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70C0981-61D8-4E1E-A067-65E80A784110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70C0981-61D8-4E1E-A067-65E80A784110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70C0981-61D8-4E1E-A067-65E80A784110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC99147-407B-4468-959A-B37C1915F241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC99147-407B-4468-959A-B37C1915F241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC99147-407B-4468-959A-B37C1915F241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC99147-407B-4468-959A-B37C1915F241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A53C984E-C16A-4D90-BFAE-E4314BF953B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A53C984E-C16A-4D90-BFAE-E4314BF953B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A53C984E-C16A-4D90-BFAE-E4314BF953B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A53C984E-C16A-4D90-BFAE-E4314BF953B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57503F50-187E-4592-BDA7-86264AC0001D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57503F50-187E-4592-BDA7-86264AC0001D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57503F50-187E-4592-BDA7-86264AC0001D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57503F50-187E-4592-BDA7-86264AC0001D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80C2B25-6BE4-41DE-AF17-FD25593A5372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80C2B25-6BE4-41DE-AF17-FD25593A5372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80C2B25-6BE4-41DE-AF17-FD25593A5372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80C2B25-6BE4-41DE-AF17-FD25593A5372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E351B6D0-699A-4BED-9773-62FFAB7207D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E351B6D0-699A-4BED-9773-62FFAB7207D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E351B6D0-699A-4BED-9773-62FFAB7207D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E351B6D0-699A-4BED-9773-62FFAB7207D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3EDB91-4BE4-4C2C-94D9-DAF34A9B194C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3EDB91-4BE4-4C2C-94D9-DAF34A9B194C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3EDB91-4BE4-4C2C-94D9-DAF34A9B194C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3EDB91-4BE4-4C2C-94D9-DAF34A9B194C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63D31F5A-727F-4826-8ABD-8AD3ADAD5F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63D31F5A-727F-4826-8ABD-8AD3ADAD5F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63D31F5A-727F-4826-8ABD-8AD3ADAD5F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63D31F5A-727F-4826-8ABD-8AD3ADAD5F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C21E70-B9E0-4DDB-A742-F5EF7214F432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C21E70-B9E0-4DDB-A742-F5EF7214F432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C21E70-B9E0-4DDB-A742-F5EF7214F432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C21E70-B9E0-4DDB-A742-F5EF7214F432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E5160F-9790-4C4A-8DDD-7D8DDE1948E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E5160F-9790-4C4A-8DDD-7D8DDE1948E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E5160F-9790-4C4A-8DDD-7D8DDE1948E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E5160F-9790-4C4A-8DDD-7D8DDE1948E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20044964-8EC9-4254-A78C-C8B13F1A0A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20044964-8EC9-4254-A78C-C8B13F1A0A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20044964-8EC9-4254-A78C-C8B13F1A0A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20044964-8EC9-4254-A78C-C8B13F1A0A32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3967B625-4E7F-4158-B5CC-D80608041A52}
 	EndGlobalSection
 EndGlobal
