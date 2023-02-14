@@ -2,7 +2,7 @@
 
 public class Chocolate : CakeWithToppings
 {
-    public Chocolate(ICakeBase cakeBase) : base("🍫", cakeBase, 0.1f)
+    public Chocolate(IProduct product) : base("🍫", product, 0.1f)
     {
     }
 }

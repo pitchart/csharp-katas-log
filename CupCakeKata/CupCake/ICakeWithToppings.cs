@@ -1,5 +1,5 @@
 ﻿namespace CupCake;
 
-public interface ICakeWithToppings : ICakeBase
+public interface ICakeWithToppings : IProduct
 {
 }

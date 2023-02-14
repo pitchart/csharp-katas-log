@@ -2,28 +2,28 @@
 
 public class CakeWithToppings : ICakeWithToppings
 {
-    protected readonly ICakeBase _cakeBase;
+    protected readonly IProduct Product;
 
     private readonly string _toppings;
 
     private readonly float _price;
 
-    public CakeWithToppings(string toppings, ICakeBase cakeBase, float price)
+    public CakeWithToppings(string toppings, IProduct product, float price)
     {
         _toppings = toppings;
-        _cakeBase = cakeBase;
+        Product = product;
         _price = price;
     }
 
     public string GetName()
     {
-        string @operator = _cakeBase is ICakeWithToppings ? "and" : "with";
-        return $"{_cakeBase.GetName()} {@operator} {_toppings}";
+        string @operator = Product is ICakeWithToppings ? "and" : "with";
+        return $"{Product.GetName()} {@operator} {_toppings}";
     }
 
     public float GetPrice()
     {
-        return _price + _cakeBase.GetPrice();
+        return _price + Product.GetPrice();
     }
 
     public string GetFormatedPrice()

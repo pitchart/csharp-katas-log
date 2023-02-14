@@ -1,44 +1,35 @@
 ﻿namespace CupCake;
 
-public class Bundle
+public class Bundle : IProduct
 {
-    private readonly IEnumerable<ICakeBase> _cakeBaseList;
-    private readonly Bundle _bundle;
+    private readonly IEnumerable<IProduct> _products;
 
-    public Bundle(ICakeBase cake, params ICakeBase[] cakeBase)
+    public Bundle(IProduct product, params IProduct[] products)
     {
-        _cakeBaseList = cakeBase.ToList().Prepend(cake);
-    }
-
-    public Bundle(Bundle bundle, ICakeBase cake) : this(cake)
-    {
-        _bundle = bundle;
+        _products = products.ToList().Prepend(product);
     }
 
     public string GetName()
     {
-        var cakeComposition = _cakeBaseList
-            .Select(cake => cake.GetName())
+        var productComposition = _products
+            .Select(product => product.GetName())
             .GroupBy(name => name)
-            .Select(CakeNameWithNumbers());
-        return $"📦 composed of {string.Join(" and ", cakeComposition)}";
+            .Select(ProductNameWithNumbers());
+        return $"📦 composed of {string.Join(" and ", productComposition)}";
     }
 
-    private static Func<IGrouping<string, string>, string> CakeNameWithNumbers()
+    private static Func<IGrouping<string, string>, string> ProductNameWithNumbers()
     {
-        return groupedCake =>
-        {
-            if (groupedCake.Count() > 1)
-            {
-                return $"{groupedCake.Count()} {groupedCake.Key}";
-            }
-
-            return groupedCake.Key;
-        };
+        return groupedProduct => $"{groupedProduct.Count()} {groupedProduct.Key}";
     }
 
     public string GetFormatedPrice()
     {
-        return $"{(_cakeBaseList.Sum(cake => cake.GetPrice()) * 0.9f):N1}$".Replace(',', '.');
+        return $"{GetPrice():N2}$".Replace(',', '.');
+    }
+
+    public float GetPrice()
+    {
+        return (_products.Sum(product => product.GetPrice()) * 0.9f);
     }
 }
