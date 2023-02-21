@@ -6,7 +6,7 @@ namespace OrderShippingTest.Doubles.Builder
     public class OrderBuilder
     {
         private int _id = 1;
-        private OrderStatus _status = OrderStatus.Created;
+        private OrderStatusEnum _statusEnum = OrderStatusEnum.Created;
         private string _currency = "EUR";
         private IList<OrderItem> _items = new List<OrderItem>();
 
@@ -19,9 +19,9 @@ namespace OrderShippingTest.Doubles.Builder
             return this;
         }
 
-        public OrderBuilder WithStatus(OrderStatus status)
+        public OrderBuilder WithStatus(OrderStatusEnum statusEnum)
         {
-            _status = status;
+            _statusEnum = statusEnum;
             return this;
         }
 
@@ -42,16 +42,16 @@ namespace OrderShippingTest.Doubles.Builder
             return new Order
             {
                 Id = _id,
-                Status = _status,
+                StatusEnum = _statusEnum,
             };
         }
 
-        public static OrderBuilder ANewOrder() => new() { _status = OrderStatus.Created };
+        public static OrderBuilder ANewOrder() => new() { _statusEnum = OrderStatusEnum.Created };
 
-        public static OrderBuilder ARejectedOrder() => new() { _status = OrderStatus.Rejected };
+        public static OrderBuilder ARejectedOrder() => new() { _statusEnum = OrderStatusEnum.Rejected };
 
-        public static OrderBuilder AnApprovedOrder() => new() { _status = OrderStatus.Approved };
+        public static OrderBuilder AnApprovedOrder() => new() { _statusEnum = OrderStatusEnum.Approved };
 
-        public static OrderBuilder AShippedOrder() => new() { _status = OrderStatus.Shipped };
+        public static OrderBuilder AShippedOrder() => new() { _statusEnum = OrderStatusEnum.Shipped };
     }
 }

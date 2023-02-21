@@ -33,7 +33,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatus.Approved, savedOrder.Status);
+        Assert.Equal(OrderStatusEnum.Approved, savedOrder.StatusEnum);
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatus.Rejected, savedOrder.Status);
+        Assert.Equal(OrderStatusEnum.Rejected, savedOrder.StatusEnum);
     }
 
 

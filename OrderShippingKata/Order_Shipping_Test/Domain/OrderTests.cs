@@ -14,7 +14,7 @@ namespace OrderShippingTest.Domain
         {
             var order = new Order();
 
-            Assert.Equal(OrderStatus.Created, order.Status);
+            Assert.Equal(OrderStatusEnum.Created, order.StatusEnum);
             Assert.Equal("EUR", order.Currency);
             Assert.Empty(order.Items);
             Assert.Equal(0, order.Tax);
@@ -40,7 +40,7 @@ namespace OrderShippingTest.Domain
             var newOrder = ANewOrder().Build();
             newOrder.Approve();
 
-            Assert.Equal(OrderStatus.Approved, newOrder.Status);
+            Assert.Equal(OrderStatusEnum.Approved, newOrder.StatusEnum);
         }
 
         [Fact]

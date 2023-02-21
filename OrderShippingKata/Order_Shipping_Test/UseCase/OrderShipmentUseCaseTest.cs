@@ -34,7 +34,7 @@ public class OrderShipmentUseCaseTest
 
         _useCase.Run(request);
 
-        Assert.Equal(OrderStatus.Shipped, _orderRepository.GetSavedOrder().Status);
+        Assert.Equal(OrderStatusEnum.Shipped, _orderRepository.GetSavedOrder().StatusEnum);
         Assert.Same(initialOrder, _shipmentService.GetShippedOrder());
     }
 
