@@ -21,5 +21,11 @@ namespace Order_Shipping.Domain
         }
 
         public abstract void Approve(Order order);
+
+        public abstract void Reject(Order order);
+        
+        public abstract void Ship(Order order);
+        
+        public abstract OrderStatusEnum GetOrderStatusEnum();
     }
 }

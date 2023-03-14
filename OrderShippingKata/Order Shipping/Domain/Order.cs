@@ -8,14 +8,12 @@ namespace OrderShipping.Domain
     {
         public int Id { get; set; }
         private OrderStatus _status;
-        private OrderStatusEnum statusEnum;
         public OrderStatusEnum StatusEnum
         {
-            get => statusEnum; 
+            get => _status.GetOrderStatusEnum(); 
             set
             {
-                statusEnum = value;
-                //_status = OrderStatus.Create(value);
+                _status = OrderStatus.Create(value);
             }
         }
         public string Currency { get; }
@@ -28,7 +26,7 @@ namespace OrderShipping.Domain
             this.StatusEnum = OrderStatusEnum.Created;
             this.Items = new List<OrderItem>();
             this.Currency = "EUR";
-            this._status = new OrderCreated();
+            //this._status = new OrderCreated();
         }
 
         public void AddProduct(Product product, int quantity)
@@ -40,7 +38,6 @@ namespace OrderShipping.Domain
         {
             try
             {
-                this.StatusEnum = OrderStatusEnum.Approved;
                 _status.Approve(this);
                 return this;
             }
@@ -52,34 +49,28 @@ namespace OrderShipping.Domain
 
         public Either<ApplicationException, Order> Reject()
         {
-            if (this.StatusEnum == OrderStatusEnum.Shipped)
+            try
             {
-                return new ShippedOrdersCannotBeChangedException();
+                _status.Reject(this);
+                return this;
             }
-
-            if (this.StatusEnum == OrderStatusEnum.Approved)
+            catch (ApplicationException ex)
             {
-                return new ApprovedOrderCannotBeRejectedException();
+                return ex;
             }
-
-            this.StatusEnum = OrderStatusEnum.Rejected;
-            return this;
         }
 
         public (Order? Success, ApplicationException? Error) Ship()
         {
-            if (this.StatusEnum == OrderStatusEnum.Created || this.StatusEnum == OrderStatusEnum.Rejected)
+            try
             {
-                return (null, new OrderCannotBeShippedException());
+                _status.Ship(this);
+                return (this, null);
             }
-
-            if (this.StatusEnum == OrderStatusEnum.Shipped)
+            catch (ApplicationException ex)
             {
-                return (null, new OrderCannotBeShippedTwiceException());
+                return (this, ex);
             }
-
-            this.StatusEnum = OrderStatusEnum.Shipped;
-            return (this, null);
         }
     }
 }
