@@ -1,4 +1,5 @@
-﻿using OrderShipping.Domain;
+﻿using Order_Shipping.Domain;
+using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
@@ -57,7 +58,7 @@ public class OrderCreationUseCaseTest
         _useCase.Run(request);
 
         Order insertedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatusEnum.Created, insertedOrder.StatusEnum);
+        Assert.IsType<OrderCreated>(insertedOrder.Status);
         Assert.Equal(23.19m, insertedOrder.Total);
         Assert.Equal(2.12m, insertedOrder.Tax);
         Assert.Equal("EUR", insertedOrder.Currency);

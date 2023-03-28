@@ -1,4 +1,4 @@
-﻿using OrderShipping.Domain;
+﻿using Order_Shipping.Domain;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
 using System;
@@ -34,7 +34,7 @@ public class OrderShipmentUseCaseTest
 
         _useCase.Run(request);
 
-        Assert.Equal(OrderStatusEnum.Shipped, _orderRepository.GetSavedOrder().StatusEnum);
+        Assert.IsType<OrderShipped>(_orderRepository.GetSavedOrder().Status);
         Assert.Same(initialOrder, _shipmentService.GetShippedOrder());
     }
 

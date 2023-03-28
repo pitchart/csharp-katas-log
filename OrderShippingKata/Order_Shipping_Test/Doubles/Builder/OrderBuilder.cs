@@ -39,11 +39,24 @@ namespace OrderShippingTest.Doubles.Builder
 
         public Order Build()
         {
-            return new Order
+            var order = new Order
             {
-                Id = _id,
-                StatusEnum = _statusEnum,
+                Id = _id
             };
+            switch (_statusEnum)
+            {
+                case OrderStatusEnum.Approved:
+                    order.Approve();
+                    break;
+                case OrderStatusEnum.Rejected:
+                    order.Reject();
+                    break;
+                case OrderStatusEnum.Shipped:
+                    order.Approve();
+                    order.Ship();
+                    break;
+            }
+            return order;
         }
 
         public static OrderBuilder ANewOrder() => new() { _statusEnum = OrderStatusEnum.Created };

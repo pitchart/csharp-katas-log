@@ -1,4 +1,5 @@
-﻿using OrderShipping.Domain;
+﻿using Order_Shipping.Domain;
+using OrderShipping.Domain;
 using OrderShipping.UseCase;
 using Xunit;
 using Xunit.Sdk;
@@ -14,7 +15,7 @@ namespace OrderShippingTest.Domain
         {
             var order = new Order();
 
-            Assert.Equal(OrderStatusEnum.Created, order.StatusEnum);
+            Assert.IsType<OrderCreated>(order.Status);
             Assert.Equal("EUR", order.Currency);
             Assert.Empty(order.Items);
             Assert.Equal(0, order.Tax);
@@ -40,7 +41,7 @@ namespace OrderShippingTest.Domain
             var newOrder = ANewOrder().Build();
             newOrder.Approve();
 
-            Assert.Equal(OrderStatusEnum.Approved, newOrder.StatusEnum);
+            Assert.IsType<OrderApproved>(newOrder.Status);
         }
 
         [Fact]
@@ -53,6 +54,20 @@ namespace OrderShippingTest.Domain
                 Left: ex => Assert.IsType<RejectedOrderCannotBeApprovedException>(ex),
                 Right: _ => throw new XunitException("Should never return order")
                 );
+        }
+
+        [Fact]
+        public void ShouldShipAnApprovedOrder()
+        {
+            var newOrder = ANewOrder().Build();
+            newOrder.Approve();
+
+            var result = newOrder.Ship();
+
+            result.Match(
+                Left: _ => throw new XunitException("Should never return order"),
+                Right: order => Assert.IsType<OrderShipped>(order.Status)
+            );
         }
     }
 

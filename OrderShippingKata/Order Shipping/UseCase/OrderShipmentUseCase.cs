@@ -19,17 +19,13 @@ namespace OrderShipping.UseCase
         public void Run(OrderShipmentRequest request)
         {
             var order = _orderRepository.GetById(request.OrderId);
-
             var result = order.Ship();
 
-            if (result.Error is not null)
+            result.Match(Left: ex => throw ex, Right: or =>
             {
-                throw result.Error;
-            }
-
-            _shipmentService.Ship(order);
-
-            _orderRepository.Save(order);
+                _shipmentService.Ship(order);
+                _orderRepository.Save(order);
+            });
         }
     }
 }

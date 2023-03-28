@@ -5,24 +5,19 @@ namespace Order_Shipping.Domain
 {
     public class OrderCreated : OrderStatus
     {
-        public override void Approve(Order order)
+        public void Approve(Order order)
         {
-            order.StatusEnum = OrderStatusEnum.Approved;
+            order.Status = new OrderApproved();
         }
 
-        public override void Reject(Order order)
+        public void Reject(Order order)
         {
-            order.StatusEnum = OrderStatusEnum.Rejected;
+            order.Status = new OrderRejected();
         }
 
-        public override void Ship(Order order)
+        public void Ship(Order order)
         {
             throw new OrderCannotBeShippedException();
-        }
-
-        public override OrderStatusEnum GetOrderStatusEnum()
-        {
-            return OrderStatusEnum.Created;
         }
     }
 

@@ -5,24 +5,19 @@ namespace Order_Shipping.Domain
 {
     public class OrderShipped : OrderStatus
     {
-        public override void Approve(Order order)
+        public void Approve(Order order)
         {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        public override void Reject(Order order)
+        public void Reject(Order order)
         {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        public override OrderStatusEnum GetOrderStatusEnum()
+        public void Ship(Order order)
         {
-            return OrderStatusEnum.Shipped;
-        }
-
-        public override void Ship(Order order)
-        {
-           throw new OrderCannotBeShippedTwiceException();
+            throw new OrderCannotBeShippedTwiceException();
         }
     }
 }

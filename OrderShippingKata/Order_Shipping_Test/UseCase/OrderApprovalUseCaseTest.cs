@@ -1,4 +1,4 @@
-﻿using OrderShipping.Domain;
+﻿using Order_Shipping.Domain;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
 using System;
@@ -33,7 +33,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatusEnum.Approved, savedOrder.StatusEnum);
+        Assert.IsType<OrderApproved>(savedOrder.Status);
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatusEnum.Rejected, savedOrder.StatusEnum);
+        Assert.IsType<OrderRejected>(savedOrder.Status);
     }
 
 
