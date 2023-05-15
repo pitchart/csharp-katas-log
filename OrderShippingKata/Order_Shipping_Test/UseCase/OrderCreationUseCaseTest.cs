@@ -43,7 +43,6 @@ public class OrderCreationUseCaseTest
         _useCase = new OrderCreationUseCase(_orderRepository, _productCatalog);
     }
 
-
     [Fact]
     public void SellMultipleItems()
     {

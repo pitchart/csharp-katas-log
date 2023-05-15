@@ -18,14 +18,8 @@ namespace OrderShipping.UseCase
 
         public void Run(SellItemsRequest request)
         {
-            var order = new Order
-            {
-                Status = OrderStatus.Created,
-                Items = new List<OrderItem>(),
-                Currency = "EUR",
-                Total = 0m,
-                Tax = 0m
-            };
+
+            var orderItems = new List<OrderItem>();
 
             foreach (var itemRequest in request.Requests)
             {
@@ -35,32 +29,12 @@ namespace OrderShipping.UseCase
                 {
                     throw new UnknownProductException();
                 }
-                else
-                {
-                    var unitaryTax = Round((product.Price / 100m) * product.Category.TaxPercentage);
-                    var unitaryTaxedAmount = Round(product.Price + unitaryTax);
-                    var taxedAmount = Round(unitaryTaxedAmount * itemRequest.Quantity);
-                    var taxAmount = Round(unitaryTax * itemRequest.Quantity);
 
-                    var orderItem = new OrderItem
-                    {
-                        Product = product,
-                        Quantity = itemRequest.Quantity,
-                        Tax = taxAmount,
-                        TaxedAmount = taxedAmount
-                    };
-                    order.Items.Add(orderItem);
-                    order.Total += taxedAmount;
-                    order.Tax += taxAmount;
-                }
+                orderItems.Add(new OrderItem(product, itemRequest.Quantity));
             }
+            var order = new Order("EUR", orderItems);
 
             _orderRepository.Save(order);
-        }
-
-        private static decimal Round(decimal amount)
-        {
-            return decimal.Round(amount, 2, System.MidpointRounding.ToPositiveInfinity);
         }
     }
 }
