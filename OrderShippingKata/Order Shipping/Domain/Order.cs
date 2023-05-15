@@ -7,10 +7,7 @@
             Currency =currency;
             Status = OrderStatus.Created;
             Items = new List<OrderItem>();
-            foreach (var orderItem in orderItems)
-            {
-                AddItem(orderItem);
-            }
+            orderItems.ForEach(AddItem);
         }
 
         public Order()
@@ -27,9 +24,9 @@
 
         public void AddItem(OrderItem item)
         {
-            this.Items.Add(item);
-            this.Total += item.TaxedAmount;
-            this.Tax += item.Tax;
+            Items.Add(item);
+            Total += item.TaxedAmount;
+            Tax += item.Tax;
         }
     }
 }
