@@ -4,6 +4,11 @@
     {
         public Order(string currency, List<OrderItem> orderItems)
         {
+            if (orderItems == null || orderItems.Count == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
             Currency =currency;
             Status = OrderStatus.Created;
             Items = new List<OrderItem>();
