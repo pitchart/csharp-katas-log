@@ -1,4 +1,5 @@
-﻿using OrderShipping.Domain.ValueObjects;
+﻿using System;
+using OrderShipping.Domain.ValueObjects;
 using Xunit;
 
 namespace OrderShippingTest.ValueObjects
@@ -45,8 +46,16 @@ namespace OrderShippingTest.ValueObjects
             Price price2 = new Price(31.481m, "EUR");
 
             Assert.Equal(76.712m, (price1 + price2).UnitaryPrice);
+        }
 
-            // TODO: handle currency
+        [Fact]
+        public void should_not_add_two_prices_with_differents_currency()
+        {
+            Price price1 = new Price(45.231m, "USD");
+            Price price2 = new Price(31.481m, "EUR");
+
+            var exception = Assert.Throws<InvalidOperationException>(() => (price1 + price2));
+            Assert.Equal("Prices with different currencies cannot be added", exception.Message);
         }
     }
 }
