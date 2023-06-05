@@ -11,7 +11,7 @@ namespace OrderShippingTest.ValueObjects
         {
             Price price = new Price(45.236m, "EUR");
 
-            Assert.Equal(45.24m, price.Round());
+            Assert.Equal(new Price(45.24m, "EUR"), price.Round());
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace OrderShippingTest.ValueObjects
         {
             Price price = new Price(45.231m, "EUR");
 
-            Assert.Equal(45.24m, price.Round());
+            Assert.Equal(new Price(45.24m, "EUR"), price.Round());
         }
 
         [Fact]
