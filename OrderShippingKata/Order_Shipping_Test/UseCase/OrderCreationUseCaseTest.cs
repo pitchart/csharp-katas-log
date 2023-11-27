@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Order_Shipping.Domain;
 using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -98,4 +99,18 @@ public class OrderCreationUseCaseTest
 
         Assert.Throws<UnknownProductException>(actionToTest);
     }
+
+    [Fact]
+    public void NoProducts()
+    {
+        var request = new SellItemsRequest
+        {
+            Requests = new List<SellItemRequest>()
+        };
+
+        Action actionToTest = () => _useCase.Run(request);
+
+        Assert.Throws<InvalidOrderException>(actionToTest);
+    }
+
 }
