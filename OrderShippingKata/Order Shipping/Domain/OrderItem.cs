@@ -1,4 +1,6 @@
-﻿namespace OrderShipping.Domain;
+﻿using Order_Shipping.Domain;
+
+namespace OrderShipping.Domain;
 
 public class OrderItem
 {
@@ -9,19 +11,15 @@ public class OrderItem
 
     public OrderItem(Product product, int quantity)
     {
-        var unitaryTax = Round((product.Price / 100m) * product.Category.TaxPercentage);
-        var unitaryTaxedAmount = Round(product.Price + unitaryTax);
-        var taxedAmount = Round(unitaryTaxedAmount * quantity);
-        var taxAmount = Round(unitaryTax * quantity);
+        var price = new Price(product.Price, "EUR");
+        var unitaryTax = price.GetTax(product.Category.TaxPercentage).Round();
+        var unitaryTaxedAmount = (unitaryTax + price).Round();
+        var taxedAmount = (unitaryTaxedAmount * quantity).Round();
+        var taxAmount = (unitaryTax * quantity).Round();
 
         Product = product;
         Quantity = quantity;
-        Tax = taxAmount;
-        TaxedAmount = taxedAmount;
-    }
-
-    private static decimal Round(decimal amount)
-    {
-        return decimal.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
+        Tax = taxAmount.Amount;
+        TaxedAmount = taxedAmount.Amount;
     }
 }
