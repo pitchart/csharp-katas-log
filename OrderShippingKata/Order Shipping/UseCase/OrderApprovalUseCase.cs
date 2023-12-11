@@ -11,6 +11,7 @@ namespace OrderShipping.UseCase
             _orderRepository = orderRepository;
         }
 
+        //TODO state pattern
         public void Run(OrderApprovalRequest request)
         {
             var order = _orderRepository.GetById(request.OrderId);

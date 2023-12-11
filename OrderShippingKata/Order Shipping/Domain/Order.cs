@@ -4,12 +4,12 @@ namespace OrderShipping.Domain;
 
 public class Order
 {
-    public decimal Total { get; set; }
-    public string Currency { get; set; }
-    public IList<OrderItem> Items { get; set; }
-    public decimal Tax { get; set; }
+    public Price Total { get; private set; }
+    public string Currency { get; }
+    public IList<OrderItem> Items { get; }
+    public Price Tax { get; private set; }
     public OrderStatus Status { get; set; }
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     public Order(IEnumerable<OrderItem> items, string currency)
     {
@@ -21,8 +21,8 @@ public class Order
         Status = OrderStatus.Created;
         Items = new List<OrderItem>();
         Currency = currency;
-        Total = 0m;
-        Tax = 0m;
+        Total = new Price(0m, currency);
+        Tax = new Price(0m, currency);
 
         foreach (var item in items)
         {

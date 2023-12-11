@@ -36,17 +36,4 @@ public record Price(decimal Amount, string Currency)
     {
         return this with { Amount = Amount / 100 * tax };
     }
-
-    public bool Equals(decimal amount)
-    {
-        return Amount == amount;
-    }
-
-    public static bool operator ==(Price price, decimal amount) => price.Equals(amount);
-
-    public static bool operator !=(Price price, decimal amount) => !price.Equals(amount);
-
-    public static bool operator ==(decimal amount, Price price) => price.Equals(amount);
-
-    public static bool operator !=(decimal amount, Price price) => !price.Equals(amount);
 }

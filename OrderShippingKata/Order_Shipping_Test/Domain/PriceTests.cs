@@ -1,6 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+
+using FluentAssertions;
+
 using Order_Shipping.Domain;
-using System;
+
 using Xunit;
 
 namespace OrderShippingTest.Domain;
@@ -86,31 +89,5 @@ public class PriceTests
 
         // Assert
         result.Should().Be(new Price(11m, "EUR"));
-    }
-
-    [Fact]
-    public void PriceEqual()
-    {
-        // Arrange
-        var price = new Price(34m, "EUR");
-
-        // Act
-        var result = price == 34m;
-
-        // Assert
-        result.Should().BeTrue();
-    }
-
-    [Fact]
-    public void PriceEqualInverse()
-    {
-        // Arrange
-        var price = new Price(34m, "EUR");
-
-        // Act
-        var result = 34m == price;
-
-        // Assert
-        result.Should().BeTrue();
     }
 }
