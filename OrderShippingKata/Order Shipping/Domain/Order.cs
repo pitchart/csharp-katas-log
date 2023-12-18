@@ -4,11 +4,13 @@ namespace OrderShipping.Domain;
 
 public class Order
 {
+    private OrderState _state;
+
     public Price Total { get; private set; }
     public string Currency { get; }
     public IList<OrderItem> Items { get; }
     public Price Tax { get; private set; }
-    public OrderStatus Status { get; set; }
+    public OrderStatus Status { get => _state.State; set => _state = OrderState.Create(value); }
     public int Id { get; init; }
 
     public Order(IEnumerable<OrderItem> items, string currency)
@@ -37,5 +39,15 @@ public class Order
         this.Items.Add(orderItem);
         this.Total += orderItem.TaxedAmount;
         this.Tax += orderItem.Tax;
+    }
+
+    public void Approve()
+    {
+        _state = _state.Approve();
+    }
+
+    public void Reject()
+    {
+        _state = _state.Reject();
     }
 }

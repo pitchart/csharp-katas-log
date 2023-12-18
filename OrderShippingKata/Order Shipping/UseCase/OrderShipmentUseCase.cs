@@ -17,6 +17,7 @@ namespace OrderShipping.UseCase
             _shipmentService = shipmentService;
         }
 
+        // To Do State Pattern
         public void Run(OrderShipmentRequest request)
         {
             var order = _orderRepository.GetById(request.OrderId);
