@@ -1,7 +1,7 @@
-﻿using System;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -23,7 +23,6 @@ public class OrderApprovalUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Created,
             Id = 1
         };
         _orderRepository.AddOrder(initialOrder);
@@ -37,7 +36,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatus.Approved, savedOrder.Status);
+        Assert.Equal(OrderStatus.Approved, savedOrder.State.Status);
     }
 
     [Fact]
@@ -45,7 +44,6 @@ public class OrderApprovalUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Created,
             Id = 1
         };
         _orderRepository.AddOrder(initialOrder);
@@ -59,7 +57,7 @@ public class OrderApprovalUseCaseTest
         _useCase.Run(request);
 
         var savedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatus.Rejected, savedOrder.Status);
+        Assert.Equal(OrderStatus.Rejected, savedOrder.State.Status);
     }
 
 
@@ -68,9 +66,9 @@ public class OrderApprovalUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Rejected,
             Id = 1
         };
+        initialOrder.Reject();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -91,9 +89,9 @@ public class OrderApprovalUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Approved,
             Id = 1
         };
+        initialOrder.Approve();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -114,9 +112,10 @@ public class OrderApprovalUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Shipped,
             Id = 1
         };
+        initialOrder.Approve();
+        initialOrder.Ship();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderApprovalRequest
@@ -124,7 +123,6 @@ public class OrderApprovalUseCaseTest
             OrderId = 1,
             Approved = false
         };
-
 
         Action actionToTest = () => _useCase.Run(request);
 

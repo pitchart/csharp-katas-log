@@ -5,7 +5,7 @@ namespace Order_Shipping.Domain
 {
     public class OrderApproved : OrderState
     {
-        public override OrderStatus State => OrderStatus.Approved;
+        public override OrderStatus Status => OrderStatus.Approved;
 
         public override OrderState Approve()
         {
@@ -15,6 +15,11 @@ namespace Order_Shipping.Domain
         public override OrderState Reject()
         {
             throw new ApprovedOrderCannotBeRejectedException();
+        }
+
+        public override OrderState Ship()
+        {
+            return new OrderShipped();
         }
     }
 }

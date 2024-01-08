@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Order_Shipping.Domain;
-
+﻿using Order_Shipping.Domain;
 using OrderShipping.Domain;
 using OrderShipping.Repository;
 using OrderShipping.UseCase;
-
 using OrderShippingTest.Doubles;
-
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -72,7 +68,7 @@ public class OrderCreationUseCaseTest
         _useCase.Run(request);
 
         Order insertedOrder = _orderRepository.GetSavedOrder();
-        Assert.Equal(OrderStatus.Created, insertedOrder.Status);
+        Assert.Equal(OrderStatus.Created, insertedOrder.State.Status);
         Assert.Equal(new Price(23.20m, "EUR"), insertedOrder.Total);
         Assert.Equal(new Price(2.13m, "EUR"), insertedOrder.Tax);
         Assert.Equal("EUR", insertedOrder.Currency);

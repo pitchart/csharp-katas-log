@@ -4,13 +4,11 @@ namespace OrderShipping.Domain;
 
 public class Order
 {
-    private OrderState _state;
-
+    public OrderState State { get; private set; }
     public Price Total { get; private set; }
     public string Currency { get; }
     public IList<OrderItem> Items { get; }
     public Price Tax { get; private set; }
-    public OrderStatus Status { get => _state.State; set => _state = OrderState.Create(value); }
     public int Id { get; init; }
 
     public Order(IEnumerable<OrderItem> items, string currency)
@@ -19,8 +17,7 @@ public class Order
         {
             throw new InvalidOrderException();
         }
-
-        Status = OrderStatus.Created;
+        State = new OrderCreated();
         Items = new List<OrderItem>();
         Currency = currency;
         Total = new Price(0m, currency);
@@ -32,7 +29,10 @@ public class Order
         }
     }
 
-    public Order() { }
+    public Order()
+    {
+        State = new OrderCreated();
+    }
 
     private void AddItem(OrderItem orderItem)
     {
@@ -43,11 +43,16 @@ public class Order
 
     public void Approve()
     {
-        _state = _state.Approve();
+        State = State.Approve();
     }
 
     public void Reject()
     {
-        _state = _state.Reject();
+        State = State.Reject();
+    }
+
+    public void Ship()
+    {
+        State = State.Ship();
     }
 }

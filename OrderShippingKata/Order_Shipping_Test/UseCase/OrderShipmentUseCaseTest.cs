@@ -1,7 +1,7 @@
-﻿using System;
-using OrderShipping.Domain;
+﻿using OrderShipping.Domain;
 using OrderShipping.UseCase;
 using OrderShippingTest.Doubles;
+using System;
 using Xunit;
 
 namespace OrderShippingTest.UseCase;
@@ -25,9 +25,9 @@ public class OrderShipmentUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Approved,
             Id = 1
         };
+        initialOrder.Approve();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest
@@ -37,7 +37,7 @@ public class OrderShipmentUseCaseTest
 
         _useCase.Run(request);
 
-        Assert.Equal(OrderStatus.Shipped, _orderRepository.GetSavedOrder().Status);
+        Assert.Equal(OrderStatus.Shipped, _orderRepository.GetSavedOrder().State.Status);
         Assert.Same(initialOrder, _shipmentService.GetShippedOrder());
     }
 
@@ -46,7 +46,6 @@ public class OrderShipmentUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Created,
             Id = 1
         };
         _orderRepository.AddOrder(initialOrder);
@@ -68,9 +67,9 @@ public class OrderShipmentUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Rejected,
             Id = 1
         };
+        initialOrder.Reject();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest
@@ -90,9 +89,10 @@ public class OrderShipmentUseCaseTest
     {
         var initialOrder = new Order
         {
-            Status = OrderStatus.Shipped,
             Id = 1
         };
+        initialOrder.Approve();
+        initialOrder.Ship();
         _orderRepository.AddOrder(initialOrder);
 
         var request = new OrderShipmentRequest

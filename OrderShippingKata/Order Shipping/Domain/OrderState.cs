@@ -4,7 +4,7 @@ namespace Order_Shipping.Domain
 {
     public abstract class OrderState
     {
-        public abstract OrderStatus State { get; }
+        public abstract OrderStatus Status { get; }
 
         public static OrderState Create(OrderStatus status)
         {
@@ -21,5 +21,7 @@ namespace Order_Shipping.Domain
         public abstract OrderState Approve();
 
         public abstract OrderState Reject();
+
+        public abstract OrderState Ship();
     }
 }
