@@ -4,11 +4,9 @@ namespace Elections
 {
     internal class ElectionsWithoutDistrict
     {
-        //TODO réduire le nombre de listes
-        private readonly List<string> _candidates = new List<string>();
         private readonly List<string> _officialCandidates = new List<string>();
-        private readonly List<int> _votes = new List<int>();
         private readonly Dictionary<string, List<string>> _list;
+        private readonly Dictionary<string, int> _urn = new();
 
         public ElectionsWithoutDistrict(Dictionary<string, List<string>> list)
         {
@@ -18,54 +16,42 @@ namespace Elections
         internal void AddCandidate(string candidate)
         {
             _officialCandidates.Add(candidate);
-            _candidates.Add(candidate);
-            _votes.Add(0);
+            _urn.Add(candidate, 0);
         }
 
         internal void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            if (_candidates.Contains(candidate))
+            if (_urn.ContainsKey(candidate))
             {
-                var index = _candidates.IndexOf(candidate);
-                _votes[index] = _votes[index] + 1;
+                _urn[candidate] += 1;
             }
             else
             {
-                _candidates.Add(candidate);
-                _votes.Add(1);
+                _urn.Add(candidate, 1);
             }
         }
 
         internal Dictionary<string, string> ComputeResults()
         {
             var results = new Dictionary<string, string>();
-            var nbVotes = _votes.Sum();
-            var nullVotes = 0;
-            var blankVotes = 0;
+            var nbVotes = _urn.Values.Sum();
+            var nullVotes = _urn.Where(vote => vote.Key != string.Empty && !_officialCandidates.Contains(vote.Key)).Select(vote => vote.Value).Sum();
+            var blankVotes = _urn.ContainsKey(string.Empty) ? _urn[string.Empty] : 0;
             var nbValidVotes = 0;
             var cultureInfo = new CultureInfo("fr-fr");
 
-            for (var i = 0; i < _officialCandidates.Count; i++)
+            foreach (var candidate in _officialCandidates)
             {
-                var index = _candidates.IndexOf(_officialCandidates[i]);
-                nbValidVotes += _votes[index];
+                nbValidVotes += _urn[candidate];
             }
 
-            for (var i = 0; i < _votes.Count; i++)
+            // TODO Linq
+            foreach (var vote in _urn)
             {
-                var candidateResult = (float)_votes[i] * 100 / nbValidVotes;
-                var candidate = _candidates[i];
-
-                if (_officialCandidates.Contains(candidate))
+                if (_officialCandidates.Contains(vote.Key))
                 {
-                    results[candidate] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
-                }
-                else
-                {
-                    if (_candidates[i] == string.Empty)
-                        blankVotes += _votes[i];
-                    else
-                        nullVotes += _votes[i];
+                    var candidateResult = (float)vote.Value * 100 / nbValidVotes;
+                    results[vote.Key] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
                 }
             }
 
