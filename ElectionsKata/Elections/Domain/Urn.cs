@@ -16,11 +16,13 @@
             }
         }
 
-        public VoteCounting CountVotes()
+        public VoteCounting CountVotes(List<string> _officialCandidates)
         {
-            var voteCounting = new VoteCounting();
-            voteCounting.NbVotes = _urn.Values.Sum();
-            voteCounting.NbBlankVotes = _urn.ContainsKey(string.Empty) ? _urn[string.Empty] : 0;
+            var voteCounting = new VoteCounting(_urn.Values.Sum(),
+                _urn.GetValueOrDefault(string.Empty),
+                _urn.Where(vote => vote.Key != string.Empty && !_officialCandidates.Contains(vote.Key)).Select(vote => vote.Value).Sum(),
+                _officialCandidates.ToDictionary(_candidate => _candidate, _candidate => _urn.GetValueOrDefault(_candidate)));
+
             return voteCounting;
         }
     }

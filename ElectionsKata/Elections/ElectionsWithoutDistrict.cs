@@ -1,4 +1,5 @@
 ﻿using Elections.Domain;
+
 using System.Globalization;
 
 namespace Elections
@@ -21,8 +22,6 @@ namespace Elections
             _urn.Add(candidate, 0);
         }
 
-
-
         internal void VoteFor(string elector, string candidate, string electorDistrict)
         {
             if (_urn.ContainsKey(candidate))
@@ -39,35 +38,27 @@ namespace Elections
 
         internal Dictionary<string, string> ComputeResults()
         {
-            var voteCounting = _newUrn.CountVotes();
+            var voteCounting = _newUrn.CountVotes(_officialCandidates);
 
             var formattedResults = new Dictionary<string, string>();
-            var nullVotes = _urn.Where(vote => vote.Key != string.Empty && !_officialCandidates.Contains(vote.Key)).Select(vote => vote.Value).Sum();
-            var nbValidVotes = 0;
             var cultureInfo = new CultureInfo("fr-fr");
 
-            foreach (var candidate in _officialCandidates)
+            var nbElectors = _list.Sum(kv => kv.Value.Count);
+            var percentResult = VoteCounting.ToPercentResult(nbElectors);
+
+            foreach (var vote in voteCounting.NbVoteByCandidate)
             {
-                nbValidVotes += _urn[candidate];
+                var candidateResult = (float)vote.Value * 100 / voteCounting.NbValidVotes;
+                formattedResults[vote.Key] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
             }
 
-            // TODO Linq
-            foreach (var vote in _urn)
-            {
-                if (_officialCandidates.Contains(vote.Key))
-                {
-                    var candidateResult = (float)vote.Value * 100 / nbValidVotes;
-                    formattedResults[vote.Key] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
-                }
-            }
+
 
             var blankResult = (float)voteCounting.NbBlankVotes * 100 / voteCounting.NbVotes;
             formattedResults["Blank"] = string.Format(cultureInfo, "{0:0.00}%", blankResult);
 
-            var nullResult = (float)nullVotes * 100 / voteCounting.NbVotes;
+            var nullResult = (float)voteCounting.NbNullVotes * 100 / voteCounting.NbVotes;
             formattedResults["Null"] = string.Format(cultureInfo, "{0:0.00}%", nullResult);
-
-            var nbElectors = _list.Sum(kv => kv.Value.Count);
             var abstentionResult = 100 - (float)voteCounting.NbVotes * 100 / nbElectors;
             formattedResults["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", abstentionResult);
 
