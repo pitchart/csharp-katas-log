@@ -1,5 +1,6 @@
 ﻿namespace Elections.Domain;
 
-public class PercentResult
+public record PercentResult(Dictionary<string, float> PercentByCandidates, float BlankResult, float NullResult, float AbstentionResult)
 {
+
 }

@@ -1,6 +1,6 @@
-﻿using Elections.Domain;
+﻿using System.Globalization;
 
-using System.Globalization;
+using Elections.Domain;
 
 namespace Elections
 {
@@ -36,6 +36,7 @@ namespace Elections
             _newUrn.VoteFor(candidate);
         }
 
+        //TODO => Formatage, division par 0 vote valide, guard constructeur VoteCounting
         internal Dictionary<string, string> ComputeResults()
         {
             var voteCounting = _newUrn.CountVotes(_officialCandidates);
@@ -44,23 +45,18 @@ namespace Elections
             var cultureInfo = new CultureInfo("fr-fr");
 
             var nbElectors = _list.Sum(kv => kv.Value.Count);
-            var percentResult = VoteCounting.ToPercentResult(nbElectors);
+            var percentResult = voteCounting.ToPercentResult(nbElectors);
 
-            foreach (var vote in voteCounting.NbVoteByCandidate)
+            foreach (var percentByCandidate in percentResult.PercentByCandidates)
             {
-                var candidateResult = (float)vote.Value * 100 / voteCounting.NbValidVotes;
-                formattedResults[vote.Key] = string.Format(cultureInfo, "{0:0.00}%", candidateResult);
+                formattedResults[percentByCandidate.Key] = string.Format(cultureInfo, "{0:0.00}%", percentByCandidate.Value);
             }
 
+            formattedResults["Blank"] = string.Format(cultureInfo, "{0:0.00}%", percentResult.BlankResult);
 
+            formattedResults["Null"] = string.Format(cultureInfo, "{0:0.00}%", percentResult.NullResult);
 
-            var blankResult = (float)voteCounting.NbBlankVotes * 100 / voteCounting.NbVotes;
-            formattedResults["Blank"] = string.Format(cultureInfo, "{0:0.00}%", blankResult);
-
-            var nullResult = (float)voteCounting.NbNullVotes * 100 / voteCounting.NbVotes;
-            formattedResults["Null"] = string.Format(cultureInfo, "{0:0.00}%", nullResult);
-            var abstentionResult = 100 - (float)voteCounting.NbVotes * 100 / nbElectors;
-            formattedResults["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", abstentionResult);
+            formattedResults["Abstention"] = string.Format(cultureInfo, "{0:0.00}%", percentResult.AbstentionResult);
 
             return formattedResults;
         }
