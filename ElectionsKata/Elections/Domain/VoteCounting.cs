@@ -10,11 +10,18 @@
 
         public VoteCounting(int nbVotes, int nbBlankVotes, int nbNullVotes, Dictionary<string, int> nbVoteByCandidate)
         {
+            int nbValidVotes = nbVoteByCandidate.Sum(_candidate => _candidate.Value);
+
+            if (nbVotes != nbBlankVotes + nbNullVotes + nbValidVotes)
+            {
+                throw new ArgumentException();
+            }
+
             NbVotes = nbVotes;
             NbBlankVotes = nbBlankVotes;
             NbNullVotes = nbNullVotes;
             NbVoteByCandidate = nbVoteByCandidate;
-            NbValidVotes = nbVoteByCandidate.Sum(_candidate => _candidate.Value);
+            NbValidVotes = nbValidVotes;
         }
 
         public PercentResult ToPercentResult(int nbElectors)

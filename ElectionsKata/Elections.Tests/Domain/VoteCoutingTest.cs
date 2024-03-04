@@ -28,7 +28,7 @@ public class VoteCoutingTest
         // Arrange
         var nbElectors = 1;
         var votesByCandidates = new Dictionary<string, int> { { "Toto", 1 } };
-        var voteCounting = new VoteCounting(0, 0, 0, votesByCandidates);
+        var voteCounting = new VoteCounting(1, 0, 0, votesByCandidates);
 
         // Act
         var result = voteCounting.ToPercentResult(nbElectors);
@@ -43,7 +43,7 @@ public class VoteCoutingTest
         // Arrange
         var nbElectors = 4;
         var votesByCandidates = new Dictionary<string, int> { { "Toto", 1 }, { "Titi", 3 } };
-        var voteCounting = new VoteCounting(0, 0, 0, votesByCandidates);
+        var voteCounting = new VoteCounting(4, 0, 0, votesByCandidates);
 
         // Act
         var result = voteCounting.ToPercentResult(nbElectors);
