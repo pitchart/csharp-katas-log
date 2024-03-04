@@ -2,7 +2,7 @@
 
 namespace Elections
 {
-    internal class ElectionsWithoutDistrict
+    public class ElectionsWithoutDistrict
     {
         private readonly List<string> _officialCandidates = new List<string>();
         private readonly Dictionary<string, List<string>> _list;
@@ -15,17 +15,17 @@ namespace Elections
             _formater = new ResultFormater();
         }
 
-        internal void AddCandidate(string candidate)
+        public void AddCandidate(string candidate)
         {
             _officialCandidates.Add(candidate);
         }
 
-        internal void VoteFor(string elector, string candidate, string electorDistrict)
+        public void VoteFor(string elector, string candidate, string electorDistrict)
         {
             _urn.VoteFor(candidate);
         }
 
-        internal Dictionary<string, string> ComputeResults()
+        public Dictionary<string, string> ComputeResults()
         {
             var voteCounting = _urn.CountVotes(_officialCandidates);
             var nbElectors = _list.Sum(kv => kv.Value.Count);

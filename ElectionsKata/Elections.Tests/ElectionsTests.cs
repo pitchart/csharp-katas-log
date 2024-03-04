@@ -22,7 +22,8 @@ public class ElectionsTests
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
 
-        var elections = new Elections(list, false);
+        var elections = new ElectionsWithoutDistrict(list);
+
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
@@ -36,7 +37,7 @@ public class ElectionsTests
         elections.VoteFor("Simon", "", "District 2");
         elections.VoteFor("Carole", "", "District 3");
 
-        var results = elections.Results();
+        var results = elections.ComputeResults();
 
         return Verify(results);
     }

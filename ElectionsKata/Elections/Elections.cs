@@ -10,14 +10,16 @@ namespace Elections
         private readonly Dictionary<string, List<int>> _votesWithDistricts;
         private readonly bool _withDistrict;
 
-        private readonly ElectionsWithoutDistrict electionsWithoutDistrict;
+        private readonly ElectionsWithoutDistrict _electionsWithoutDistrict;
+        private readonly ElectionsWithDistrict _electionsWithDistrict;
 
         public Elections(Dictionary<string, List<string>> list, bool withDistrict)
         {
             _list = list;
             _withDistrict = withDistrict;
 
-            electionsWithoutDistrict = new(_list);
+            _electionsWithoutDistrict = new(_list);
+            _electionsWithDistrict = new(_list);
 
             if (_withDistrict)
             {
@@ -35,10 +37,11 @@ namespace Elections
         {
             if (!_withDistrict)
             {
-                electionsWithoutDistrict.AddCandidate(candidate);
+                _electionsWithoutDistrict.AddCandidate(candidate);
             }
             else
             {
+                _electionsWithDistrict.AddCandidate(candidate);
                 _officialCandidates.Add(candidate);
                 _candidates.Add(candidate);
                 _votesWithDistricts["District 1"].Add(0);
@@ -51,10 +54,12 @@ namespace Elections
         {
             if (!_withDistrict)
             {
-                electionsWithoutDistrict.VoteFor(elector, candidate, electorDistrict);
+                _electionsWithoutDistrict.VoteFor(elector, candidate, electorDistrict);
             }
             else
             {
+                _electionsWithDistrict.VoteFor(elector, candidate, electorDistrict);
+
                 if (_votesWithDistricts.ContainsKey(electorDistrict))
                 {
                     var districtVotes = _votesWithDistricts[electorDistrict];
@@ -77,11 +82,12 @@ namespace Elections
         {
             if (!_withDistrict)
             {
-                return electionsWithoutDistrict.ComputeResults();
+                return _electionsWithoutDistrict.ComputeResults();
             }
             else
             {
-                var results = new Dictionary<string, string>();
+                var results = _electionsWithDistrict.ComputeResults();
+
                 var nbVotes = 0;
                 var nullVotes = 0;
                 var blankVotes = 0;
