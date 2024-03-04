@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-
-using Elections.Domain;
-
+﻿using Elections.Domain;
 using FluentAssertions;
-
+using System.Collections.Generic;
 using Xunit;
 
 namespace Elections.Tests.Domain;
@@ -54,5 +51,24 @@ public class VoteCoutingTest
         // Assert
         result.PercentByCandidates.Should().Contain("Toto", 25)
             .And.Contain("Titi", 75);
+    }
+
+    [Fact]
+    public void Should_return_percent_result_when_no_vote()
+    {
+        // Arrange
+        var nbElectors = 4;
+        var votesByCandidates = new Dictionary<string, int> { { "Toto", 0 }, { "Titi", 0 } };
+        var voteCounting = new VoteCounting(0, 0, 0, votesByCandidates);
+
+        // Act
+        var result = voteCounting.ToPercentResult(nbElectors);
+
+        // Assert
+        result.PercentByCandidates.Should().Contain("Toto", 0)
+            .And.Contain("Titi", 0);
+        result.BlankResult.Should().Be(0);
+        result.NullResult.Should().Be(0);
+        result.AbstentionResult.Should().Be(100);
     }
 }

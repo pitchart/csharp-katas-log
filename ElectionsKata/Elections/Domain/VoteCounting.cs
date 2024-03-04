@@ -24,9 +24,9 @@
                     _votesByCandidate.Key,
                     _votesByCandidate => NbValidVotes == 0 ? 0 : (float)_votesByCandidate.Value * 100 / NbValidVotes);
 
-            var blankResult = (float)NbBlankVotes * 100 / NbVotes;
+            var blankResult = NbVotes > 0 ? (float)NbBlankVotes * 100 / NbVotes : 0;
 
-            var nullResult = (float)NbNullVotes * 100 / NbVotes;
+            var nullResult = NbVotes > 0 ? (float)NbNullVotes * 100 / NbVotes : 0;
 
             var abstentionResult = 100 - (float)NbVotes * 100 / nbElectors;
 

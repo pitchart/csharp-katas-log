@@ -1,6 +1,5 @@
-﻿using System.Globalization;
-
-using Elections.Domain;
+﻿using Elections.Domain;
+using System.Globalization;
 
 namespace Elections
 {
@@ -37,6 +36,8 @@ namespace Elections
         }
 
         //TODO => Formatage, division par 0 vote valide, guard constructeur VoteCounting
+
+
         internal Dictionary<string, string> ComputeResults()
         {
             var voteCounting = _newUrn.CountVotes(_officialCandidates);
