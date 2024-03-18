@@ -39,5 +39,10 @@
 
             return new PercentResult(percentByCandidates, blankResult, nullResult, abstentionResult);
         }
+
+        public string GetWinner()
+        {
+            return NbVoteByCandidate.OrderByDescending(x => x.Value).FirstOrDefault().Key;
+        }
     }
 }
