@@ -2,7 +2,7 @@
 
 namespace Elections
 {
-    public class ElectionsWithoutDistrict
+    public class ElectionsWithoutDistrict : IElections
     {
         private readonly List<string> _officialCandidates = new List<string>();
         private readonly Dictionary<string, List<string>> _list;
@@ -12,6 +12,7 @@ namespace Elections
         public ElectionsWithoutDistrict(Dictionary<string, List<string>> list)
         {
             _list = list;
+
             _formater = new ResultFormater();
         }
 
@@ -22,7 +23,14 @@ namespace Elections
 
         public void VoteFor(string elector, string candidate, string electorDistrict)
         {
-            _urn.VoteFor(candidate);
+            if (!_list[electorDistrict].Contains(elector))
+            {
+                _urn.VoteFor("123");
+            }
+            else
+            {
+                _urn.VoteFor(candidate);
+            }
         }
 
         public Dictionary<string, string> ComputeResults()

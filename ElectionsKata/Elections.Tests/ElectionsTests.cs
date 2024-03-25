@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using FluentAssertions;
+
 using VerifyXunit;
 
 using Xunit;
@@ -51,7 +53,7 @@ public class ElectionsTests
             ["District 2"] = new List<string> { "Jerry", "Simon" },
             ["District 3"] = new List<string> { "Johnny", "Matt", "Carole" }
         };
-        var elections = new Elections(list, true);
+        var elections = new ElectionsWithDistrict(list);
         elections.AddCandidate("Michel");
         elections.AddCandidate("Jerry");
         elections.AddCandidate("Johnny");
@@ -66,8 +68,29 @@ public class ElectionsTests
         elections.VoteFor("Simon", "", "District 2");
         elections.VoteFor("Carole", "", "District 3");
 
-        var results = elections.Results();
+        var results = elections.ComputeResults();
 
         return Verify(results);
+    }
+
+    [Fact]
+    public void Should_Count_Null_Vote_For_Elector_In_Another_District()
+    {
+        var list = new Dictionary<string, List<string>>
+        {
+            ["District 1"] = new List<string> { "Bob", "Anna", "Jess", "July" },
+            ["District 2"] = new List<string> { "Jerrye", "Simon" }
+        };
+
+        var elections = new ElectionsWithoutDistrict(list);
+
+        elections.AddCandidate("Michel");
+        elections.AddCandidate("Jerry");
+        elections.AddCandidate("Johnny");
+
+        elections.VoteFor("Bob", "Jerry", "District 2");
+        var results = elections.ComputeResults();
+
+        results["Null"].Should().Be("100,00%");
     }
 }
